@@ -1,0 +1,298 @@
+{
+  "Metadata": {
+    "title": "The Nice Picnic — Exclusive & unique picnics on the French Riviera",
+    "description": "Turnkey picnics in Nice and the French Riviera. Exclusive packages with local produce, secret spots and unforgettable romantic experiences.",
+    "ogTitle": "The Nice Picnic — Exclusive picnics on the French Riviera",
+    "ogDescription": "Turnkey experiences: Niçoise flavours, secret spots, memories that last."
+  },
+  "Nav": {
+    "ariaMain": "Main navigation",
+    "concept": "Concept",
+    "packages": "Packages",
+    "menus": "Menus",
+    "spots": "Spots",
+    "faq": "FAQ",
+    "reserve": "Book",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "close": "Close"
+  },
+  "LanguageSwitcher": {
+    "label": "Language",
+    "fr": "Français",
+    "en": "English"
+  },
+  "Footer": {
+    "tagline": "Exclusive & unique picnics on the French Riviera.",
+    "contactUs": "Contact us",
+    "colPackages": "Packages",
+    "kit": "The Kit",
+    "medium": "Medium",
+    "prestige": "Prestige",
+    "menusLink": "Menus",
+    "colInfo": "Info",
+    "concept": "Concept",
+    "ourSpots": "Our spots",
+    "faq": "FAQ",
+    "terms": "Terms",
+    "legal": "Legal notice",
+    "colContact": "Contact",
+    "contactBlock": "📍 Nice, French Riviera\n📧 hello@thenicepicnic.com\n📱 @the.nicepicnic",
+    "copyright": "© {year} The Nice Picnic",
+    "tagline2": "Local produce · Zero plastic"
+  },
+  "Faq": {
+    "items": [
+      {
+        "q": "How does it work?",
+        "a": "Book online and pay by card. The Kit: pick up your basket at the handover point. Medium & Prestige: we set everything up on an exclusive spot before you arrive. All you have to do is enjoy."
+      },
+      {
+        "q": "How does the deposit work?",
+        "a": "€200 pre-authorisation on your card via Stripe. Nothing is charged: the amount is simply held and released when all equipment is returned in good condition."
+      },
+      {
+        "q": "What if it rains?",
+        "a": "We systematically offer to reschedule if the weather is unsuitable. Cancellations: 100% refunded more than 7 days in advance, 50% between 3 and 7 days, 0% less than 48 hours before."
+      },
+      {
+        "q": "How long does the experience last?",
+        "a": "The Kit: flexible, at your own pace. Medium: 2h30 guaranteed on site. Prestige: 3h30 guaranteed on a premium secret spot."
+      },
+      {
+        "q": "How many people is it for?",
+        "a": "Our packages are designed for 2 people (couples). For groups of friends, contact us for custom options."
+      }
+    ]
+  },
+  "Pages": {
+    "reservation": {
+      "title": "Booking",
+      "body": "The multi-step booking flow (package, menu, date, Stripe) will be connected here — homepage MVP delivered.",
+      "back": "← Back to home"
+    },
+    "bonCadeau": {
+      "title": "Gift vouchers",
+      "body": "Stripe checkout to be connected — placeholder for the next phase.",
+      "back": "← Back to home"
+    },
+    "cgv": {
+      "title": "Terms of sale",
+      "body": "Legal content to be added (sole trader / micro-business).",
+      "back": "← Home"
+    },
+    "mentions": {
+      "title": "Legal notice",
+      "body": "Publisher, host, personal data — text to be completed.",
+      "back": "← Home"
+    },
+    "contact": {
+      "title": "Contact",
+      "body": "Resend / Formspree form and social links to be connected.",
+      "details": "hello@thenicepicnic.com · @the.nicepicnic",
+      "back": "← Home"
+    }
+  },
+  "Home": {
+    "hero": {
+      "imgAlt": "Elegant picnic on the French Riviera — Nice, France",
+      "tag": "Nice · French Riviera · Côte d'Azur",
+      "titleRich": "Exclusive picnics <em>& out of the ordinary</em>",
+      "lead": "Turnkey experiences on the French Riviera. Local produce, secret spots, unforgettable memories. You show up — we take care of everything.",
+      "ctaPackages": "Our packages",
+      "ctaSpots": "The spots"
+    },
+    "marquee": [
+      "Local Niçoise artisans",
+      "Exclusive & secret spots",
+      "Printed photos included",
+      "Curated Spotify playlist",
+      "Zero plastic",
+      "Couple question cards",
+      "Book online"
+    ],
+    "concept": {
+      "tag": "The concept",
+      "titleRich": "You arrive. <em>We handle everything.</em>",
+      "desc": "Exclusive, one-of-a-kind picnics made with produce from Niçoise artisans, in the most beautiful secret spots on the French Riviera.",
+      "step1Title": "Book online",
+      "step1Text": "Choose your package and menu. Secure payment via Stripe, instant confirmation.",
+      "step2Title": "We’re ready for you",
+      "step2Text": "The Kit: collect your basket at the handover point. Medium & Prestige: we set everything up at your spot.",
+      "step3Title": "Enjoy",
+      "step3Text": "Savour the moment, print your keepsakes, and leave with stars in your eyes."
+    },
+    "editorial1": {
+      "imgAlt": "Local Niçoise produce — French Riviera artisan food",
+      "tag": "Niçoise authenticity",
+      "titleRich": "Local artisans in your <em>basket</em>",
+      "desc": "Pan bagnat, socca, pissaladière, stuffed vegetables, olive fougasse, Swiss chard tart… Every menu celebrates the authentic flavours of Nice and Provence."
+    },
+    "packages": {
+      "tag": "Our packages",
+      "titleRich": "Three experiences, <em>one same joy</em>",
+      "desc": "From takeaway basket to a fully installed prestige experience — choose your formula.",
+      "perPerson": "/person",
+      "popular": "Most popular",
+      "kit": {
+        "name": "The Kit",
+        "mode": "pick-up",
+        "items": [
+          "Wicker basket + insulated bag",
+          "Cushions, throw, waterproof tablecloth",
+          "Full tableware & cloth napkins",
+          "LED string lights, candles, Bluetooth speaker",
+          "Canon Selphy photo printer (10 prints)",
+          "Couple question cards + Spotify playlist",
+          "Standard spots map (QR code)"
+        ],
+        "foot": "Food & drinks option: +€10/person · Equipment deposit: €200",
+        "cta": "Book — €29.90/person"
+      },
+      "medium": {
+        "name": "Medium",
+        "mode": "set up for you",
+        "items": [
+          "Everything in the Kit",
+          "Set-up & take-down by our team",
+          "Exclusive reserved-access spots",
+          "Food & drinks included",
+          "Guaranteed time: 2h30 on site"
+        ],
+        "foot": "All inclusive — you arrive, you enjoy",
+        "cta": "Book — €59/person"
+      },
+      "prestige": {
+        "name": "Prestige",
+        "mode": "premium experience",
+        "items": [
+          "Everything in Medium",
+          "Tipi tent with drapes",
+          "Multiple Moroccan lanterns",
+          "Love locks + souvenir notebook",
+          "Complimentary glass of champagne",
+          "Premium secret spots (exclusive access)",
+          "Guaranteed time: 3h30"
+        ],
+        "foot": "The ultimate experience — memories for a lifetime",
+        "cta": "Book — €79/person"
+      }
+    },
+    "menus": {
+      "tag": "Menus",
+      "titleRich": "<em>Niçoise</em> flavours",
+      "desc": "100% local products selected from artisans on the French Riviera.",
+      "brunchTitle": "🌅 Sweet & savoury brunch",
+      "brunchText": "Pastries, artisan bread, fig jam, local honey, fresh fruit, boiled eggs, charcuterie, fresh goat cheese, cherry tomatoes. Thermos coffee + orange juice.",
+      "dejeunerTitle": "🍽️ Niçoise lunch",
+      "dejeunerText": "Pissaladière, socca chips, pan bagnat, Niçoise stuffed veg, salade niçoise, olive fougasse, sweet Swiss chard tart. Authenticity in the basket.",
+      "aperoTitle": "🥂 Apéro board",
+      "aperoText": "Charcuterie, cheeses, tapenade, AOP Nice olives, pissaladière, fougasse, socca chips, artisan bread, mesclun, AOC olive oil.",
+      "drinksNote": "Drinks included: Côtes de Provence (red, rosé or white), homemade lemonade, water. Optional upgrade Bellet AOC wine +€20"
+    },
+    "ticker": [
+      "📸 Selphy photo prints",
+      "🕯️ Candles & LED string lights",
+      "🎵 Bluetooth speaker + playlist",
+      "💌 Couple question cards",
+      "🔒 Love locks (Prestige)",
+      "⛺ Tipi tent (Prestige)",
+      "🥂 Champagne included (Prestige)"
+    ],
+    "bento": {
+      "tag": "The experience",
+      "titleRich": "What makes every moment <em>unique</em>",
+      "imgAlt": "Romantic picnic styling — Nice, French Riviera",
+      "b1t": "Photo keepsakes",
+      "b1p": "Canon Selphy printer included in every kit. 10 prints to take home physical memories instantly.",
+      "b2t": "Couple question cards",
+      "b2p": "Reconnect. Playful questions to rediscover each other between bites.",
+      "b3t": "Soundtrack",
+      "b3p": "Bluetooth speaker + QR code to a curated Spotify playlist for every mood.",
+      "b4t": "Thoughtful styling",
+      "b4p": "LED strings, candles, lanterns, cushions… Every detail designed for emotion.",
+      "b5t": "100% local & eco",
+      "b5p": "Niçoise artisans, seasonal produce, reusable tableware. Zero plastic, zero waste."
+    },
+    "pricing": {
+      "tag": "Pricing",
+      "titleRich": "Price <em>list</em>",
+      "desc": "Per person. 100% online payment.",
+      "colPackage": "Package",
+      "colNoFood": "No food",
+      "colWithFood": "With food",
+      "colTwo": "For 2",
+      "kitRow": "🧺 The Kit",
+      "mediumRow": "⭐ Medium",
+      "prestigeRow": "👑 Prestige",
+      "mediumAll": "€59 (all inclusive)",
+      "prestigeAll": "€79 (all inclusive)",
+      "footnote": "Equipment deposit: €200 (card pre-authorisation). Bellet AOC option +€20."
+    },
+    "divider": {
+      "imgAlt": "Promenade des Anglais — Sunset on the Nice waterfront",
+      "title": "From the Promenade to secret coves",
+      "subtitle": "Nice · Villefranche · Cap Ferrat · Èze · Cimiez"
+    },
+    "spots": {
+      "tag": "The spots",
+      "titleRich": "Our <em>secret</em> places",
+      "desc": "Standard spots included in the Kit. Exclusive spots reserved for Medium. Premium secret spots for Prestige.",
+      "more": "+ more spots to discover once your package is booked",
+      "list": [
+        {
+          "tag": "Romantic · Panorama",
+          "title": "Castle Hill",
+          "small": "Bay of Angels view",
+          "alt": "Panoramic view of Nice — French Riviera"
+        },
+        {
+          "tag": "Zen · Twilight",
+          "title": "Mont Boron",
+          "small": "Premium Prestige spot",
+          "alt": "Mont Boron — Hill above Nice"
+        },
+        {
+          "tag": "Iconic · Sunset",
+          "title": "Seafront",
+          "small": "Golden hour",
+          "alt": "Seafront promenade — Nice"
+        },
+        {
+          "tag": "Exclusive · Sea view",
+          "title": "Heights of Nice",
+          "small": "Medium & Prestige spot",
+          "alt": "Hills above Nice — Mediterranean view"
+        },
+        {
+          "tag": "Family · Nature",
+          "title": "Cimiez gardens",
+          "small": "Century-old olive trees",
+          "alt": "Cimiez gardens — olive trees, Nice"
+        }
+      ]
+    },
+    "editorialPrestige": {
+      "imgAlt": "Prestige picnic experience — French Riviera",
+      "tag": "Prestige",
+      "titleRich": "For the moments that <em>truly</em> matter",
+      "desc": "Proposal, anniversary, romantic surprise… Tipi tent, Moroccan lanterns, champagne, love locks. A memory etched forever.",
+      "cta": "Discover Prestige"
+    },
+    "gift": {
+      "tag": "Gifting",
+      "titleRich": "Gift <em>vouchers</em>",
+      "desc": "Give an unforgettable experience. Valid for 6 months.",
+      "cta": "Buy a gift voucher"
+    },
+    "cta": {
+      "titleRich": "Ready to live <em>the experience</em>?",
+      "lead": "Book in 2 minutes. 100% online. Secure payment.",
+      "btn": "Book now"
+    },
+    "faqSection": {
+      "tag": "FAQ",
+      "titleRich": "Frequently asked <em>questions</em>"
+    }
+  }
+}

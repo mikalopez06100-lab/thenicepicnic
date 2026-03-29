@@ -1,0 +1,298 @@
+{
+  "Metadata": {
+    "title": "The Nice Picnic — Pique-niques exclusifs & insolites sur la Côte d'Azur",
+    "description": "Pique-niques clé en main à Nice et sur la Côte d'Azur. Packages exclusifs avec produits locaux, spots secrets et expériences romantiques inoubliables.",
+    "ogTitle": "The Nice Picnic — Pique-niques exclusifs sur la Côte d'Azur",
+    "ogDescription": "Expériences clé en main : produits niçois, spots secrets, souvenirs inoubliables."
+  },
+  "Nav": {
+    "ariaMain": "Navigation principale",
+    "concept": "Le concept",
+    "packages": "Packages",
+    "menus": "Menus",
+    "spots": "Spots",
+    "faq": "FAQ",
+    "reserve": "Réserver",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "close": "Fermer"
+  },
+  "LanguageSwitcher": {
+    "label": "Langue",
+    "fr": "Français",
+    "en": "English"
+  },
+  "Footer": {
+    "tagline": "Pique-niques exclusifs & insolites sur la Côte d'Azur.",
+    "contactUs": "Nous contacter",
+    "colPackages": "Packages",
+    "kit": "Le Kit",
+    "medium": "Medium",
+    "prestige": "Prestige",
+    "menusLink": "Les menus",
+    "colInfo": "Infos",
+    "concept": "Le concept",
+    "ourSpots": "Nos spots",
+    "faq": "FAQ",
+    "terms": "CGV",
+    "legal": "Mentions légales",
+    "colContact": "Contact",
+    "contactBlock": "📍 Nice, Côte d'Azur\n📧 hello@thenicepicnic.com\n📱 @the.nicepicnic",
+    "copyright": "© {year} The Nice Picnic",
+    "tagline2": "Produits locaux · Zéro plastique"
+  },
+  "Faq": {
+    "items": [
+      {
+        "q": "Comment ça fonctionne ?",
+        "a": "Réservez en ligne et payez par CB. Le Kit : récupérez votre panier au point de remise. Medium & Prestige : on installe tout sur un spot exclusif avant votre arrivée. Vous n'avez qu'à profiter."
+      },
+      {
+        "q": "Comment fonctionne la caution ?",
+        "a": "200€ de pré-autorisation sur votre CB via Stripe. Aucun prélèvement : la somme est simplement bloquée puis libérée au retour complet du matériel en bon état."
+      },
+      {
+        "q": "Et s'il pleut ?",
+        "a": "Report de date systématiquement proposé en cas de météo défavorable. Annulation : 100% remboursé à +7 jours, 50% entre 3 et 7 jours, 0% à moins de 48h."
+      },
+      {
+        "q": "Combien de temps dure l'expérience ?",
+        "a": "Le Kit : libre, à votre rythme. Le Medium : 2h30 garanties sur le spot. Le Prestige : 3h30 garanties sur un spot premium secret."
+      },
+      {
+        "q": "C'est pour combien de personnes ?",
+        "a": "Nos packages sont conçus pour 2 personnes (couples). Groupes d'amis : contactez-nous pour des formules sur-mesure."
+      }
+    ]
+  },
+  "Pages": {
+    "reservation": {
+      "title": "Réservation",
+      "body": "Le parcours de réservation multi-étapes (package, menu, date, Stripe) sera branché ici — MVP homepage livré.",
+      "back": "← Retour à l'accueil"
+    },
+    "bonCadeau": {
+      "title": "Bons cadeaux",
+      "body": "Achat via Stripe à connecter — placeholder pour la suite du projet.",
+      "back": "← Retour à l'accueil"
+    },
+    "cgv": {
+      "title": "Conditions générales de vente",
+      "body": "Contenu juridique à intégrer (auto-entrepreneur, micro-entreprise).",
+      "back": "← Accueil"
+    },
+    "mentions": {
+      "title": "Mentions légales",
+      "body": "Éditeur, hébergeur, données personnelles — texte à compléter.",
+      "back": "← Accueil"
+    },
+    "contact": {
+      "title": "Contact",
+      "body": "Formulaire Resend / Formspree et liens sociaux à brancher.",
+      "details": "hello@thenicepicnic.com · @the.nicepicnic",
+      "back": "← Accueil"
+    }
+  },
+  "Home": {
+    "hero": {
+      "imgAlt": "Pique-nique élégant sur la Côte d'Azur — Elegant Riviera picnic setup, Nice France",
+      "tag": "Nice · Côte d'Azur · French Riviera",
+      "titleRich": "Pique-niques exclusifs <em>& insolites</em>",
+      "lead": "Expériences clé en main sur la Côte d'Azur. Produits locaux, spots secrets, souvenirs inoubliables. Vous arrivez, on s'occupe de tout.",
+      "ctaPackages": "Nos packages",
+      "ctaSpots": "Les spots"
+    },
+    "marquee": [
+      "Produits artisans niçois",
+      "Spots exclusifs & secrets",
+      "Photos souvenirs incluses",
+      "Playlist Spotify curatée",
+      "Zéro plastique",
+      "Cartes questions couple",
+      "Réservation en ligne"
+    ],
+    "concept": {
+      "tag": "Le concept",
+      "titleRich": "Vous arrivez. <em>On s'occupe de tout.</em>",
+      "desc": "Des pique-niques exclusifs et insolites, préparés avec des produits d'artisans niçois, sur les plus beaux spots secrets de la Côte d'Azur.",
+      "step1Title": "Réservez en ligne",
+      "step1Text": "Choisissez votre package et votre menu. Paiement sécurisé via Stripe, confirmation instantanée.",
+      "step2Title": "On vous attend",
+      "step2Text": "Le Kit : récupérez votre panier au point de remise. Le Medium & Prestige : on installe tout sur votre spot.",
+      "step3Title": "Profitez",
+      "step3Text": "Savourez l'instant, imprimez vos souvenirs, et repartez avec des étoiles dans les yeux."
+    },
+    "editorial1": {
+      "imgAlt": "Produits locaux niçois — Local Niçoise food products, French Riviera",
+      "tag": "Authenticité niçoise",
+      "titleRich": "Des artisans locaux dans votre <em>panier</em>",
+      "desc": "Pan bagnat, socca, pissaladière, farcis, fougasse aux olives, tarte aux blettes... Chaque menu célèbre les saveurs authentiques de Nice et de la Provence."
+    },
+    "packages": {
+      "tag": "Nos packages",
+      "titleRich": "3 expériences, <em>un même bonheur</em>",
+      "desc": "Du panier à emporter à l'expérience prestige installée pour vous, choisissez votre formule.",
+      "perPerson": "/personne",
+      "popular": "Le + demandé",
+      "kit": {
+        "name": "Le Kit",
+        "mode": "pick-up",
+        "items": [
+          "Panier osier + sac isotherme",
+          "Coussins, plaid, nappe imperméable",
+          "Vaisselle complète & serviettes tissu",
+          "Guirlande LED, bougies, enceinte bluetooth",
+          "Imprimante photo Canon Selphy (10 tirages)",
+          "Cartes questions couple + playlist Spotify",
+          "Carte des spots standards (QR code)"
+        ],
+        "foot": "Option nourriture & boissons : +10€/pers · Caution matériel : 200€",
+        "cta": "Réserver — 29,90€/pers"
+      },
+      "medium": {
+        "name": "Medium",
+        "mode": "installé pour vous",
+        "items": [
+          "Tout le Kit inclus",
+          "Installation & désinstallation par nos soins",
+          "Spots exclusifs à accès réservé",
+          "Nourriture & boissons incluses",
+          "Durée garantie : 2h30 sur le spot"
+        ],
+        "foot": "Tout inclus — vous arrivez, vous profitez",
+        "cta": "Réserver — 59€/pers"
+      },
+      "prestige": {
+        "name": "Prestige",
+        "mode": "expérience premium",
+        "items": [
+          "Tout le Medium inclus",
+          "Tente tipi avec voilages",
+          "Lanternes marocaines multiples",
+          "Cadenas amoureux + carnet souvenir",
+          "Coupe de champagne offerte",
+          "Spots premium secrets (accès exclusif)",
+          "Durée garantie : 3h30"
+        ],
+        "foot": "L'expérience ultime — souvenirs garantis à vie",
+        "cta": "Réserver — 79€/pers"
+      }
+    },
+    "menus": {
+      "tag": "Les menus",
+      "titleRich": "Saveurs <em>niçoises</em>",
+      "desc": "Produits 100% locaux sélectionnés auprès d'artisans de la Côte d'Azur.",
+      "brunchTitle": "🌅 Brunch salé/sucré",
+      "brunchText": "Viennoiseries, pain artisanal, confiture de figues, miel local, fruits frais, œufs durs, charcuterie, chèvre frais, tomates cerises. Thermos café + jus d'orange.",
+      "dejeunerTitle": "🍽️ Déjeuner Niçois",
+      "dejeunerText": "Pissaladière, chips de socca, pan bagnat, farcis niçois, salade niçoise, fougasse aux olives, tarte aux blettes sucrée. L'authenticité dans le panier.",
+      "aperoTitle": "🥂 Planche Apéro",
+      "aperoText": "Charcuterie, fromages, tapenade, olives AOP Nice, pissaladière, fougasse, chips de socca, pain artisanal, mesclun, huile d'olive AOC.",
+      "drinksNote": "Boissons incluses : Côtes de Provence (rouge, rosé ou blanc), citronnade artisanale, eaux. Option upgrade Vin de Bellet AOC +20€"
+    },
+    "ticker": [
+      "📸 Photos souvenirs Selphy",
+      "🕯️ Bougies & guirlandes LED",
+      "🎵 Enceinte bluetooth + playlist",
+      "💌 Cartes questions couple",
+      "🔒 Cadenas amoureux (Prestige)",
+      "⛺ Tente tipi (Prestige)",
+      "🥂 Champagne offert (Prestige)"
+    ],
+    "bento": {
+      "tag": "L'expérience",
+      "titleRich": "Ce qui rend chaque moment <em>unique</em>",
+      "imgAlt": "Installation pique-nique romantique — Romantic picnic styling, Nice",
+      "b1t": "Photos souvenirs",
+      "b1p": "Imprimante Canon Selphy incluse dans chaque kit. 10 tirages pour repartir avec des souvenirs physiques instantanés.",
+      "b2t": "Cartes questions couple",
+      "b2p": "Reconnectez-vous. Des questions insolites pour redécouvrir l'autre entre deux bouchées.",
+      "b3t": "Ambiance sonore",
+      "b3p": "Enceinte bluetooth + QR code vers une playlist Spotify curatée pour chaque moment.",
+      "b4t": "Scénographie soignée",
+      "b4p": "Guirlandes LED, bougies, lanternes, coussins... Chaque détail pensé pour l'émotion.",
+      "b5t": "100% local & éco",
+      "b5p": "Artisans niçois, produits de saison, vaisselle réutilisable. Zéro plastique, zéro déchet."
+    },
+    "pricing": {
+      "tag": "Tarifs",
+      "titleRich": "Grille <em>tarifaire</em>",
+      "desc": "Prix par personne. Paiement 100% en ligne.",
+      "colPackage": "Package",
+      "colNoFood": "Sans food",
+      "colWithFood": "Avec food",
+      "colTwo": "Pour 2",
+      "kitRow": "🧺 Le Kit",
+      "mediumRow": "⭐ Medium",
+      "prestigeRow": "👑 Prestige",
+      "mediumAll": "59€ (tout inclus)",
+      "prestigeAll": "79€ (tout inclus)",
+      "footnote": "Caution matériel : 200€ (pré-autorisation CB). Option Bellet AOC +20€."
+    },
+    "divider": {
+      "imgAlt": "Promenade des Anglais Nice — Promenade des Anglais at sunset, French Riviera",
+      "title": "De la Promenade aux criques secrètes",
+      "subtitle": "Nice · Villefranche · Cap Ferrat · Èze · Cimiez"
+    },
+    "spots": {
+      "tag": "Les spots",
+      "titleRich": "Nos lieux <em>secrets</em>",
+      "desc": "Spots standards inclus dans le Kit. Spots exclusifs réservés au Medium. Spots premium secrets pour le Prestige.",
+      "more": "+ d'autres spots à découvrir une fois votre package réservé",
+      "list": [
+        {
+          "tag": "Romantique · Panorama",
+          "title": "Colline du Château",
+          "small": "Vue Baie des Anges",
+          "alt": "Vue panoramique Nice — Panoramic view of Nice, French Riviera"
+        },
+        {
+          "tag": "Zen · Crépuscule",
+          "title": "Mont Boron",
+          "small": "Spot premium Prestige",
+          "alt": "Mont Boron Nice — Mont Boron hill, Côte d'Azur"
+        },
+        {
+          "tag": "Iconique · Sunset",
+          "title": "Bord de mer",
+          "small": "Golden hour",
+          "alt": "Promenade des Anglais — Seafront promenade, Nice"
+        },
+        {
+          "tag": "Exclusif · Vue mer",
+          "title": "Hauteurs de Nice",
+          "small": "Spot Medium & Prestige",
+          "alt": "Hauteurs de Nice — Hills above Nice with sea view"
+        },
+        {
+          "tag": "Familial · Nature",
+          "title": "Jardins de Cimiez",
+          "small": "Oliviers centenaires",
+          "alt": "Jardins de Cimiez — Cimiez gardens, olive trees"
+        }
+      ]
+    },
+    "editorialPrestige": {
+      "imgAlt": "Expérience Prestige pique-nique — Prestige picnic experience, Côte d'Azur",
+      "tag": "Prestige",
+      "titleRich": "Pour les moments qui comptent <em>vraiment</em>",
+      "desc": "Demande en mariage, anniversaire, surprise romantique... Tente tipi, lanternes marocaines, champagne, cadenas amoureux. Un souvenir gravé pour toujours.",
+      "cta": "Découvrir le Prestige"
+    },
+    "gift": {
+      "tag": "Offrir",
+      "titleRich": "Bons <em>cadeaux</em>",
+      "desc": "Offrez une expérience inoubliable. Valables 6 mois.",
+      "cta": "Offrir un bon cadeau"
+    },
+    "cta": {
+      "titleRich": "Prêt à vivre <em>l'expérience</em> ?",
+      "lead": "Réservez en 2 minutes. 100% en ligne. Paiement sécurisé.",
+      "btn": "Réserver maintenant"
+    },
+    "faqSection": {
+      "tag": "FAQ",
+      "titleRich": "Questions <em>fréquentes</em>"
+    }
+  }
+}

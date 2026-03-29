@@ -1,0 +1,31 @@
+@import "tailwindcss";
+@import "../styles/thenicepicnic.css";
+
+:root {
+  --bg: #f6f1eb;
+  --bg2: #ede6dc;
+  --bg3: #e4dbce;
+  --ink: #1a1714;
+  --ink2: #3d3830;
+  --muted: #9b9186;
+  --terra: #bf6b45;
+  --terra2: #a85a38;
+  --sage: #7a8c6e;
+  --sage2: #5e6d54;
+  --gold: #c4a55a;
+  --gold2: #b8a06a;
+  --white: #fefcf9;
+  --serif: var(--font-cormorant), Georgia, serif;
+  --sans: var(--font-outfit), system-ui, sans-serif;
+}
+
+@theme inline {
+  --font-sans: var(--font-outfit);
+  --font-serif: var(--font-cormorant);
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+}
