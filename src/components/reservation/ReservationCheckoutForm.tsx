@@ -104,6 +104,10 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
   const selected = options.find((o) => o.value === pack) ?? options[0];
   const selectedSlot = slotOptions.find((s) => s.value === slot) ?? slotOptions[1];
   const total = selected.unitAmount * people;
+  const formattedTotal = new Intl.NumberFormat(isFr ? "fr-FR" : "en-US", {
+    style: "currency",
+    currency: "EUR",
+  }).format(total);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -153,96 +157,136 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
   return (
     <form
       onSubmit={onSubmit}
-      className="mx-auto max-w-xl rounded-2xl border border-[var(--bg3)] bg-[var(--white)] p-6 shadow-sm"
+      className="mx-auto w-full max-w-5xl rounded-[28px] border border-[rgba(0,0,0,0.06)] bg-[rgba(255,255,255,0.86)] p-4 shadow-[0_20px_60px_rgba(26,23,20,0.08)] backdrop-blur md:p-8"
     >
-      <label className="mb-2 block text-[11px] font-medium uppercase tracking-[0.15em] text-[var(--muted)]">
-        {isFr ? "Package" : "Package"}
-      </label>
-      <select
-        className="w-full rounded-xl border border-[var(--bg3)] bg-white p-3 text-sm"
-        value={pack}
-        onChange={(e) => setPack(e.target.value as PackageOption["value"])}
-      >
-        {options.map((o) => (
-          <option key={o.value} value={o.value}>
-            {o.label} - {o.hint}
-          </option>
-        ))}
-      </select>
+      <div className="grid gap-6 md:grid-cols-[1fr_320px]">
+        <div className="space-y-6 rounded-2xl border border-[var(--bg3)] bg-white p-5 md:p-6">
+          <div>
+            <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--muted)]">
+              {isFr ? "1. Choisis ton pack" : "1. Choose your package"}
+            </p>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {options.map((o) => {
+                const active = o.value === pack;
+                return (
+                  <button
+                    key={o.value}
+                    type="button"
+                    onClick={() => setPack(o.value)}
+                    className={`rounded-2xl border p-4 text-left transition ${
+                      active
+                        ? "border-[var(--terra)] bg-[rgba(191,107,69,0.08)] shadow-[0_8px_20px_rgba(191,107,69,0.15)]"
+                        : "border-[var(--bg3)] bg-white hover:border-[var(--terra)]/40"
+                    }`}
+                  >
+                    <p className="font-[family-name:var(--font-cormorant)] text-2xl leading-none text-[var(--ink)]">
+                      {o.label}
+                    </p>
+                    <p className="mt-1 text-xs text-[var(--muted)]">{o.hint}</p>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-      <label className="mb-2 mt-4 block text-[11px] font-medium uppercase tracking-[0.15em] text-[var(--muted)]">
-        {isFr ? "Nombre de personnes (min. 2)" : "Number of people (min. 2)"}
-      </label>
-      <input
-        type="number"
-        min={2}
-        max={20}
-        value={people}
-        onChange={(e) => setPeople(Number(e.target.value))}
-        className="w-full rounded-xl border border-[var(--bg3)] bg-white p-3 text-sm"
-      />
+          <div>
+            <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--muted)]">
+              {isFr ? "2. Nombre de personnes" : "2. Number of guests"}
+            </p>
+            <div className="flex items-center justify-between rounded-2xl border border-[var(--bg3)] bg-[var(--bg)] px-3 py-2">
+              <button
+                type="button"
+                onClick={() => setPeople((current) => Math.max(2, current - 1))}
+                className="h-10 w-10 rounded-xl border border-[var(--bg3)] bg-white text-xl text-[var(--ink2)] transition hover:border-[var(--terra)]"
+                aria-label={isFr ? "Retirer une personne" : "Remove one person"}
+              >
+                -
+              </button>
+              <div className="text-center">
+                <p className="font-[family-name:var(--font-cormorant)] text-4xl leading-none text-[var(--ink)]">
+                  {people}
+                </p>
+                <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">
+                  {isFr ? "Invités" : "Guests"}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setPeople((current) => Math.min(20, current + 1))}
+                className="h-10 w-10 rounded-xl border border-[var(--bg3)] bg-white text-xl text-[var(--ink2)] transition hover:border-[var(--terra)]"
+                aria-label={isFr ? "Ajouter une personne" : "Add one person"}
+              >
+                +
+              </button>
+            </div>
+          </div>
 
-      <label className="mb-2 mt-4 block text-[11px] font-medium uppercase tracking-[0.15em] text-[var(--muted)]">
-        {isFr ? "Créneau" : "Timeslot"}
-      </label>
-      <select
-        className="w-full rounded-xl border border-[var(--bg3)] bg-white p-3 text-sm"
-        value={slot}
-        onChange={(e) => setSlot(e.target.value as SlotOption["value"])}
-      >
-        {slotOptions.map((s) => (
-          <option key={s.value} value={s.value}>
-            {s.label}
-          </option>
-        ))}
-      </select>
+          <div>
+            <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--muted)]">
+              {isFr ? "3. Créneau" : "3. Timeslot"}
+            </p>
+            <div className="grid grid-cols-3 gap-2 rounded-2xl border border-[var(--bg3)] bg-[var(--bg)] p-1.5">
+              {slotOptions.map((s) => {
+                const active = s.value === slot;
+                return (
+                  <button
+                    key={s.value}
+                    type="button"
+                    onClick={() => setSlot(s.value)}
+                    className={`rounded-xl px-2 py-2 text-xs font-medium transition ${
+                      active
+                        ? "bg-[var(--terra)] text-white shadow-[0_6px_14px_rgba(191,107,69,0.35)]"
+                        : "text-[var(--ink2)] hover:bg-white"
+                    }`}
+                  >
+                    {s.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
 
-      <div className="mt-4 rounded-xl border border-[var(--bg3)] bg-[var(--bg)] p-4">
-        <p className="text-[11px] uppercase tracking-[0.15em] text-[var(--muted)]">
-          {isFr ? "Récapitulatif" : "Summary"}
-        </p>
-        <p className="mt-2 text-sm text-[var(--ink2)]">
-          {selected.label} × {people}
-        </p>
-        <p className="mt-1 text-xs text-[var(--muted)]">
-          {isFr ? "Créneau :" : "Timeslot:"} {selectedSlot.label}
-        </p>
-        <p className="mt-1 font-[family-name:var(--font-cormorant)] text-3xl font-light text-[var(--terra)]">
-          {new Intl.NumberFormat(isFr ? "fr-FR" : "en-US", {
-            style: "currency",
-            currency: "EUR",
-          }).format(total)}
-        </p>
+        <aside className="h-fit rounded-2xl border border-[var(--bg3)] bg-white p-5 md:sticky md:top-24">
+          <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--muted)]">
+            {isFr ? "Récapitulatif instantané" : "Live summary"}
+          </p>
+          <p className="mt-3 text-sm text-[var(--ink2)]">
+            {selected.label} × {people}
+          </p>
+          <p className="mt-1 text-xs text-[var(--muted)]">
+            {isFr ? "Créneau :" : "Timeslot:"} {selectedSlot.label}
+          </p>
+          <p className="mt-3 font-[family-name:var(--font-cormorant)] text-5xl font-light leading-none text-[var(--terra)]">
+            {formattedTotal}
+          </p>
+          <p className="mt-3 text-xs leading-relaxed text-[var(--muted)]">
+            {isFr
+              ? "Minimum 2 personnes. Paiement sécurisé et redirection immédiate vers Stripe."
+              : "Minimum 2 guests. Secure payment and instant redirect to Stripe."}
+          </p>
+
+          {error ? (
+            <p className="mt-4 rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+              {error}
+            </p>
+          ) : null}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="mt-5 w-full rounded-xl border border-[var(--terra)] !bg-[var(--terra)] px-4 py-3 text-[12px] font-medium uppercase tracking-[0.12em] !text-white transition hover:!bg-[var(--terra2)] disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {loading
+              ? isFr
+                ? "Redirection..."
+                : "Redirecting..."
+              : isFr
+                ? "Payer avec Stripe"
+                : "Pay with Stripe"}
+          </button>
+        </aside>
       </div>
-
-      <p className="mt-3 text-xs text-[var(--muted)]">
-        {isFr
-          ? "Produits Stripe connectes via variables d'environnement (minimum 2 personnes)."
-          : "Stripe products are configured via environment variables (minimum 2 people)."}
-      </p>
-      <p className="mt-1 text-xs text-[var(--muted)]">
-        {isFr
-          ? "Paiement 100% sécurisé via Stripe."
-          : "100% secure payment with Stripe."}
-      </p>
-
-      {error ? (
-        <p className="mt-3 rounded-md bg-red-50 p-2 text-sm text-red-700">{error}</p>
-      ) : null}
-
-      <button
-        type="submit"
-        disabled={loading}
-        className="mt-5 w-full rounded-xl border border-[var(--terra)] !bg-[var(--terra)] px-4 py-3 text-[12px] font-medium uppercase tracking-[0.12em] !text-white transition hover:!bg-[var(--terra2)] disabled:opacity-60"
-      >
-        {loading
-          ? isFr
-            ? "Redirection..."
-            : "Redirecting..."
-          : isFr
-            ? "Payer avec Stripe"
-            : "Pay with Stripe"}
-      </button>
     </form>
   );
 }
