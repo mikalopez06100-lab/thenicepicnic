@@ -8,6 +8,7 @@ type Payload = {
   packageType?: PackageType;
   locale?: string;
   quantity?: number;
+  slot?: "breakfast" | "lunch" | "aperitif";
 };
 
 function getBaseUrl(req: NextRequest) {
@@ -30,6 +31,7 @@ export async function POST(req: NextRequest) {
     const packageType = body.packageType;
     const locale = body.locale === "en" ? "en" : "fr";
     const quantity = Number(body.quantity ?? 2);
+    const slot = body.slot;
 
     if (!packageType || !(packageType in STRIPE_PRICE_IDS)) {
       return NextResponse.json({ error: "Invalid package type." }, { status: 400 });
@@ -40,6 +42,10 @@ export async function POST(req: NextRequest) {
         { error: "Quantity must be an integer between 2 and 20." },
         { status: 400 },
       );
+    }
+
+    if (!slot || !["breakfast", "lunch", "aperitif"].includes(slot)) {
+      return NextResponse.json({ error: "Invalid timeslot." }, { status: 400 });
     }
 
     const productId = STRIPE_PRICE_IDS[packageType];
@@ -79,6 +85,7 @@ export async function POST(req: NextRequest) {
         packageType,
         locale,
         quantity: String(quantity),
+        slot,
         // TODO: add deposit flow (pre-authorization 200 EUR)
       },
       allow_promotion_codes: true,

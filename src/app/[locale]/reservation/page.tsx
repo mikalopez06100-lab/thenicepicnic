@@ -30,8 +30,8 @@ export default async function ReservationPage({
     : undefined;
 
   return (
-    <main className="bg-[var(--bg)]">
-      <section className="mx-auto max-w-4xl px-6 pb-24 pt-28">
+    <main className="flex min-h-screen items-center bg-[var(--bg)]">
+      <section className="mx-auto w-full max-w-4xl px-6 py-16">
         <p className="text-center text-[11px] font-medium uppercase tracking-[0.2em] text-[var(--terra)]">
           {isFr ? "Réservation" : "Booking"}
         </p>

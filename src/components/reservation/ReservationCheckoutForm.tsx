@@ -14,11 +14,17 @@ type PackageOption = {
   unitAmount: number;
 };
 
+type SlotOption = {
+  value: "breakfast" | "lunch" | "aperitif";
+  label: string;
+};
+
 export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
   const isFr = locale === "fr";
   const [pack, setPack] = useState<PackageOption["value"]>(
     initialPackage || "medium",
   );
+  const [slot, setSlot] = useState<SlotOption["value"]>("lunch");
   const [people, setPeople] = useState(2);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -80,7 +86,23 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
           ],
     [isFr],
   );
+  const slotOptions = useMemo<SlotOption[]>(
+    () =>
+      isFr
+        ? [
+            { value: "breakfast", label: "Petit-déj" },
+            { value: "lunch", label: "Lunch" },
+            { value: "aperitif", label: "Apéro" },
+          ]
+        : [
+            { value: "breakfast", label: "Breakfast" },
+            { value: "lunch", label: "Lunch" },
+            { value: "aperitif", label: "Aperitif" },
+          ],
+    [isFr],
+  );
   const selected = options.find((o) => o.value === pack) ?? options[0];
+  const selectedSlot = slotOptions.find((s) => s.value === slot) ?? slotOptions[1];
   const total = selected.unitAmount * people;
 
   async function onSubmit(e: FormEvent) {
@@ -102,7 +124,12 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
       const res = await fetch("/api/stripe/checkout-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ packageType: pack, locale, quantity: people }),
+        body: JSON.stringify({
+          packageType: pack,
+          locale,
+          quantity: people,
+          slot,
+        }),
       });
 
       const data: { url?: string; error?: string } = await res.json();
@@ -155,12 +182,30 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
         className="w-full rounded-xl border border-[var(--bg3)] bg-white p-3 text-sm"
       />
 
+      <label className="mb-2 mt-4 block text-[11px] font-medium uppercase tracking-[0.15em] text-[var(--muted)]">
+        {isFr ? "Créneau" : "Timeslot"}
+      </label>
+      <select
+        className="w-full rounded-xl border border-[var(--bg3)] bg-white p-3 text-sm"
+        value={slot}
+        onChange={(e) => setSlot(e.target.value as SlotOption["value"])}
+      >
+        {slotOptions.map((s) => (
+          <option key={s.value} value={s.value}>
+            {s.label}
+          </option>
+        ))}
+      </select>
+
       <div className="mt-4 rounded-xl border border-[var(--bg3)] bg-[var(--bg)] p-4">
         <p className="text-[11px] uppercase tracking-[0.15em] text-[var(--muted)]">
           {isFr ? "Récapitulatif" : "Summary"}
         </p>
         <p className="mt-2 text-sm text-[var(--ink2)]">
           {selected.label} × {people}
+        </p>
+        <p className="mt-1 text-xs text-[var(--muted)]">
+          {isFr ? "Créneau :" : "Timeslot:"} {selectedSlot.label}
         </p>
         <p className="mt-1 font-[family-name:var(--font-cormorant)] text-3xl font-light text-[var(--terra)]">
           {new Intl.NumberFormat(isFr ? "fr-FR" : "en-US", {
@@ -188,7 +233,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
       <button
         type="submit"
         disabled={loading}
-        className="mt-5 w-full rounded-xl bg-[var(--terra)] px-4 py-3 text-[12px] font-medium uppercase tracking-[0.12em] text-white transition hover:bg-[var(--terra2)] disabled:opacity-60"
+        className="mt-5 w-full rounded-xl border border-[var(--terra)] !bg-[var(--terra)] px-4 py-3 text-[12px] font-medium uppercase tracking-[0.12em] !text-white transition hover:!bg-[var(--terra2)] disabled:opacity-60"
       >
         {loading
           ? isFr
