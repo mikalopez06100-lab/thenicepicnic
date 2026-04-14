@@ -4,6 +4,7 @@ import { FormEvent, useMemo, useState } from "react";
 
 type Props = {
   locale: string;
+  initialPackage?: "kit" | "kit_food" | "medium" | "prestige";
 };
 
 type PackageOption = {
@@ -12,9 +13,11 @@ type PackageOption = {
   hint: string;
 };
 
-export function ReservationCheckoutForm({ locale }: Props) {
+export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
   const isFr = locale === "fr";
-  const [pack, setPack] = useState<PackageOption["value"]>("medium");
+  const [pack, setPack] = useState<PackageOption["value"]>(
+    initialPackage || "medium",
+  );
   const [people, setPeople] = useState(2);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -88,13 +91,13 @@ export function ReservationCheckoutForm({ locale }: Props) {
   return (
     <form
       onSubmit={onSubmit}
-      className="rounded-xl border border-[var(--bg3)] bg-[var(--white)] p-5 shadow-sm"
+      className="mx-auto max-w-xl rounded-2xl border border-[var(--bg3)] bg-[var(--white)] p-6 shadow-sm"
     >
-      <label className="mb-2 block text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+      <label className="mb-2 block text-[11px] font-medium uppercase tracking-[0.15em] text-[var(--muted)]">
         {isFr ? "Package" : "Package"}
       </label>
       <select
-        className="w-full rounded-md border border-[var(--bg3)] bg-white p-3 text-sm"
+        className="w-full rounded-xl border border-[var(--bg3)] bg-white p-3 text-sm"
         value={pack}
         onChange={(e) => setPack(e.target.value as PackageOption["value"])}
       >
@@ -105,7 +108,7 @@ export function ReservationCheckoutForm({ locale }: Props) {
         ))}
       </select>
 
-      <label className="mb-2 mt-4 block text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+      <label className="mb-2 mt-4 block text-[11px] font-medium uppercase tracking-[0.15em] text-[var(--muted)]">
         {isFr ? "Nombre de personnes (min. 2)" : "Number of people (min. 2)"}
       </label>
       <input
@@ -114,7 +117,7 @@ export function ReservationCheckoutForm({ locale }: Props) {
         max={20}
         value={people}
         onChange={(e) => setPeople(Number(e.target.value))}
-        className="w-full rounded-md border border-[var(--bg3)] bg-white p-3 text-sm"
+        className="w-full rounded-xl border border-[var(--bg3)] bg-white p-3 text-sm"
       />
 
       <p className="mt-3 text-xs text-[var(--muted)]">
@@ -130,7 +133,7 @@ export function ReservationCheckoutForm({ locale }: Props) {
       <button
         type="submit"
         disabled={loading}
-        className="mt-4 w-full rounded-md bg-[var(--terra)] px-4 py-3 text-xs font-medium uppercase tracking-[0.12em] text-white transition hover:bg-[var(--terra2)] disabled:opacity-60"
+        className="mt-5 w-full rounded-xl bg-[var(--terra)] px-4 py-3 text-[12px] font-medium uppercase tracking-[0.12em] text-white transition hover:bg-[var(--terra2)] disabled:opacity-60"
       >
         {loading
           ? isFr

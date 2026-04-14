@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import type Stripe from "stripe";
 import { getStripeClient, STRIPE_PRICE_IDS } from "@/lib/stripe";
 
 type PackageType = keyof typeof STRIPE_PRICE_IDS;
@@ -7,13 +8,6 @@ type Payload = {
   packageType?: PackageType;
   locale?: string;
   quantity?: number;
-};
-
-const UNIT_AMOUNTS_EUR_CENTS: Record<PackageType, number> = {
-  kit: 2990,
-  kit_food: 3990,
-  medium: 5900,
-  prestige: 7900,
 };
 
 function getBaseUrl(req: NextRequest) {
@@ -62,18 +56,23 @@ export async function POST(req: NextRequest) {
     const localePrefix = locale === "fr" ? "" : "/en";
 
     const stripe = getStripeClient();
+    const product = await stripe.products.retrieve(productId, {
+      expand: ["default_price"],
+    });
+    const defaultPrice = product.default_price as Stripe.Price | null;
+
+    if (!defaultPrice?.id) {
+      return NextResponse.json(
+        {
+          error: `No default Stripe price found for product ${packageType}.`,
+        },
+        { status: 500 },
+      );
+    }
+
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
-      line_items: [
-        {
-          price_data: {
-            currency: "eur",
-            unit_amount: UNIT_AMOUNTS_EUR_CENTS[packageType],
-            product: productId,
-          },
-          quantity,
-        },
-      ],
+      line_items: [{ price: defaultPrice.id, quantity }],
       success_url: `${baseUrl}${localePrefix}/reservation/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}${localePrefix}/reservation/cancel`,
       metadata: {
@@ -90,8 +89,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ url: session.url });
   } catch (error) {
     console.error("checkout-session error", error);
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Unable to create Stripe checkout session.";
     return NextResponse.json(
-      { error: "Unable to create Stripe checkout session." },
+      {
+        error: message,
+      },
       { status: 500 },
     );
   }
