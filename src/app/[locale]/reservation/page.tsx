@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { ReservationCheckoutForm } from "@/components/reservation/ReservationCheckoutForm";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -15,13 +16,21 @@ export default async function ReservationPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("Pages");
+  const isFr = locale === "fr";
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-24 text-center">
-      <h1 className="mb-4 font-[family-name:var(--font-cormorant)] text-3xl font-light">
+    <main className="mx-auto max-w-2xl px-6 py-24">
+      <h1 className="mb-4 text-center font-[family-name:var(--font-cormorant)] text-3xl font-light">
         {t("reservation.title")}
       </h1>
-      <p className="text-[var(--muted)]">{t("reservation.body")}</p>
+      <p className="mb-8 text-center text-[var(--muted)]">
+        {isFr
+          ? "Choisis ton package puis lance le paiement Stripe."
+          : "Choose your package and continue to Stripe checkout."}
+      </p>
+
+      <ReservationCheckoutForm locale={locale} />
+
       <Link
         href="/"
         className="mt-8 inline-block text-[var(--terra)] underline-offset-4 hover:underline"
