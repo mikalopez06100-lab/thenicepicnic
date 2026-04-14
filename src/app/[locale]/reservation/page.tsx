@@ -30,24 +30,31 @@ export default async function ReservationPage({
     : undefined;
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-24">
-      <h1 className="mb-3 text-center font-[family-name:var(--font-cormorant)] text-4xl font-light">
-        {t("reservation.title")}
-      </h1>
-      <p className="mb-8 text-center text-[var(--muted)]">
-        {isFr
-          ? "Choisis ton package puis lance le paiement Stripe."
-          : "Choose your package and continue to Stripe checkout."}
-      </p>
+    <main className="bg-[var(--bg)]">
+      <section className="mx-auto max-w-4xl px-6 pb-24 pt-28">
+        <p className="text-center text-[11px] font-medium uppercase tracking-[0.2em] text-[var(--terra)]">
+          {isFr ? "Réservation" : "Booking"}
+        </p>
+        <h1 className="mb-3 mt-3 text-center font-[family-name:var(--font-cormorant)] text-5xl font-light leading-tight">
+          {t("reservation.title")}
+        </h1>
+        <p className="mx-auto mb-10 max-w-xl text-center text-[var(--muted)]">
+          {isFr
+            ? "Choisis ton package, indique le nombre de personnes (minimum 2), puis finalise le paiement sécurisé Stripe."
+            : "Choose your package, set the number of guests (minimum 2), then complete secure Stripe payment."}
+        </p>
 
-      <ReservationCheckoutForm locale={locale} initialPackage={initialPackage} />
+        <ReservationCheckoutForm locale={locale} initialPackage={initialPackage} />
 
-      <Link
-        href="/"
-        className="mt-8 inline-block text-[var(--terra)] underline-offset-4 hover:underline"
-      >
-        {t("reservation.back")}
-      </Link>
+        <div className="mt-10 text-center">
+          <Link
+            href="/"
+            className="inline-block text-[var(--terra)] underline-offset-4 hover:underline"
+          >
+            {t("reservation.back")}
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }

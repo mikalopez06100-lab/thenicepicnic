@@ -11,6 +11,7 @@ type PackageOption = {
   value: "kit" | "kit_food" | "medium" | "prestige";
   label: string;
   hint: string;
+  unitAmount: number;
 };
 
 export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
@@ -26,27 +27,61 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
     () =>
       isFr
         ? [
-            { value: "kit", label: "Le Kit", hint: "29,90 EUR / pers" },
+            {
+              value: "kit",
+              label: "Le Kit",
+              hint: "29,90 EUR / pers",
+              unitAmount: 29.9,
+            },
             {
               value: "kit_food",
               label: "Le Kit + food",
               hint: "39,90 EUR / pers",
+              unitAmount: 39.9,
             },
-            { value: "medium", label: "Medium", hint: "59 EUR / pers" },
-            { value: "prestige", label: "Prestige", hint: "79 EUR / pers" },
+            {
+              value: "medium",
+              label: "Medium",
+              hint: "59 EUR / pers",
+              unitAmount: 59,
+            },
+            {
+              value: "prestige",
+              label: "Prestige",
+              hint: "79 EUR / pers",
+              unitAmount: 79,
+            },
           ]
         : [
-            { value: "kit", label: "The Kit", hint: "EUR 29.90 / person" },
+            {
+              value: "kit",
+              label: "The Kit",
+              hint: "EUR 29.90 / person",
+              unitAmount: 29.9,
+            },
             {
               value: "kit_food",
               label: "The Kit + food",
               hint: "EUR 39.90 / person",
+              unitAmount: 39.9,
             },
-            { value: "medium", label: "Medium", hint: "EUR 59 / person" },
-            { value: "prestige", label: "Prestige", hint: "EUR 79 / person" },
+            {
+              value: "medium",
+              label: "Medium",
+              hint: "EUR 59 / person",
+              unitAmount: 59,
+            },
+            {
+              value: "prestige",
+              label: "Prestige",
+              hint: "EUR 79 / person",
+              unitAmount: 79,
+            },
           ],
     [isFr],
   );
+  const selected = options.find((o) => o.value === pack) ?? options[0];
+  const total = selected.unitAmount * people;
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -120,10 +155,30 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
         className="w-full rounded-xl border border-[var(--bg3)] bg-white p-3 text-sm"
       />
 
+      <div className="mt-4 rounded-xl border border-[var(--bg3)] bg-[var(--bg)] p-4">
+        <p className="text-[11px] uppercase tracking-[0.15em] text-[var(--muted)]">
+          {isFr ? "Récapitulatif" : "Summary"}
+        </p>
+        <p className="mt-2 text-sm text-[var(--ink2)]">
+          {selected.label} × {people}
+        </p>
+        <p className="mt-1 font-[family-name:var(--font-cormorant)] text-3xl font-light text-[var(--terra)]">
+          {new Intl.NumberFormat(isFr ? "fr-FR" : "en-US", {
+            style: "currency",
+            currency: "EUR",
+          }).format(total)}
+        </p>
+      </div>
+
       <p className="mt-3 text-xs text-[var(--muted)]">
         {isFr
           ? "Produits Stripe connectes via variables d'environnement (minimum 2 personnes)."
           : "Stripe products are configured via environment variables (minimum 2 people)."}
+      </p>
+      <p className="mt-1 text-xs text-[var(--muted)]">
+        {isFr
+          ? "Paiement 100% sécurisé via Stripe."
+          : "100% secure payment with Stripe."}
       </p>
 
       {error ? (
