@@ -157,7 +157,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
   return (
     <form
       onSubmit={onSubmit}
-      className="mx-auto w-full max-w-5xl rounded-[28px] border border-[rgba(0,0,0,0.06)] bg-[rgba(255,255,255,0.86)] p-4 shadow-[0_20px_60px_rgba(26,23,20,0.08)] backdrop-blur md:p-8"
+      className="mx-auto w-full max-w-5xl rounded-[28px] border border-[rgba(0,0,0,0.06)] bg-[rgba(255,255,255,0.86)] p-4 shadow-[0_20px_60px_rgba(26,23,20,0.08)] backdrop-blur transition-shadow duration-500 hover:shadow-[0_28px_80px_rgba(26,23,20,0.12)] md:p-8"
     >
       <div className="grid gap-6 md:grid-cols-[1fr_320px]">
         <div className="space-y-6 rounded-2xl border border-[var(--bg3)] bg-white p-5 md:p-6">
@@ -173,10 +173,11 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
                     key={o.value}
                     type="button"
                     onClick={() => setPack(o.value)}
+                    aria-pressed={active}
                     className={`rounded-2xl border p-4 text-left transition ${
                       active
-                        ? "border-[var(--terra)] bg-[rgba(191,107,69,0.08)] shadow-[0_8px_20px_rgba(191,107,69,0.15)]"
-                        : "border-[var(--bg3)] bg-white hover:border-[var(--terra)]/40"
+                        ? "border-[var(--terra)] bg-[rgba(191,107,69,0.08)] shadow-[0_8px_20px_rgba(191,107,69,0.15)] scale-[1.01]"
+                        : "border-[var(--bg3)] bg-white hover:-translate-y-0.5 hover:border-[var(--terra)]/40 hover:shadow-[0_10px_24px_rgba(26,23,20,0.08)]"
                     }`}
                   >
                     <p className="font-[family-name:var(--font-cormorant)] text-2xl leading-none text-[var(--ink)]">
@@ -197,7 +198,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
               <button
                 type="button"
                 onClick={() => setPeople((current) => Math.max(2, current - 1))}
-                className="h-10 w-10 rounded-xl border border-[var(--bg3)] bg-white text-xl text-[var(--ink2)] transition hover:border-[var(--terra)]"
+                className="h-10 w-10 rounded-xl border border-[var(--bg3)] bg-white text-xl text-[var(--ink2)] transition duration-200 hover:scale-105 hover:border-[var(--terra)] active:scale-95"
                 aria-label={isFr ? "Retirer une personne" : "Remove one person"}
               >
                 -
@@ -213,7 +214,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
               <button
                 type="button"
                 onClick={() => setPeople((current) => Math.min(20, current + 1))}
-                className="h-10 w-10 rounded-xl border border-[var(--bg3)] bg-white text-xl text-[var(--ink2)] transition hover:border-[var(--terra)]"
+                className="h-10 w-10 rounded-xl border border-[var(--bg3)] bg-white text-xl text-[var(--ink2)] transition duration-200 hover:scale-105 hover:border-[var(--terra)] active:scale-95"
                 aria-label={isFr ? "Ajouter une personne" : "Add one person"}
               >
                 +
@@ -233,10 +234,11 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
                     key={s.value}
                     type="button"
                     onClick={() => setSlot(s.value)}
+                    aria-pressed={active}
                     className={`rounded-xl px-2 py-2 text-xs font-medium transition ${
                       active
                         ? "bg-[var(--terra)] text-white shadow-[0_6px_14px_rgba(191,107,69,0.35)]"
-                        : "text-[var(--ink2)] hover:bg-white"
+                        : "text-[var(--ink2)] hover:bg-white hover:shadow-sm"
                     }`}
                   >
                     {s.label}
@@ -257,7 +259,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
           <p className="mt-1 text-xs text-[var(--muted)]">
             {isFr ? "Créneau :" : "Timeslot:"} {selectedSlot.label}
           </p>
-          <p className="mt-3 font-[family-name:var(--font-cormorant)] text-5xl font-light leading-none text-[var(--terra)]">
+          <p className="mt-3 font-[family-name:var(--font-cormorant)] text-5xl font-light leading-none text-[var(--terra)] transition-all duration-300">
             {formattedTotal}
           </p>
           <p className="mt-3 text-xs leading-relaxed text-[var(--muted)]">
@@ -275,7 +277,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
           <button
             type="submit"
             disabled={loading}
-            className="mt-5 w-full rounded-xl border border-[var(--terra)] !bg-[var(--terra)] px-4 py-3 text-[12px] font-medium uppercase tracking-[0.12em] !text-white transition hover:!bg-[var(--terra2)] disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-5 w-full rounded-xl border border-[var(--terra)] !bg-[var(--terra)] px-4 py-3 text-[12px] font-medium uppercase tracking-[0.12em] !text-white transition duration-300 hover:-translate-y-0.5 hover:!bg-[var(--terra2)] hover:shadow-[0_14px_28px_rgba(191,107,69,0.32)] active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading
               ? isFr
