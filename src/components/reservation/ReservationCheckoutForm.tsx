@@ -224,10 +224,10 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
   return (
     <form
       onSubmit={onSubmit}
-      className="mx-auto w-full rounded-[28px] border border-[rgba(0,0,0,0.06)] bg-[rgba(255,255,255,0.92)] p-5 shadow-[0_20px_60px_rgba(26,23,20,0.08)] backdrop-blur transition-shadow duration-500 hover:shadow-[0_28px_80px_rgba(26,23,20,0.12)] sm:rounded-[32px] sm:p-7 md:p-10 lg:p-12"
+      className="mx-auto w-full max-w-[1100px] rounded-[24px] border border-[rgba(0,0,0,0.06)] bg-[rgba(255,255,255,0.9)] p-3.5 shadow-[0_20px_60px_rgba(26,23,20,0.08)] backdrop-blur transition-shadow duration-500 hover:shadow-[0_28px_80px_rgba(26,23,20,0.12)] sm:rounded-[28px] sm:p-4 md:p-9"
     >
-      <div className="grid items-start gap-8 sm:gap-10 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-12">
-        <div className="space-y-8 rounded-[20px] border border-[var(--bg3)] bg-white p-5 sm:space-y-9 sm:rounded-[24px] sm:p-7 md:p-8 lg:p-10">
+      <div className="grid items-start gap-5 sm:gap-6 md:grid-cols-[1fr_320px]">
+        <div className="space-y-7 rounded-2xl border border-[var(--bg3)] bg-white p-5 sm:space-y-8 sm:p-6 md:p-7">
           <div>
             <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
               {isFr ? "1. Choisis ton pack" : "1. Choose your package"}
@@ -241,7 +241,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
                     type="button"
                     onClick={() => setPack(o.value)}
                     aria-pressed={active}
-                    className={`flex min-h-[118px] flex-col justify-center rounded-2xl border p-4 text-center transition sm:min-h-[128px] sm:p-5 ${
+                    className={`flex min-h-[106px] flex-col justify-center rounded-2xl border p-3.5 text-center transition sm:min-h-[114px] sm:p-4 ${
                       active
                         ? "border-[var(--terra)] bg-[rgba(191,107,69,0.08)] shadow-[0_8px_20px_rgba(191,107,69,0.15)] scale-[1.01]"
                         : "border-[var(--bg3)] bg-white hover:-translate-y-0.5 hover:border-[var(--terra)]/40 hover:shadow-[0_10px_24px_rgba(26,23,20,0.08)]"
@@ -263,7 +263,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
             <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
               {isFr ? "2. Nombre de personnes" : "2. Number of guests"}
             </p>
-            <div className="flex h-[92px] items-center justify-between rounded-2xl border border-[var(--bg3)] bg-[var(--bg)] px-4 py-3 sm:h-[96px] sm:px-5">
+            <div className="flex h-[78px] items-center justify-between rounded-2xl border border-[var(--bg3)] bg-[var(--bg)] px-3 py-2.5 sm:px-4">
               <button
                 type="button"
                 onClick={() => setPeople((current) => Math.max(2, current - 1))}
@@ -295,13 +295,13 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
             <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
               {isFr ? "3. Informations client" : "3. Customer details"}
             </p>
-            <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+            <div className="grid gap-3 sm:grid-cols-2">
               <input
                 type="text"
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
                 placeholder={isFr ? "Nom et prénom" : "Full name"}
-                className="h-[54px] w-full rounded-xl border border-[var(--terra)]/35 bg-white px-4 text-[14px] text-[var(--ink)] outline-none transition placeholder:text-[var(--muted)]/70 focus:border-[var(--terra)] focus:ring-2 focus:ring-[var(--terra)]/20 sm:h-[56px] sm:px-5"
+                className="h-[50px] w-full rounded-xl border border-[var(--terra)]/35 bg-white px-3.5 text-[14px] text-[var(--ink)] outline-none transition placeholder:text-[var(--muted)]/70 focus:border-[var(--terra)] focus:ring-2 focus:ring-[var(--terra)]/20"
                 autoComplete="name"
                 required
               />
@@ -310,7 +310,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
                 value={customerEmail}
                 onChange={(e) => setCustomerEmail(e.target.value)}
                 placeholder={isFr ? "Email" : "Email"}
-                className="h-[54px] w-full rounded-xl border border-[var(--terra)]/35 bg-white px-4 text-[14px] text-[var(--ink)] outline-none transition placeholder:text-[var(--muted)]/70 focus:border-[var(--terra)] focus:ring-2 focus:ring-[var(--terra)]/20 sm:h-[56px] sm:px-5"
+                className="h-[50px] w-full rounded-xl border border-[var(--terra)]/35 bg-white px-3.5 text-[14px] text-[var(--ink)] outline-none transition placeholder:text-[var(--muted)]/70 focus:border-[var(--terra)] focus:ring-2 focus:ring-[var(--terra)]/20"
                 autoComplete="email"
                 required
               />
@@ -320,7 +320,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
               value={customerPhone}
               onChange={(e) => setCustomerPhone(e.target.value)}
               placeholder={isFr ? "Numéro de téléphone" : "Phone number"}
-              className="mt-3 h-[54px] w-full rounded-xl border border-[var(--terra)]/35 bg-white px-4 text-[14px] text-[var(--ink)] outline-none transition placeholder:text-[var(--muted)]/70 focus:border-[var(--terra)] focus:ring-2 focus:ring-[var(--terra)]/20 sm:mt-4 sm:h-[56px] sm:px-5"
+              className="mt-3 h-[50px] w-full rounded-xl border border-[var(--terra)]/35 bg-white px-3.5 text-[14px] text-[var(--ink)] outline-none transition placeholder:text-[var(--muted)]/70 focus:border-[var(--terra)] focus:ring-2 focus:ring-[var(--terra)]/20"
               autoComplete="tel"
               required
             />
@@ -332,7 +332,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
             </p>
             <label
               htmlFor="reservation-date"
-              className="block rounded-2xl border border-[var(--bg3)] bg-[var(--bg)] p-3 sm:p-4"
+              className="block rounded-2xl border border-[var(--bg3)] bg-[var(--bg)] p-2.5 sm:p-3"
             >
               <input
                 id="reservation-date"
@@ -340,7 +340,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
                 min={minDate}
                 value={reservationDate}
                 onChange={(e) => setReservationDate(e.target.value)}
-                className="h-[54px] w-full rounded-xl border border-[var(--terra)]/40 bg-white px-4 py-3 text-[14px] text-[var(--ink)] outline-none transition focus:border-[var(--terra)] focus:ring-2 focus:ring-[var(--terra)]/20 sm:h-[56px] sm:px-5 sm:text-[15px]"
+                className="h-[50px] w-full rounded-xl border border-[var(--terra)]/40 bg-white px-3.5 py-2.5 text-[14px] text-[var(--ink)] outline-none transition focus:border-[var(--terra)] focus:ring-2 focus:ring-[var(--terra)]/20 sm:px-4 sm:py-3 sm:text-[15px]"
                 required
               />
             </label>
@@ -350,7 +350,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
             <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
               {isFr ? "5. Créneau" : "5. Timeslot"}
             </p>
-            <div className="grid grid-cols-3 gap-3 rounded-2xl border border-[var(--bg3)] bg-[var(--bg)] p-2 sm:gap-4 sm:p-3">
+            <div className="grid grid-cols-3 gap-2.5 rounded-2xl border border-[var(--bg3)] bg-[var(--bg)] p-2 sm:gap-3 sm:p-2.5">
               {slotOptions.map((s) => {
                 const active = s.value === slot;
                 return (
@@ -359,7 +359,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
                     type="button"
                     onClick={() => setSlot(s.value)}
                     aria-pressed={active}
-                    className={`flex h-[50px] items-center justify-center rounded-xl border px-2 py-3 text-[11px] font-semibold uppercase tracking-[0.08em] transition sm:h-[54px] sm:px-3 sm:py-3.5 sm:text-[13px] sm:tracking-[0.1em] ${
+                    className={`flex h-[44px] items-center justify-center rounded-xl border px-1.5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.08em] transition sm:h-[48px] sm:px-2 sm:py-3 sm:text-[13px] sm:tracking-[0.1em] ${
                       active
                         ? "border-[var(--ink)] bg-[var(--ink)] text-white shadow-[0_10px_24px_rgba(26,23,20,0.28)]"
                         : "border-[var(--bg3)] bg-white text-[var(--ink)] hover:-translate-y-0.5 hover:border-[var(--terra)]/55 hover:shadow-[0_8px_18px_rgba(26,23,20,0.1)]"
@@ -373,23 +373,25 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
           </div>
         </div>
 
-        <aside className="h-fit rounded-[20px] border border-[var(--bg3)] bg-white p-6 sm:rounded-[24px] sm:p-7 md:sticky md:top-24 lg:p-8">
+        <aside className="flex h-fit flex-col gap-4 rounded-2xl border border-[var(--bg3)] bg-white p-5 sm:gap-5 sm:p-6 md:sticky md:top-24">
           <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
             {isFr ? "Récapitulatif instantané" : "Live summary"}
           </p>
-          <p className="mt-4 text-[15px] leading-relaxed text-[var(--ink2)] sm:mt-5">
+          <div className="space-y-2">
+          <p className="text-[15px] leading-relaxed text-[var(--ink2)]">
             {selected.label} × {people}
           </p>
-          <p className="mt-1.5 text-[12px] text-[var(--muted)]">
+          <p className="text-[12px] text-[var(--muted)]">
             {isFr ? "Créneau :" : "Timeslot:"} {selectedSlot.label}
           </p>
-          <p className="mt-1 text-[12px] text-[var(--muted)]">
+          <p className="text-[12px] text-[var(--muted)]">
             {isFr ? "Date :" : "Date:"} {formattedDate}
           </p>
-          <p className="mt-5 font-[family-name:var(--font-cormorant)] text-5xl font-light leading-none text-[var(--terra)] transition-all duration-300 sm:mt-6 sm:text-6xl">
+          </div>
+          <p className="font-[family-name:var(--font-cormorant)] text-5xl font-light leading-none text-[var(--terra)] transition-all duration-300">
             {formattedTotal}
           </p>
-          <p className="mt-4 text-[12px] leading-relaxed text-[var(--muted)] sm:mt-5">
+          <p className="text-[12px] leading-relaxed text-[var(--muted)]">
             {isFr
               ? "Minimum 2 personnes. Paiement sécurisé et redirection immédiate vers Stripe."
               : "Minimum 2 guests. Secure payment and instant redirect to Stripe."}
@@ -404,7 +406,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
           <button
             type="submit"
             disabled={loading}
-            className="mt-6 w-full rounded-xl border border-[var(--terra)] !bg-[var(--terra)] px-5 py-3.5 text-[12px] font-medium uppercase tracking-[0.12em] !text-white transition duration-300 hover:-translate-y-0.5 hover:!bg-[var(--terra2)] hover:shadow-[0_14px_28px_rgba(191,107,69,0.32)] active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60 sm:mt-8 sm:py-4"
+            className="mt-1 w-full rounded-xl border border-[var(--terra)] !bg-[var(--terra)] px-4 py-3 text-[12px] font-medium uppercase tracking-[0.12em] !text-white transition duration-300 hover:-translate-y-0.5 hover:!bg-[var(--terra2)] hover:shadow-[0_14px_28px_rgba(191,107,69,0.32)] active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading
               ? isFr
