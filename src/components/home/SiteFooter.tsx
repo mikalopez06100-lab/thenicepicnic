@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
@@ -9,10 +10,13 @@ export async function SiteFooter() {
     <footer className="footer">
       <div className="footer-grid">
         <div>
-          <h3>
-            <span style={{ opacity: 0.5, fontWeight: 300 }}>The</span> Nice{" "}
-            <em>Picnic</em>
-          </h3>
+          <Image
+            src="/images/brand/logo-main.png"
+            alt="The Nice Picnic"
+            width={132}
+            height={132}
+            className="footer-logo"
+          />
           <p className="footer-desc">{t("tagline")}</p>
           <p className="footer-desc" style={{ marginTop: 12 }}>
             <Link href="/contact" className="underline-offset-2 hover:underline">

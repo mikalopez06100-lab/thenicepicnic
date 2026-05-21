@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/navigation";
@@ -40,7 +41,17 @@ export function SiteNav() {
         aria-label={t("ariaMain")}
       >
         <Link href="/" className="nav-logo">
-          <span>The</span> Nice <em>Picnic</em>
+          <Image
+            src="/images/brand/logo-main.png"
+            alt="The Nice Picnic"
+            width={72}
+            height={72}
+            className="nav-logo-img"
+          />
+          <span className="nav-logo-text" aria-hidden>
+            THE NICE PICNIC
+          </span>
+          <span className="sr-only">The Nice Picnic</span>
         </Link>
         <div className="nav-links">
           <LanguageSwitcher />
@@ -79,6 +90,13 @@ export function SiteNav() {
           ×
         </button>
         <div className="nav-mobile-lang">
+          <Image
+            src="/images/brand/logo-main.png"
+            alt="The Nice Picnic"
+            width={110}
+            height={110}
+            className="nav-mobile-logo"
+          />
           <LanguageSwitcher />
         </div>
         {anchors.map((a) => (

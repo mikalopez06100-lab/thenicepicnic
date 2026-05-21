@@ -1,14 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
 import type Stripe from "stripe";
-import { getStripeClient, STRIPE_PRICE_IDS } from "@/lib/stripe";
-
-type PackageType = keyof typeof STRIPE_PRICE_IDS;
+import {
+  attachSessionIdToReservation,
+  createPendingReservation,
+  markReservationCancelled,
+} from "@/lib/reservations";
+import {
+  getStripeCatalogId,
+  getStripeClient,
+  isStripePackageType,
+  resolveCheckoutPriceId,
+  type StripePackageType,
+} from "@/lib/stripe";
 
 type Payload = {
-  packageType?: PackageType;
+  packageType?: StripePackageType;
   locale?: string;
   quantity?: number;
   slot?: "breakfast" | "lunch" | "aperitif";
+  reservationDate?: string;
+  customerName?: string;
+  customerEmail?: string;
+  customerPhone?: string;
 };
 
 function getBaseUrl(req: NextRequest) {
@@ -32,8 +45,12 @@ export async function POST(req: NextRequest) {
     const locale = body.locale === "en" ? "en" : "fr";
     const quantity = Number(body.quantity ?? 2);
     const slot = body.slot;
+    const reservationDate = body.reservationDate;
+    const customerName = (body.customerName ?? "").trim();
+    const customerEmail = (body.customerEmail ?? "").trim();
+    const customerPhone = (body.customerPhone ?? "").trim();
 
-    if (!packageType || !(packageType in STRIPE_PRICE_IDS)) {
+    if (!packageType || !isStripePackageType(packageType)) {
       return NextResponse.json({ error: "Invalid package type." }, { status: 400 });
     }
 
@@ -47,12 +64,34 @@ export async function POST(req: NextRequest) {
     if (!slot || !["breakfast", "lunch", "aperitif"].includes(slot)) {
       return NextResponse.json({ error: "Invalid timeslot." }, { status: 400 });
     }
+    if (!reservationDate || !/^\d{4}-\d{2}-\d{2}$/.test(reservationDate)) {
+      return NextResponse.json({ error: "Invalid reservation date." }, { status: 400 });
+    }
+    if (customerName.length < 2) {
+      return NextResponse.json({ error: "Invalid customer name." }, { status: 400 });
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail)) {
+      return NextResponse.json({ error: "Invalid customer email." }, { status: 400 });
+    }
+    if (customerPhone.length < 8) {
+      return NextResponse.json({ error: "Invalid customer phone." }, { status: 400 });
+    }
 
-    const productId = STRIPE_PRICE_IDS[packageType];
-    if (!productId) {
+    const today = new Date();
+    const minDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const parsedDate = new Date(`${reservationDate}T00:00:00`);
+    if (Number.isNaN(parsedDate.getTime()) || parsedDate < minDate) {
+      return NextResponse.json(
+        { error: "Reservation date cannot be in the past." },
+        { status: 400 },
+      );
+    }
+
+    const catalogId = getStripeCatalogId(packageType);
+    if (!catalogId) {
       return NextResponse.json(
         {
-          error: `Missing Stripe product ID for ${packageType}. Set STRIPE_PRODUCT_ID_* in env.`,
+          error: `Missing Stripe catalog ID for ${packageType}. Set STRIPE_PRODUCT_ID_${packageType.toUpperCase()} or STRIPE_PRICE_ID_${packageType.toUpperCase()} in env.`,
         },
         { status: 500 },
       );
@@ -62,36 +101,63 @@ export async function POST(req: NextRequest) {
     const localePrefix = locale === "fr" ? "" : "/en";
 
     const stripe = getStripeClient();
-    const product = await stripe.products.retrieve(productId, {
-      expand: ["default_price"],
-    });
-    const defaultPrice = product.default_price as Stripe.Price | null;
-
-    if (!defaultPrice?.id) {
-      return NextResponse.json(
-        {
-          error: `No default Stripe price found for product ${packageType}.`,
-        },
-        { status: 500 },
-      );
+    let priceId: string;
+    try {
+      priceId = await resolveCheckoutPriceId(stripe, catalogId);
+    } catch (catalogError) {
+      const message =
+        catalogError instanceof Error
+          ? catalogError.message
+          : "Unable to resolve Stripe price.";
+      return NextResponse.json({ error: message }, { status: 500 });
     }
 
-    const session = await stripe.checkout.sessions.create({
-      mode: "payment",
-      line_items: [{ price: defaultPrice.id, quantity }],
-      success_url: `${baseUrl}${localePrefix}/reservation/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${baseUrl}${localePrefix}/reservation/cancel`,
-      metadata: {
-        packageType,
-        locale,
-        quantity: String(quantity),
-        slot,
-        // TODO: add deposit flow (pre-authorization 200 EUR)
-      },
-      allow_promotion_codes: true,
-      billing_address_collection: "required",
-      phone_number_collection: { enabled: true },
+    const reservationResult = await createPendingReservation({
+      packageType,
+      reservationDate,
+      slot,
+      quantity,
+      locale,
+      customerName,
+      customerEmail,
+      customerPhone,
     });
+    if (!reservationResult.ok) {
+      return NextResponse.json({ error: reservationResult.error }, { status: 409 });
+    }
+
+    const reservation = reservationResult.reservation;
+
+    let session: Stripe.Checkout.Session;
+    try {
+      session = await stripe.checkout.sessions.create({
+        mode: "payment",
+        client_reference_id: reservation.id,
+        line_items: [{ price: priceId, quantity }],
+        customer_email: customerEmail,
+        success_url: `${baseUrl}${localePrefix}/reservation/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${baseUrl}${localePrefix}/reservation/cancel`,
+        metadata: {
+          reservationId: reservation.id,
+          packageType,
+          locale,
+          quantity: String(quantity),
+          slot,
+          reservationDate,
+          customerName,
+          customerPhone,
+          // TODO: add deposit flow (pre-authorization 100 EUR)
+        },
+        allow_promotion_codes: true,
+        billing_address_collection: "required",
+        phone_number_collection: { enabled: true },
+      });
+    } catch (sessionError) {
+      await markReservationCancelled(reservation.id);
+      throw sessionError;
+    }
+
+    await attachSessionIdToReservation(reservation.id, session.id);
 
     return NextResponse.json({ url: session.url });
   } catch (error) {

@@ -14,14 +14,16 @@ ul{list-style:none}
 /* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:999;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;transition:all .4s}
 .nav.solid{background:rgba(246,241,235,.95);backdrop-filter:blur(16px);box-shadow:0 1px 0 rgba(0,0,0,.05)}
-.nav-logo{font-family:var(--serif);font-size:22px;font-weight:400;color:#fff;transition:color .3s}
-.nav.solid .nav-logo{color:var(--ink)}
-.nav-logo span{font-weight:300;opacity:.6}
-.nav-logo em{font-style:italic;font-weight:300}
+.nav-logo{display:flex;align-items:center}
+.nav-logo-img{width:52px;height:52px;border-radius:999px;object-fit:cover;box-shadow:0 6px 20px rgba(0,0,0,.25);transition:transform .25s ease,box-shadow .25s ease}
+.nav-logo:hover .nav-logo-img{transform:scale(1.03);box-shadow:0 10px 24px rgba(0,0,0,.3)}
+.nav-logo-text{margin-left:10px;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#fff;text-wrap:balance;line-height:1.15}
+.nav.solid .nav-logo-text{color:var(--ink)}
 .nav-links{display:none}
 @media(min-width:769px){
   .nav{padding:20px 40px}
-  .nav-logo{font-size:24px}
+  .nav-logo-img{width:58px;height:58px}
+  .nav-logo-text{margin-left:12px;font-size:13px}
   .nav-links{display:flex;gap:28px;align-items:center}
   .nav-link{font-size:13px;color:rgba(255,255,255,.7);transition:color .3s}
   .nav.solid .nav-link{color:var(--muted)}
@@ -197,8 +199,7 @@ h2.t em{font-style:italic}
 @media(min-width:769px){.footer{padding:72px 40px 36px}}
 .footer-grid{max-width:1100px;margin:0 auto;display:grid;gap:28px}
 @media(min-width:769px){.footer-grid{grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}}
-.footer h3{font-family:var(--serif);font-size:22px;color:#fff;font-weight:300;margin-bottom:10px}
-.footer h3 em{font-style:italic}
+.footer-logo{width:110px;height:110px;border-radius:999px;object-fit:cover;margin-bottom:10px}
 .footer-desc{font-size:13px;color:rgba(255,255,255,.3);line-height:1.7}
 .footer-col-title{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);font-weight:500;margin-bottom:12px}
 .footer a.fl{display:block;font-size:13px;color:rgba(255,255,255,.45);padding:3px 0}
@@ -225,6 +226,26 @@ h2.t em{font-style:italic}
 .lang-switch a:hover{color:var(--terra)}
 .lang-switch a.is-active{color:var(--terra);background:rgba(191,107,69,.12)}
 .nav-mobile-lang{margin-bottom:12px}
+.nav-mobile-logo{width:86px;height:86px;border-radius:999px;object-fit:cover;margin:0 auto 10px}
 .nav-mobile-panel .lang-switch{justify-content:center}
 .nav-mobile-panel .lang-switch a{color:rgba(255,255,255,.75)}
 .nav-mobile-panel .lang-switch a.is-active{color:var(--gold)}
+
+/* Cadrage images (points focaux) */
+.img-focus-hero{object-position:center 45%}
+.img-focus-editorial-concept{object-position:center 100%}
+.img-focus-bento{object-position:center 56%}
+.img-focus-divider{object-position:center 62%}
+.img-focus-editorial-prestige{object-position:center 100%}
+.img-focus-spot-1{object-position:center 42%}
+.img-focus-spot-2{object-position:center 40%}
+.img-focus-spot-3{object-position:center 54%}
+.img-focus-spot-4{object-position:center 48%}
+.img-focus-spot-5{object-position:center 46%}
+
+@media(max-width:768px){
+  .img-focus-hero{object-position:center 38%}
+  .img-focus-editorial-concept{object-position:center 100%}
+  .img-focus-divider{object-position:center 58%}
+  .img-focus-editorial-prestige{object-position:center 100%}
+}

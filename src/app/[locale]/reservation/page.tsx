@@ -34,7 +34,7 @@ export default async function ReservationPage({
       <div className="pointer-events-none absolute -left-20 top-8 h-64 w-64 rounded-full bg-[rgba(191,107,69,0.12)] blur-3xl" />
       <div className="pointer-events-none absolute -right-16 bottom-6 h-72 w-72 rounded-full bg-[rgba(71,95,85,0.12)] blur-3xl" />
 
-      <section className="relative mx-auto w-full max-w-6xl px-4 py-14 md:px-6 md:py-16">
+      <section className="relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 py-14 sm:px-6 md:py-20 lg:px-8">
         <p className="text-center text-[11px] font-medium uppercase tracking-[0.22em] text-[var(--terra)]">
           {isFr ? "Réservation" : "Booking"}
         </p>
@@ -47,7 +47,9 @@ export default async function ReservationPage({
             : "Choose your package, set the number of guests (minimum 2), then complete secure Stripe payment."}
         </p>
 
-        <ReservationCheckoutForm locale={locale} initialPackage={initialPackage} />
+        <div className="w-full max-w-[1240px]">
+          <ReservationCheckoutForm locale={locale} initialPackage={initialPackage} />
+        </div>
 
         <div className="mt-8 text-center md:mt-10">
           <Link

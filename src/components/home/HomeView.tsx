@@ -36,7 +36,7 @@ export async function HomeView() {
             fill
             priority
             sizes="100vw"
-            className="object-cover"
+            className="object-cover img-focus-hero"
           />
         </div>
         <div className="hero-inner">
@@ -98,7 +98,7 @@ export async function HomeView() {
             alt={t("editorial1.imgAlt")}
             fill
             sizes="(max-width:768px) 100vw, 50vw"
-            className="object-cover"
+            className="object-cover img-focus-editorial-concept"
           />
         </div>
         <div className="ed-txt">
@@ -266,7 +266,7 @@ export async function HomeView() {
                   alt={t("bento.imgAlt")}
                   fill
                   sizes="(max-width:768px) 100vw, 33vw"
-                  className="object-cover"
+                  className="object-cover img-focus-bento"
                 />
               </div>
               <div className="b-card">
@@ -351,7 +351,7 @@ export async function HomeView() {
           alt={t("divider.imgAlt")}
           fill
           sizes="100vw"
-          className="object-cover"
+          className="object-cover img-focus-divider"
         />
         <div className="img-div-txt">
           <h3>{t("divider.title")}</h3>
@@ -373,7 +373,7 @@ export async function HomeView() {
                     alt={s.alt}
                     fill
                     sizes="(max-width:768px) 100vw, 33vw"
-                    className="object-cover"
+                    className={`object-cover img-focus-spot-${i + 1}`}
                   />
                   <div className="spot-ov" />
                   <div className="spot-nfo">
@@ -410,7 +410,7 @@ export async function HomeView() {
             alt={t("editorialPrestige.imgAlt")}
             fill
             sizes="(max-width:768px) 100vw, 50vw"
-            className="object-cover"
+            className="object-cover img-focus-editorial-prestige"
           />
         </div>
         <div className="ed-txt" style={{ direction: "ltr" }}>

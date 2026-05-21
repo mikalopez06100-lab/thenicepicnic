@@ -49,7 +49,7 @@
       },
       {
         "q": "Comment fonctionne la caution ?",
-        "a": "200€ de pré-autorisation sur votre CB via Stripe. Aucun prélèvement : la somme est simplement bloquée puis libérée au retour complet du matériel en bon état."
+        "a": "100€ de pré-autorisation sur votre CB via Stripe. Aucun prélèvement : la somme est simplement bloquée puis libérée au retour complet du matériel en bon état."
       },
       {
         "q": "Et s'il pleut ?",
@@ -146,7 +146,7 @@
           "Cartes questions couple + playlist Spotify",
           "Carte des spots standards (QR code)"
         ],
-        "foot": "Option nourriture & boissons : +10€/pers · Caution matériel : 200€",
+        "foot": "Option nourriture & boissons : +10€/pers · Caution matériel : 100€",
         "cta": "Réserver — 29,90€/pers"
       },
       "medium": {
@@ -227,7 +227,7 @@
       "prestigeRow": "👑 Prestige",
       "mediumAll": "59€ (tout inclus)",
       "prestigeAll": "79€ (tout inclus)",
-      "footnote": "Caution matériel : 200€ (pré-autorisation CB). Option Bellet AOC +20€."
+      "footnote": "Caution matériel : 100€ (pré-autorisation CB). Option Bellet AOC +20€."
     },
     "divider": {
       "imgAlt": "Promenade des Anglais Nice — Promenade des Anglais at sunset, French Riviera",

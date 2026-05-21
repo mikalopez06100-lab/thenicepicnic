@@ -25,177 +25,203 @@ export default async function CgvPage({ params }: Props) {
       {isFr ? (
         <article className="space-y-6 text-sm leading-7 text-[var(--ink2)]">
           <p className="text-[var(--muted)]">
-            Date de mise a jour : 29/03/2026. Les presentes conditions generales
-            de vente s&apos;appliquent a toutes les reservations effectuees sur
-            le site The Nice Picnic.
+            Version finale des Conditions Générales de Vente de THE NICE PICNIC.
           </p>
 
           <section className="space-y-2">
             <h2 className="font-medium uppercase tracking-[0.08em]">
-              1. Identite du vendeur
+              Article 1 – Objet
             </h2>
             <p>
-              The Nice Picnic - Micro-entreprise (auto-entrepreneur), APE 9329Z.
+              Les présentes Conditions Générales de Vente (CGV) régissent les
+              prestations proposées par l&apos;association THE NICE PICNIC, dont
+              le siège est situé au :
               <br />
-              Adresse : [A COMPLETER]
-              <br />
-              SIREN : [A COMPLETER]
+              22 Avenue Gustavin, 06300 Nice
               <br />
               Email : hello@thenicepicnic.com
             </p>
-          </section>
-
-          <section className="space-y-2">
-            <h2 className="font-medium uppercase tracking-[0.08em]">
-              2. Objet
-            </h2>
-            <p>
-              Les CGV definissent les droits et obligations des parties dans le
-              cadre de la vente en ligne de prestations de pique-nique cle en
-              main, kits et options proposes par The Nice Picnic.
-            </p>
-          </section>
-
-          <section className="space-y-2">
-            <h2 className="font-medium uppercase tracking-[0.08em]">
-              3. Prestations et disponibilite
-            </h2>
-            <p>
-              Les offres (Kit, Medium, Prestige, options) sont celles presentes
-              sur le site au jour de la commande. Les prestations sont
-              proposees sous reserve de disponibilite, conditions meteo,
-              saisonnalite et contraintes logistiques locales.
-            </p>
-          </section>
-
-          <section className="space-y-2">
-            <h2 className="font-medium uppercase tracking-[0.08em]">
-              4. Prix
-            </h2>
-            <p>
-              Les prix sont indiques en euros TTC. The Nice Picnic se reserve le
-              droit de modifier ses tarifs a tout moment ; la prestation est
-              facturee au tarif en vigueur au moment de la validation de la
-              commande.
-            </p>
-          </section>
-
-          <section className="space-y-2">
-            <h2 className="font-medium uppercase tracking-[0.08em]">
-              5. Reservation et paiement
-            </h2>
-            <p>
-              La reservation devient ferme apres validation du paiement en ligne
-              via Stripe. Le client garantit etre pleinement habilite a utiliser
-              le moyen de paiement fourni.
-            </p>
-          </section>
-
-          <section className="space-y-2">
-            <h2 className="font-medium uppercase tracking-[0.08em]">
-              6. Caution materiel
-            </h2>
-            <p>
-              Une pre-autorisation bancaire de 200 EUR peut etre demandee pour
-              couvrir la degradation, la perte ou la non-restitution du
-              materiel. Cette somme n&apos;est pas encaissee sauf en cas de
-              dommage constate.
-            </p>
-          </section>
-
-          <section className="space-y-2">
-            <h2 className="font-medium uppercase tracking-[0.08em]">
-              7. Annulation et report
-            </h2>
+            <p>THE NICE PICNIC propose des expériences de pique-nique comprenant :</p>
             <ul className="list-disc space-y-1 pl-5">
-              <li>Annulation a plus de 7 jours : remboursement a 100 %.</li>
-              <li>Annulation entre 3 et 7 jours : remboursement a 50 %.</li>
-              <li>Annulation a moins de 48h : non remboursable.</li>
-              <li>
-                En cas de meteo defavorable, un report de date est propose selon
-                disponibilites.
-              </li>
+              <li>la mise à disposition de kits pique-nique</li>
+              <li>des installations sur mesure</li>
+              <li>l&apos;organisation d&apos;événements</li>
             </ul>
           </section>
 
           <section className="space-y-2">
             <h2 className="font-medium uppercase tracking-[0.08em]">
-              8. Obligations du client
+              Article 2 – Acceptation des CGV
             </h2>
             <p>
-              Le client s&apos;engage a respecter les horaires, les lieux
-              communiques, le materiel mis a disposition et les regles de
-              securite. Toute utilisation abusive, dangereuse ou illicite de la
-              prestation engage sa responsabilite.
+              Toute commande implique l&apos;acceptation pleine et entière des
+              présentes CGV.
             </p>
           </section>
 
           <section className="space-y-2">
             <h2 className="font-medium uppercase tracking-[0.08em]">
-              9. Responsabilite
+              Article 3 – Prestations
             </h2>
+            <p>Les prestations incluent, selon le package choisi :</p>
+            <ul className="list-disc space-y-1 pl-5">
+              <li>mise à disposition de matériel (mobilier, décoration, accessoires)</li>
+              <li>installation et désinstallation</li>
+              <li>personnalisation de l&apos;expérience</li>
+            </ul>
+            <p>Le contenu exact est précisé lors de la commande.</p>
+          </section>
+
+          <section className="space-y-2">
+            <h2 className="font-medium uppercase tracking-[0.08em]">
+              Article 4 – Commande
+            </h2>
+            <p>La commande est validée après :</p>
+            <ul className="list-disc space-y-1 pl-5">
+              <li>paiement en ligne par carte bancaire</li>
+              <li>confirmation envoyée par email</li>
+            </ul>
             <p>
-              The Nice Picnic est tenue a une obligation de moyens. Sa
-              responsabilite ne saurait etre engagee en cas de force majeure,
-              faits imputables a un tiers, ou mauvaise execution due au client.
+              THE NICE PICNIC se réserve le droit de refuser une commande en cas
+              de demande anormale ou indisponibilité.
             </p>
           </section>
 
           <section className="space-y-2">
             <h2 className="font-medium uppercase tracking-[0.08em]">
-              10. Droit de retractation
+              Article 5 – Prix et paiement
             </h2>
+            <p>Les prix sont indiqués en euros.</p>
+            <p>Le paiement s&apos;effectue en ligne par carte bancaire.</p>
+            <p>Une caution obligatoire de 100€ est demandée pour toute prestation.</p>
+          </section>
+
+          <section className="space-y-2">
+            <h2 className="font-medium uppercase tracking-[0.08em]">
+              Article 6 – Caution et responsabilité financière
+            </h2>
+            <p>La caution couvre notamment :</p>
+            <ul className="list-disc space-y-1 pl-5">
+              <li>dégradations</li>
+              <li>pertes</li>
+              <li>vols</li>
+              <li>matériel non restitué</li>
+              <li>nettoyage anormal</li>
+            </ul>
+            <p>Elle est restituée après vérification à l&apos;issue de la prestation.</p>
             <p>
-              Conformement a l&apos;article L221-28 du Code de la consommation,
-              le droit de retractation ne s&apos;applique pas aux prestations de
-              services de loisirs fournies a une date ou periode determinee.
+              En cas de dommages supérieurs au montant de la caution : THE NICE
+              PICNIC se réserve le droit de facturer au client toute somme
+              complémentaire nécessaire à la réparation du préjudice subi.
             </p>
           </section>
 
           <section className="space-y-2">
             <h2 className="font-medium uppercase tracking-[0.08em]">
-              11. Donnees personnelles
+              Article 7 – Conditions d&apos;annulation
             </h2>
+            <p>Annulation par le client</p>
             <p>
-              Les donnees collectees sont traitees pour la gestion des
-              reservations et la relation client. Le client peut exercer ses
-              droits d&apos;acces, rectification et suppression en ecrivant a
-              hello@thenicepicnic.com.
+              Plus de 7 jours avant la prestation : report de la prestation ou
+              avoir valable 6 mois.
+            </p>
+            <p>Moins de 7 jours : aucun remboursement ni avoir.</p>
+            <p>
+              Absence ou retard : toute prestation non honorée du fait du client
+              reste due dans sa totalité.
             </p>
           </section>
 
           <section className="space-y-2">
             <h2 className="font-medium uppercase tracking-[0.08em]">
-              12. Droit applicable et litiges
+              Article 8 – Conditions météorologiques
             </h2>
             <p>
-              Les presentes CGV sont soumises au droit francais. En cas de
-              litige, une resolution amiable est privilegiee avant toute action
-              judiciaire. A defaut d&apos;accord, competence est attribuee aux
-              juridictions francaises competentes.
+              En cas de conditions météorologiques défavorables (pluie, vent,
+              intempéries), THE NICE PICNIC se réserve le droit de proposer un
+              report et une adaptation de la prestation peut être envisagée.
+            </p>
+            <p>Aucun remboursement ne sera effectué pour cause de météo.</p>
+          </section>
+
+          <section className="space-y-2">
+            <h2 className="font-medium uppercase tracking-[0.08em]">
+              Article 9 – Produits alimentaires et boissons
+            </h2>
+            <p>
+              Dans le cadre de ses prestations, THE NICE PICNIC peut proposer des
+              produits alimentaires et boissons. Ces produits sont fournis
+              exclusivement par des prestataires partenaires indépendants.
+            </p>
+            <p>À ce titre :</p>
+            <ul className="list-disc space-y-1 pl-5">
+              <li>THE NICE PICNIC n&apos;agit pas en qualité de restaurateur</li>
+              <li>
+                la responsabilité liée aux produits (qualité, conservation,
+                conformité) incombe au prestataire partenaire
+              </li>
+              <li>le client est responsable de la consommation des produits</li>
+            </ul>
+            <p>THE NICE PICNIC ne pourra être tenu responsable en cas :</p>
+            <ul className="list-disc space-y-1 pl-5">
+              <li>d&apos;allergie</li>
+              <li>d&apos;intolérance</li>
+              <li>de mauvaise utilisation ou conservation après remise</li>
+            </ul>
+          </section>
+
+          <section className="space-y-2">
+            <h2 className="font-medium uppercase tracking-[0.08em]">
+              Article 10 – Responsabilité
+            </h2>
+            <p>
+              Le client est responsable du matériel mis à disposition pendant
+              toute la durée de la prestation.
+            </p>
+            <p>Il s&apos;engage à :</p>
+            <ul className="list-disc space-y-1 pl-5">
+              <li>en faire un usage normal</li>
+              <li>surveiller les équipements</li>
+              <li>restituer l&apos;ensemble en bon état</li>
+            </ul>
+            <p>Toute dégradation pourra donner lieu à facturation.</p>
+          </section>
+
+          <section className="space-y-2">
+            <h2 className="font-medium uppercase tracking-[0.08em]">
+              Article 11 – Utilisation des lieux
+            </h2>
+            <p>Le client est responsable du respect :</p>
+            <ul className="list-disc space-y-1 pl-5">
+              <li>des lieux publics ou privés</li>
+              <li>des règles locales</li>
+              <li>de l&apos;environnement</li>
+            </ul>
+            <p>
+              THE NICE PICNIC ne pourra être tenu responsable en cas de
+              non-respect de la réglementation par le client.
             </p>
           </section>
 
-          <section className="space-y-2 rounded-md border border-[var(--bg3)] bg-[var(--bg2)] p-4">
+          <section className="space-y-2">
             <h2 className="font-medium uppercase tracking-[0.08em]">
-              Mediation de la consommation
+              Article 12 – Données personnelles
             </h2>
             <p>
-              Conformement aux articles L.611-1 et suivants du Code de la
-              consommation, le client a le droit de recourir gratuitement a un
-              mediateur de la consommation en vue de la resolution amiable d&apos;un
-              litige.
+              Les données collectées sont utilisées uniquement pour la gestion
+              des commandes et la relation client. Elles ne sont ni vendues ni
+              cédées à des tiers.
             </p>
+          </section>
+
+          <section className="space-y-2">
+            <h2 className="font-medium uppercase tracking-[0.08em]">
+              Article 13 – Droit applicable
+            </h2>
             <p>
-              Mediateur propose : [A COMPLETER - Nom de l&apos;organisme]
-              <br />
-              Site internet : [A COMPLETER]
-              <br />
-              Adresse postale : [A COMPLETER]
-            </p>
-            <p>
-              Plateforme europeenne de reglement en ligne des litiges (RLL) :
-              https://ec.europa.eu/consumers/odr
+              Les présentes CGV sont soumises au droit français. En cas de
+              litige, une solution amiable sera privilégiée avant toute action
+              judiciaire.
             </p>
           </section>
         </article>
@@ -269,7 +295,7 @@ export default async function CgvPage({ params }: Props) {
               6. Equipment deposit
             </h2>
             <p>
-              A EUR 200 card pre-authorization may be requested to cover damage,
+              A EUR 100 card pre-authorization may be requested to cover damage,
               loss, or non-return of equipment. This amount is not charged
               unless damage is confirmed.
             </p>

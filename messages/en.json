@@ -49,7 +49,7 @@
       },
       {
         "q": "How does the deposit work?",
-        "a": "€200 pre-authorisation on your card via Stripe. Nothing is charged: the amount is simply held and released when all equipment is returned in good condition."
+        "a": "€100 pre-authorisation on your card via Stripe. Nothing is charged: the amount is simply held and released when all equipment is returned in good condition."
       },
       {
         "q": "What if it rains?",
@@ -146,7 +146,7 @@
           "Couple question cards + Spotify playlist",
           "Standard spots map (QR code)"
         ],
-        "foot": "Food & drinks option: +€10/person · Equipment deposit: €200",
+        "foot": "Food & drinks option: +€10/person · Equipment deposit: €100",
         "cta": "Book — €29.90/person"
       },
       "medium": {
@@ -227,7 +227,7 @@
       "prestigeRow": "👑 Prestige",
       "mediumAll": "€59 (all inclusive)",
       "prestigeAll": "€79 (all inclusive)",
-      "footnote": "Equipment deposit: €200 (card pre-authorisation). Bellet AOC option +€20."
+      "footnote": "Equipment deposit: €100 (card pre-authorisation). Bellet AOC option +€20."
     },
     "divider": {
       "imgAlt": "Promenade des Anglais — Sunset on the Nice waterfront",

@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import {
+  markReservationConfirmed,
+  markReservationExpiredBySession,
+} from "@/lib/reservations";
 import { getStripeClient } from "@/lib/stripe";
 
 export async function POST(req: NextRequest) {
@@ -22,6 +26,19 @@ export async function POST(req: NextRequest) {
       case "checkout.session.completed": {
         const session = event.data.object as Stripe.Checkout.Session;
         console.log("checkout.session.completed", session.id);
+        const reservationId =
+          typeof session.client_reference_id === "string"
+            ? session.client_reference_id
+            : session.metadata?.reservationId;
+        if (reservationId) {
+          await markReservationConfirmed(reservationId, session.id);
+        }
+        break;
+      }
+      case "checkout.session.expired": {
+        const session = event.data.object as Stripe.Checkout.Session;
+        console.log("checkout.session.expired", session.id);
+        await markReservationExpiredBySession(session.id);
         break;
       }
       case "payment_intent.succeeded": {
