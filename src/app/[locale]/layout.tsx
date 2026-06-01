@@ -2,24 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
-import { Cormorant_Garamond, Outfit } from "next/font/google";
 import { routing } from "@/i18n/routing";
-import "../globals.css";
-
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  style: ["normal", "italic"],
-  variable: "--font-cormorant",
-  display: "swap",
-});
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  variable: "--font-outfit",
-  display: "swap",
-});
 
 type Props = {
   children: React.ReactNode;
@@ -86,15 +69,6 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = await getMessages();
 
   return (
-    <html
-      lang={locale}
-      className={`${cormorant.variable} ${outfit.variable} h-full scroll-smooth antialiased`}
-    >
-      <body className="min-h-full overflow-x-hidden">
-        <NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
   );
 }

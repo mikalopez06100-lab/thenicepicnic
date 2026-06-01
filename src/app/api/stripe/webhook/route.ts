@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import {
+  getReservationById,
   markReservationConfirmed,
   markReservationExpiredBySession,
 } from "@/lib/reservations";
+import { sendReservationNotifications } from "@/lib/reservation-notifications";
 import { getStripeClient } from "@/lib/stripe";
 
 export async function POST(req: NextRequest) {
@@ -31,7 +33,12 @@ export async function POST(req: NextRequest) {
             ? session.client_reference_id
             : session.metadata?.reservationId;
         if (reservationId) {
-          await markReservationConfirmed(reservationId, session.id);
+          const existing = await getReservationById(reservationId);
+          const wasAlreadyConfirmed = existing?.status === "confirmed";
+          const reservation = await markReservationConfirmed(reservationId, session.id);
+          if (reservation && !wasAlreadyConfirmed) {
+            await sendReservationNotifications(reservation, session);
+          }
         }
         break;
       }

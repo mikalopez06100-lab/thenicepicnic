@@ -1,6 +1,11 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
+import {
+  formatReservationTime,
+  getDefaultTimeForSlot,
+  resolveReservationTime,
+} from "@/lib/reservation-labels";
 
 type Props = {
   locale: string;
@@ -26,12 +31,45 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
   );
   const [slot, setSlot] = useState<SlotOption["value"]>("lunch");
   const [reservationDate, setReservationDate] = useState("");
+  const [reservationTime, setReservationTime] = useState(() =>
+    getDefaultTimeForSlot("lunch"),
+  );
   const [customerName, setCustomerName] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
   const [people, setPeople] = useState(2);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [slotAvailability, setSlotAvailability] = useState<
+    Record<string, { available: number; blocked: boolean }>
+  >({});
+
+  const loadAvailability = useCallback(async (date: string) => {
+    if (!date) {
+      setSlotAvailability({});
+      return;
+    }
+    try {
+      const res = await fetch(`/api/availability?date=${encodeURIComponent(date)}`);
+      const data = (await res.json()) as {
+        slots?: { slot: string; available: number; blocked: boolean }[];
+      };
+      if (!res.ok || !data.slots) {
+        return;
+      }
+      const map: Record<string, { available: number; blocked: boolean }> = {};
+      for (const s of data.slots) {
+        map[s.slot] = { available: s.available, blocked: s.blocked };
+      }
+      setSlotAvailability(map);
+    } catch {
+      setSlotAvailability({});
+    }
+  }, []);
+
+  useEffect(() => {
+    void loadAvailability(reservationDate);
+  }, [reservationDate, loadAvailability]);
 
   const options = useMemo<PackageOption[]>(
     () =>
@@ -105,8 +143,16 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
           ],
     [isFr],
   );
+  useEffect(() => {
+    setReservationTime(getDefaultTimeForSlot(slot));
+  }, [slot]);
+
   const selected = options.find((o) => o.value === pack) ?? options[0];
   const selectedSlot = slotOptions.find((s) => s.value === slot) ?? slotOptions[1];
+  const displayTime = formatReservationTime(
+    resolveReservationTime(slot, reservationTime),
+    isFr ? "fr" : "en",
+  );
   const today = new Date();
   const minDate = new Date(today.getFullYear(), today.getMonth(), today.getDate())
     .toISOString()
@@ -182,6 +228,16 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
       return;
     }
 
+    const avail = slotAvailability[slot];
+    if (avail?.blocked || avail?.available === 0) {
+      setError(
+        isFr
+          ? "Ce créneau n'est plus disponible à cette date."
+          : "This timeslot is no longer available on this date.",
+      );
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -194,6 +250,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
           quantity: people,
           slot,
           reservationDate,
+          reservationTime: resolveReservationTime(slot, reservationTime),
           customerName: normalizedName,
           customerEmail: normalizedEmail,
           customerPhone: normalizedPhone,
@@ -353,16 +410,30 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
             <div className="grid grid-cols-3 gap-2.5 rounded-2xl border border-[var(--bg3)] bg-[var(--bg)] p-2 sm:gap-3 sm:p-2.5">
               {slotOptions.map((s) => {
                 const active = s.value === slot;
+                const avail = slotAvailability[s.value];
+                const unavailable =
+                  reservationDate &&
+                  (avail?.blocked || avail?.available === 0);
                 return (
                   <button
                     key={s.value}
                     type="button"
-                    onClick={() => setSlot(s.value)}
+                    onClick={() => !unavailable && setSlot(s.value)}
+                    disabled={Boolean(unavailable)}
                     aria-pressed={active}
+                    title={
+                      unavailable
+                        ? isFr
+                          ? "Créneau indisponible"
+                          : "Timeslot unavailable"
+                        : undefined
+                    }
                     className={`flex h-[44px] items-center justify-center rounded-xl border px-1.5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.08em] transition sm:h-[48px] sm:px-2 sm:py-3 sm:text-[13px] sm:tracking-[0.1em] ${
-                      active
-                        ? "border-[var(--ink)] bg-[var(--ink)] text-white shadow-[0_10px_24px_rgba(26,23,20,0.28)]"
-                        : "border-[var(--bg3)] bg-white text-[var(--ink)] hover:-translate-y-0.5 hover:border-[var(--terra)]/55 hover:shadow-[0_8px_18px_rgba(26,23,20,0.1)]"
+                      unavailable
+                        ? "cursor-not-allowed border-[var(--bg3)] bg-[var(--bg2)] text-[var(--muted)] opacity-60"
+                        : active
+                          ? "border-[var(--ink)] bg-[var(--ink)] text-white shadow-[0_10px_24px_rgba(26,23,20,0.28)]"
+                          : "border-[var(--bg3)] bg-white text-[var(--ink)] hover:-translate-y-0.5 hover:border-[var(--terra)]/55 hover:shadow-[0_8px_18px_rgba(26,23,20,0.1)]"
                     }`}
                   >
                     {s.label}
@@ -370,6 +441,30 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
                 );
               })}
             </div>
+          </div>
+
+          <div className="min-w-0">
+            <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--muted)] sm:tracking-[0.16em]">
+              {isFr ? "6. Heure du pique-nique" : "6. Picnic time"}
+            </p>
+            <label
+              htmlFor="reservation-time"
+              className="block rounded-2xl border border-[var(--bg3)] bg-[var(--bg)] p-2.5 sm:p-3"
+            >
+              <input
+                id="reservation-time"
+                type="time"
+                value={reservationTime}
+                onChange={(e) => setReservationTime(e.target.value)}
+                className="h-[50px] w-full rounded-xl border border-[var(--terra)]/40 bg-white px-3.5 py-2.5 text-[14px] text-[var(--ink)] outline-none transition focus:border-[var(--terra)] focus:ring-2 focus:ring-[var(--terra)]/20 sm:px-4 sm:py-3 sm:text-[15px]"
+                required
+              />
+            </label>
+            <p className="mt-2 text-[12px] text-[var(--muted)]">
+              {isFr
+                ? "Heure par défaut selon le créneau ; modifiable si besoin."
+                : "Default time follows your timeslot; adjust if needed."}
+            </p>
           </div>
         </div>
 
@@ -386,6 +481,9 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
           </p>
           <p className="text-[12px] text-[var(--muted)]">
             {isFr ? "Date :" : "Date:"} {formattedDate}
+          </p>
+          <p className="text-[12px] text-[var(--muted)]">
+            {isFr ? "Heure :" : "Time:"} {displayTime}
           </p>
           </div>
           <p className="font-[family-name:var(--font-cormorant)] text-5xl font-light leading-none text-[var(--terra)] transition-all duration-300">

@@ -5,6 +5,7 @@ import {
   createPendingReservation,
   markReservationCancelled,
 } from "@/lib/reservations";
+import { resolveReservationTime } from "@/lib/reservation-labels";
 import {
   getStripeCatalogId,
   getStripeClient,
@@ -19,6 +20,7 @@ type Payload = {
   quantity?: number;
   slot?: "breakfast" | "lunch" | "aperitif";
   reservationDate?: string;
+  reservationTime?: string;
   customerName?: string;
   customerEmail?: string;
   customerPhone?: string;
@@ -64,6 +66,10 @@ export async function POST(req: NextRequest) {
     if (!slot || !["breakfast", "lunch", "aperitif"].includes(slot)) {
       return NextResponse.json({ error: "Invalid timeslot." }, { status: 400 });
     }
+    const reservationTime = resolveReservationTime(
+      slot,
+      body.reservationTime?.trim(),
+    );
     if (!reservationDate || !/^\d{4}-\d{2}-\d{2}$/.test(reservationDate)) {
       return NextResponse.json({ error: "Invalid reservation date." }, { status: 400 });
     }
@@ -115,6 +121,7 @@ export async function POST(req: NextRequest) {
     const reservationResult = await createPendingReservation({
       packageType,
       reservationDate,
+      reservationTime,
       slot,
       quantity,
       locale,
@@ -144,6 +151,7 @@ export async function POST(req: NextRequest) {
           quantity: String(quantity),
           slot,
           reservationDate,
+          reservationTime,
           customerName,
           customerPhone,
           // TODO: add deposit flow (pre-authorization 100 EUR)
