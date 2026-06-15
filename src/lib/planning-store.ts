@@ -37,6 +37,15 @@ export async function addPlanningEntry(input: {
   };
 
   await insertPlanningEntry(entry);
+  void import("@/lib/gyg/notify").then(({ notifyGygAvailabilityChange }) => {
+    if (entry.slot !== "day") {
+      notifyGygAvailabilityChange(entry.date, entry.slot);
+    } else {
+      for (const slot of ["breakfast", "lunch", "aperitif"] as const) {
+        notifyGygAvailabilityChange(entry.date, slot);
+      }
+    }
+  });
   return entry;
 }
 

@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
+import { normalizeDateOnly } from "@/lib/date-only";
 import { ensureDatabaseSchema, getSql, isDatabaseEnabled } from "@/lib/db";
 import type {
   PlanningEntry,
@@ -41,10 +42,7 @@ function getPlanningFile() {
 }
 
 function rowToEntry(row: PlanningRow): PlanningEntry {
-  const date =
-    typeof row.entry_date === "string"
-      ? row.entry_date.slice(0, 10)
-      : String(row.entry_date);
+  const date = normalizeDateOnly(row.entry_date);
 
   return {
     id: row.id,
@@ -112,7 +110,7 @@ export async function insertPlanningEntry(entry: PlanningEntry) {
       ) VALUES (
         ${entry.id},
         ${entry.kind},
-        ${entry.date},
+        ${normalizeDateOnly(entry.date)},
         ${entry.slot},
         ${entry.source},
         ${entry.label ?? null},

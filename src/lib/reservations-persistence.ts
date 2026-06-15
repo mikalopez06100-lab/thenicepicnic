@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
+import { normalizeDateOnly } from "@/lib/date-only";
 import { ensureDatabaseSchema, getSql, isDatabaseEnabled } from "@/lib/db";
 import type {
   ReservationPackage,
@@ -47,10 +48,7 @@ function getDataFile() {
 }
 
 function rowToRecord(row: ReservationRow): ReservationRecord {
-  const date =
-    typeof row.reservation_date === "string"
-      ? row.reservation_date.slice(0, 10)
-      : String(row.reservation_date);
+  const date = normalizeDateOnly(row.reservation_date);
 
   return {
     id: row.id,
@@ -111,7 +109,7 @@ async function upsertReservationDb(record: ReservationRecord) {
       ${record.expiresAt},
       ${record.status},
       ${record.packageType},
-      ${record.reservationDate},
+      ${normalizeDateOnly(record.reservationDate)},
       ${record.reservationTime ?? null},
       ${record.slot},
       ${record.quantity},

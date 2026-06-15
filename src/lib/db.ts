@@ -84,4 +84,35 @@ async function runMigrations() {
     CREATE INDEX IF NOT EXISTS idx_planning_entry_date
     ON planning_entries (entry_date)
   `;
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS gyg_reservations (
+      id TEXT PRIMARY KEY,
+      product_id TEXT NOT NULL,
+      status TEXT NOT NULL,
+      reservation_date DATE NOT NULL,
+      reservation_time TEXT NOT NULL,
+      slot TEXT NOT NULL,
+      participants INTEGER NOT NULL,
+      gyg_booking_reference TEXT,
+      gyg_reservation_reference TEXT,
+      customer_name TEXT,
+      customer_email TEXT,
+      customer_phone TEXT,
+      expires_at TIMESTAMPTZ NOT NULL,
+      booked_at TIMESTAMPTZ,
+      created_at TIMESTAMPTZ NOT NULL,
+      updated_at TIMESTAMPTZ NOT NULL
+    )
+  `;
+
+  await sql`
+    CREATE INDEX IF NOT EXISTS idx_gyg_reservations_date_slot
+    ON gyg_reservations (reservation_date, slot)
+  `;
+
+  await sql`
+    CREATE INDEX IF NOT EXISTS idx_gyg_reservations_status
+    ON gyg_reservations (status)
+  `;
 }
