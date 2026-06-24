@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "db:setup": "node --env-file=.env.local scripts/db-setup.mjs",
-    "gallery:build": "node scripts/compress-gallery.mjs"
+    "gallery:build": "node scripts/compress-gallery.mjs",
+    "testimonials:build": "node scripts/compress-testimonials.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",

@@ -142,6 +142,15 @@
       "desc": "Bohemian setups, Niçoise apéritifs, intimate moments and Riviera sunsets — our own photos, not stock imagery.",
       "viewAll": "View all photos"
     },
+    "testimonials": {
+      "tag": "Testimonials",
+      "titleRich": "They say it <em>better than we do</em>…",
+      "desc": "Guests sharing their The Nice Picnic experience — on video, unfiltered.",
+      "play": "Play testimonial",
+      "close": "Close video",
+      "prev": "Previous video",
+      "next": "Next video"
+    },
     "packages": {
       "tag": "Our packages",
       "titleRich": "Four experiences, <em>one same joy</em>",
@@ -235,7 +244,7 @@
     "bento": {
       "tag": "The experience",
       "titleRich": "What makes every moment <em>unique</em>",
-      "imgAlt": "Romantic picnic styling — Nice, French Riviera",
+      "imgAlt": "Rosé toast and Niçoise apéritif board — The Nice Picnic experience",
       "b1t": "Photo keepsakes",
       "b1p": "Photo printer included in the Premium package. Take home instant keepsakes.",
       "b2t": "Couple question cards",
@@ -311,7 +320,7 @@
       "cta": "Book Floating Picnic"
     },
     "editorialPrestige": {
-      "imgAlt": "Premium picnic experience — French Riviera",
+      "imgAlt": "Premium apéritif board by the sea — The Nice Picnic Premium experience",
       "tag": "Premium",
       "titleRich": "For the moments that <em>truly</em> matter",
       "desc": "Proposal, anniversary, romantic surprise… Refined styling, Moroccan lamps, photo printer and a creative touch. A memory etched forever.",

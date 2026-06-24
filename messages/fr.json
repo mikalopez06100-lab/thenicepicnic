@@ -142,6 +142,15 @@
       "desc": "Installations bohème, apéros niçois, moments complices et sunsets sur la Côte d'Azur — nos vraies photos, pas des visuels stock.",
       "viewAll": "Voir toutes les photos"
     },
+    "testimonials": {
+      "tag": "Témoignages",
+      "titleRich": "Ils en parlent <em>mieux que nous</em>…",
+      "desc": "Des clients partagent leur expérience The Nice Picnic — en vidéo, sans filtre.",
+      "play": "Lire le témoignage",
+      "close": "Fermer la vidéo",
+      "prev": "Vidéo précédente",
+      "next": "Vidéo suivante"
+    },
     "packages": {
       "tag": "Nos packages",
       "titleRich": "4 expériences, <em>un même bonheur</em>",
@@ -235,7 +244,7 @@
     "bento": {
       "tag": "L'expérience",
       "titleRich": "Ce qui rend chaque moment <em>unique</em>",
-      "imgAlt": "Installation pique-nique romantique — Romantic picnic styling, Nice",
+      "imgAlt": "Toast au rosé et planche apéro niçoise — expérience pique-nique The Nice Picnic",
       "b1t": "Photos souvenirs",
       "b1p": "Imprimante photo incluse dans le package Premium. Repartez avec de jolis souvenirs instantanés.",
       "b2t": "Cartes questions couple",
@@ -311,7 +320,7 @@
       "cta": "Réserver le Floating"
     },
     "editorialPrestige": {
-      "imgAlt": "Expérience Premium pique-nique — Prestige picnic experience, Côte d'Azur",
+      "imgAlt": "Planche apéro premium face à la mer — expérience Premium The Nice Picnic",
       "tag": "Premium",
       "titleRich": "Pour les moments qui comptent <em>vraiment</em>",
       "desc": "Demande en mariage, anniversaire, surprise romantique… Décoration raffinée, lampes marocaines, imprimante photo et touche créative. Un souvenir gravé pour toujours.",

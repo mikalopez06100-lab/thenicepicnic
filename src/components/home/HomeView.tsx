@@ -7,8 +7,10 @@ import {
   PACKAGE_CATALOG,
 } from "@/lib/packages";
 import { featuredGalleryPhotos } from "@/lib/gallery-data";
+import { testimonialVideos } from "@/lib/testimonials-data";
 import { homeImages, packageCardImages } from "./images";
 import { HomeGallerySwipe } from "./HomeGallerySwipe";
+import { HomeTestimonials } from "./HomeTestimonials";
 import { HomeFaq } from "./HomeFaq";
 import { Reveal } from "./Reveal";
 import { SiteFooter } from "./SiteFooter";
@@ -127,6 +129,24 @@ export async function HomeView() {
               locale={locale}
               viewAllLabel={t("gallery.viewAll")}
               viewAllHref="/galerie"
+            />
+          </div>
+        </Reveal>
+      </section>
+
+      <section className="sec" id="avis" style={{ background: "var(--bg)" }}>
+        <Reveal>
+          <div className="sec-inner">
+            <p className="tag">{t("testimonials.tag")}</p>
+            <h2 className="t">{t.rich("testimonials.titleRich", { em })}</h2>
+            <p className="desc">{t("testimonials.desc")}</p>
+            <HomeTestimonials
+              videos={testimonialVideos}
+              locale={locale}
+              playLabel={t("testimonials.play")}
+              closeLabel={t("testimonials.close")}
+              prevLabel={t("testimonials.prev")}
+              nextLabel={t("testimonials.next")}
             />
           </div>
         </Reveal>
