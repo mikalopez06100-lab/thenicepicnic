@@ -1,18 +1,17 @@
 import Stripe from "stripe";
+import {
+  BOOKABLE_PACKAGES,
+  type BookablePackage,
+} from "@/lib/packages";
 
 let stripeClient: Stripe | null = null;
 
-export type StripePackageType = "kit" | "kit_food" | "medium" | "prestige";
+export type StripePackageType = BookablePackage;
 
 const PACKAGE_ENV_KEYS: Record<
   StripePackageType,
   { product: string; price: string }
 > = {
-  kit: { product: "STRIPE_PRODUCT_ID_KIT", price: "STRIPE_PRICE_ID_KIT" },
-  kit_food: {
-    product: "STRIPE_PRODUCT_ID_KIT_FOOD",
-    price: "STRIPE_PRICE_ID_KIT_FOOD",
-  },
   medium: {
     product: "STRIPE_PRODUCT_ID_MEDIUM",
     price: "STRIPE_PRICE_ID_MEDIUM",
@@ -20,6 +19,14 @@ const PACKAGE_ENV_KEYS: Record<
   prestige: {
     product: "STRIPE_PRODUCT_ID_PRESTIGE",
     price: "STRIPE_PRICE_ID_PRESTIGE",
+  },
+  wellness: {
+    product: "STRIPE_PRODUCT_ID_WELLNESS",
+    price: "STRIPE_PRICE_ID_WELLNESS",
+  },
+  floating: {
+    product: "STRIPE_PRODUCT_ID_FLOATING",
+    price: "STRIPE_PRICE_ID_FLOATING",
   },
 };
 
@@ -45,7 +52,7 @@ export function getStripeCatalogId(packageType: StripePackageType): string | und
 }
 
 export function isStripePackageType(value: string): value is StripePackageType {
-  return value in PACKAGE_ENV_KEYS;
+  return (BOOKABLE_PACKAGES as readonly string[]).includes(value);
 }
 
 export async function resolveCheckoutPriceId(

@@ -10,12 +10,11 @@ import type {
   ReservationSlot,
   ReservationStatus,
 } from "@/lib/reservations";
+import { LEGACY_PACKAGES, BOOKABLE_PACKAGES } from "@/lib/packages";
 
 const VALID_PACKAGES = new Set<ReservationPackage>([
-  "kit",
-  "kit_food",
-  "medium",
-  "prestige",
+  ...BOOKABLE_PACKAGES,
+  ...LEGACY_PACKAGES,
 ]);
 
 const VALID_SLOTS = new Set<ReservationSlot>(["breakfast", "lunch", "aperitif"]);

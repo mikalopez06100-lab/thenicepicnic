@@ -26,9 +26,10 @@
     "tagline": "Exclusive & unique picnics on the French Riviera.",
     "contactUs": "Contact us",
     "colPackages": "Packages",
-    "kit": "The Kit",
     "medium": "Medium",
-    "prestige": "Prestige",
+    "prestige": "Premium",
+    "wellness": "Wellness Picnic",
+    "floating": "Floating Picnic",
     "menusLink": "Menus",
     "colInfo": "Info",
     "concept": "Concept",
@@ -45,11 +46,7 @@
     "items": [
       {
         "q": "How does it work?",
-        "a": "Book online and pay by card. The Kit: pick up your basket at the handover point. Medium & Prestige: we set everything up on an exclusive spot before you arrive. All you have to do is enjoy."
-      },
-      {
-        "q": "How does the deposit work?",
-        "a": "€100 pre-authorisation on your card via Stripe. Nothing is charged: the amount is simply held and released when all equipment is returned in good condition."
+        "a": "Book online and pay by card. We set everything up at an exclusive spot before you arrive — Medium, Premium, Wellness or Floating. All you have to do is enjoy."
       },
       {
         "q": "What if it rains?",
@@ -57,11 +54,11 @@
       },
       {
         "q": "How long does the experience last?",
-        "a": "The Kit: flexible, at your own pace. Medium: 2h30 guaranteed on site. Prestige: 3h30 guaranteed on a premium secret spot."
+        "a": "Medium and Floating: 1h30 on site. Premium: 2 hours. Wellness Picnic: 2 hours (1h yoga + 1h healthy brunch)."
       },
       {
         "q": "How many people is it for?",
-        "a": "Our packages are designed for 2 people (couples). For groups of friends, contact us for custom options."
+        "a": "Our packages are designed for 2 people (couples). Floating Picnic: strictly 2 guests maximum. For groups of friends, contact us for custom options."
       }
     ]
   },
@@ -118,7 +115,7 @@
       "step1Title": "Book online",
       "step1Text": "Choose your package and menu. Secure payment via Stripe, instant confirmation.",
       "step2Title": "We’re ready for you",
-      "step2Text": "The Kit: collect your basket at the handover point. Medium & Prestige: we set everything up at your spot.",
+      "step2Text": "Medium, Premium, Wellness or Floating: we set everything up at your spot before you arrive.",
       "step3Title": "Enjoy",
       "step3Text": "Savour the moment, print your keepsakes, and leave with stars in your eyes."
     },
@@ -130,52 +127,70 @@
     },
     "packages": {
       "tag": "Our packages",
-      "titleRich": "Three experiences, <em>one same joy</em>",
-      "desc": "From takeaway basket to a fully installed prestige experience — choose your formula.",
+      "titleRich": "Four experiences, <em>one same joy</em>",
+      "desc": "From a bohemian picnic set up for you to wellness and on-the-water experiences — choose your formula.",
       "perPerson": "/person",
       "popular": "Most popular",
-      "kit": {
-        "name": "The Kit",
-        "mode": "pick-up",
-        "items": [
-          "Wicker basket + insulated bag",
-          "Cushions, throw, waterproof tablecloth",
-          "Full tableware & cloth napkins",
-          "LED string lights, candles, Bluetooth speaker",
-          "Canon Selphy photo printer (10 prints)",
-          "Couple question cards + Spotify playlist",
-          "Standard spots map (QR code)"
-        ],
-        "foot": "Food & drinks option: +€10/person · Equipment deposit: €100",
-        "cta": "Book — €29.90/person"
-      },
       "medium": {
         "name": "Medium",
         "mode": "set up for you",
         "items": [
-          "Everything in the Kit",
-          "Set-up & take-down by our team",
-          "Exclusive reserved-access spots",
-          "Food & drinks included",
-          "Guaranteed time: 2h30 on site"
+          "A bohemian, carefully styled picnic setup",
+          "Rugs, cushions, jute garland and dreamcatcher",
+          "Niçoise apéritif: pissaladière, pichade, pan bagnat, stuffed vegetables, barbajuans, coca frita, tapenade and cherry tomatoes",
+          "Drinks: still water, sparkling water and rosé for two",
+          "Bluetooth speaker provided",
+          "Full set-up and take-down included",
+          "On-site duration: 1h30"
         ],
         "foot": "All inclusive — you arrive, you enjoy",
         "cta": "Book — €59/person"
       },
       "prestige": {
-        "name": "Prestige",
-        "mode": "premium experience",
+        "name": "Premium",
+        "mode": "refined experience",
         "items": [
-          "Everything in Medium",
-          "Tipi tent with drapes",
-          "Multiple Moroccan lanterns",
-          "Love locks + souvenir notebook",
-          "Complimentary glass of champagne",
-          "Premium secret spots (exclusive access)",
-          "Guaranteed time: 3h30"
+          "Everything in Medium, more refined and generous",
+          "Richer styling for a true wow effect",
+          "Moroccan-style lamps for a warm, intimate mood",
+          "Small canvas with brushes for a creative touch",
+          "Compact photo printer with paper for keepsakes",
+          "Full set-up and take-down included",
+          "On-site duration: 2 hours"
         ],
-        "foot": "The ultimate experience — memories for a lifetime",
+        "foot": "The premium experience — memories guaranteed",
         "cta": "Book — €79/person"
+      },
+      "wellness": {
+        "name": "Wellness Picnic",
+        "mode": "outdoor wellness",
+        "items": [
+          "A 2-hour outdoor wellness break",
+          "1 hour of yoga to relax and recentre",
+          "1 hour of healthy mini brunch — simple, fresh and indulgent",
+          "Mats provided",
+          "Light selection: fresh juice, iced tea, almonds and granola",
+          "A moment of calm, balance and disconnection"
+        ],
+        "foot": "€39 per person — wellness formula",
+        "cta": "Book — €39/person"
+      },
+      "floating": {
+        "name": "Floating Picnic",
+        "mode": "on the water",
+        "items": [
+          "Inflatable craft set up for a picnic — 2 guests maximum",
+          "Anchored ~30 m from shore in an unusual setting",
+          "Warm bohemian styling suited to the sea",
+          "Same apéritif as Medium with Niçoise specialities and drinks",
+          "Ladder, masks, snorkels, life jackets, hats, sunscreen, towels",
+          "Bluetooth speaker and playing cards",
+          "Photos taken during the experience, delivered on return",
+          "Waterproof bags and phone pouches",
+          "Duration: 1h30"
+        ],
+        "foot": "€89 per person — maximum 2 guests",
+        "cta": "Book — €89/person"
       }
     },
     "menus": {
@@ -191,20 +206,20 @@
       "drinksNote": "Drinks included: Côtes de Provence (red, rosé or white), homemade lemonade, water. Optional upgrade Bellet AOC wine +€20"
     },
     "ticker": [
-      "📸 Selphy photo prints",
-      "🕯️ Candles & LED string lights",
-      "🎵 Bluetooth speaker + playlist",
-      "💌 Couple question cards",
-      "🔒 Love locks (Prestige)",
-      "⛺ Tipi tent (Prestige)",
-      "🥂 Champagne included (Prestige)"
+      "🧘 Yoga & healthy brunch (Wellness)",
+      "🛶 Picnic on the water (Floating)",
+      "📸 Photo printer (Premium)",
+      "🕯️ Moroccan lamps (Premium)",
+      "🎵 Bluetooth speaker",
+      "🥂 Niçoise apéritif included",
+      "🌿 Local artisan specialities"
     ],
     "bento": {
       "tag": "The experience",
       "titleRich": "What makes every moment <em>unique</em>",
       "imgAlt": "Romantic picnic styling — Nice, French Riviera",
       "b1t": "Photo keepsakes",
-      "b1p": "Canon Selphy printer included in every kit. 10 prints to take home physical memories instantly.",
+      "b1p": "Photo printer included in the Premium package. Take home instant keepsakes.",
       "b2t": "Couple question cards",
       "b2p": "Reconnect. Playful questions to rediscover each other between bites.",
       "b3t": "Soundtrack",
@@ -219,15 +234,13 @@
       "titleRich": "Price <em>list</em>",
       "desc": "Per person. 100% online payment.",
       "colPackage": "Package",
-      "colNoFood": "No food",
-      "colWithFood": "With food",
+      "colPerPerson": "Per person",
       "colTwo": "For 2",
-      "kitRow": "🧺 The Kit",
       "mediumRow": "⭐ Medium",
-      "prestigeRow": "👑 Prestige",
-      "mediumAll": "€59 (all inclusive)",
-      "prestigeAll": "€79 (all inclusive)",
-      "footnote": "Equipment deposit: €100 (card pre-authorisation). Bellet AOC option +€20."
+      "prestigeRow": "👑 Premium",
+      "wellnessRow": "🧘 Wellness Picnic",
+      "floatingRow": "🛶 Floating Picnic",
+      "footnote": "100% online payment. Optional Bellet AOC wine upgrade +€20."
     },
     "divider": {
       "imgAlt": "Promenade des Anglais — Sunset on the Nice waterfront",
@@ -237,7 +250,7 @@
     "spots": {
       "tag": "The spots",
       "titleRich": "Our <em>secret</em> places",
-      "desc": "Standard spots included in the Kit. Exclusive spots reserved for Medium. Premium secret spots for Prestige.",
+      "desc": "Exclusive spots reserved for our installed experiences — Medium, Premium, Wellness and Floating.",
       "more": "+ more spots to discover once your package is booked",
       "list": [
         {
@@ -249,7 +262,7 @@
         {
           "tag": "Zen · Twilight",
           "title": "Mont Boron",
-          "small": "Premium Prestige spot",
+          "small": "Premium spot",
           "alt": "Mont Boron — Hill above Nice"
         },
         {
@@ -261,7 +274,7 @@
         {
           "tag": "Exclusive · Sea view",
           "title": "Heights of Nice",
-          "small": "Medium & Prestige spot",
+          "small": "Medium & Premium",
           "alt": "Hills above Nice — Mediterranean view"
         },
         {
@@ -273,11 +286,11 @@
       ]
     },
     "editorialPrestige": {
-      "imgAlt": "Prestige picnic experience — French Riviera",
-      "tag": "Prestige",
+      "imgAlt": "Premium picnic experience — French Riviera",
+      "tag": "Premium",
       "titleRich": "For the moments that <em>truly</em> matter",
-      "desc": "Proposal, anniversary, romantic surprise… Tipi tent, Moroccan lanterns, champagne, love locks. A memory etched forever.",
-      "cta": "Discover Prestige"
+      "desc": "Proposal, anniversary, romantic surprise… Refined styling, Moroccan lamps, photo printer and a creative touch. A memory etched forever.",
+      "cta": "Discover Premium"
     },
     "gift": {
       "tag": "Gifting",

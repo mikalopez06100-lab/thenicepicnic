@@ -6,17 +6,19 @@ import {
   getDefaultTimeForSlot,
   resolveReservationTime,
 } from "@/lib/reservation-labels";
+import {
+  BOOKABLE_PACKAGES,
+  formatPackageHint,
+  formatPackagePrice,
+  getBookablePackageLabel,
+  isBookablePackage,
+  PACKAGE_CATALOG,
+  type BookablePackage,
+} from "@/lib/packages";
 
 type Props = {
   locale: string;
-  initialPackage?: "kit" | "kit_food" | "medium" | "prestige";
-};
-
-type PackageOption = {
-  value: "kit" | "kit_food" | "medium" | "prestige";
-  label: string;
-  hint: string;
-  unitAmount: number;
+  initialPackage?: BookablePackage;
 };
 
 type SlotOption = {
@@ -26,8 +28,9 @@ type SlotOption = {
 
 export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
   const isFr = locale === "fr";
-  const [pack, setPack] = useState<PackageOption["value"]>(
-    initialPackage || "medium",
+  const localeKey = isFr ? "fr" : "en";
+  const [pack, setPack] = useState<BookablePackage>(
+    initialPackage && isBookablePackage(initialPackage) ? initialPackage : "medium",
   );
   const [slot, setSlot] = useState<SlotOption["value"]>("lunch");
   const [reservationDate, setReservationDate] = useState("");
@@ -71,62 +74,16 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
     void loadAvailability(reservationDate);
   }, [reservationDate, loadAvailability]);
 
-  const options = useMemo<PackageOption[]>(
+  const options = useMemo(
     () =>
-      isFr
-        ? [
-            {
-              value: "kit",
-              label: "Le Kit",
-              hint: "29,90 EUR / pers",
-              unitAmount: 29.9,
-            },
-            {
-              value: "kit_food",
-              label: "Le Kit + food",
-              hint: "39,90 EUR / pers",
-              unitAmount: 39.9,
-            },
-            {
-              value: "medium",
-              label: "Medium",
-              hint: "59 EUR / pers",
-              unitAmount: 59,
-            },
-            {
-              value: "prestige",
-              label: "Prestige",
-              hint: "79 EUR / pers",
-              unitAmount: 79,
-            },
-          ]
-        : [
-            {
-              value: "kit",
-              label: "The Kit",
-              hint: "EUR 29.90 / person",
-              unitAmount: 29.9,
-            },
-            {
-              value: "kit_food",
-              label: "The Kit + food",
-              hint: "EUR 39.90 / person",
-              unitAmount: 39.9,
-            },
-            {
-              value: "medium",
-              label: "Medium",
-              hint: "EUR 59 / person",
-              unitAmount: 59,
-            },
-            {
-              value: "prestige",
-              label: "Prestige",
-              hint: "EUR 79 / person",
-              unitAmount: 79,
-            },
-          ],
-    [isFr],
+      BOOKABLE_PACKAGES.map((value) => ({
+        value,
+        label: getBookablePackageLabel(value, localeKey),
+        hint: formatPackageHint(value, localeKey),
+        unitAmount: PACKAGE_CATALOG[value].unitAmount,
+        maxGuests: PACKAGE_CATALOG[value].maxGuests,
+      })),
+    [localeKey],
   );
   const slotOptions = useMemo<SlotOption[]>(
     () =>
@@ -147,7 +104,13 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
     setReservationTime(getDefaultTimeForSlot(slot));
   }, [slot]);
 
+  useEffect(() => {
+    const max = PACKAGE_CATALOG[pack].maxGuests ?? 20;
+    setPeople((current) => Math.min(current, max));
+  }, [pack]);
+
   const selected = options.find((o) => o.value === pack) ?? options[0];
+  const maxGuests = selected.maxGuests ?? 20;
   const selectedSlot = slotOptions.find((s) => s.value === slot) ?? slotOptions[1];
   const displayTime = formatReservationTime(
     resolveReservationTime(slot, reservationTime),
@@ -212,6 +175,14 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
         isFr
           ? "Le minimum est de 2 personnes."
           : "Minimum booking size is 2 people.",
+      );
+      return;
+    }
+    if (people > maxGuests) {
+      setError(
+        isFr
+          ? `${selected.label} : maximum ${maxGuests} personnes.`
+          : `${selected.label}: maximum ${maxGuests} guests.`,
       );
       return;
     }
@@ -339,9 +310,10 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
               </div>
               <button
                 type="button"
-                onClick={() => setPeople((current) => Math.min(20, current + 1))}
+                onClick={() => setPeople((current) => Math.min(maxGuests, current + 1))}
                 className="h-10 w-10 rounded-xl border border-[var(--bg3)] bg-white text-xl text-[var(--ink2)] transition duration-200 hover:scale-105 hover:border-[var(--terra)] active:scale-95"
                 aria-label={isFr ? "Ajouter une personne" : "Add one person"}
+                disabled={people >= maxGuests}
               >
                 +
               </button>

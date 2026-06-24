@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { isBookablePackage } from "@/lib/packages";
 import { ReservationCheckoutForm } from "@/components/reservation/ReservationCheckoutForm";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -23,10 +24,8 @@ export default async function ReservationPage({
   const t = await getTranslations("Pages");
   const isFr = locale === "fr";
   const requestedPackage = (query.package || "").toLowerCase();
-  const initialPackage = (
-    ["kit", "kit_food", "medium", "prestige"] as const
-  ).includes(requestedPackage as "kit" | "kit_food" | "medium" | "prestige")
-    ? (requestedPackage as "kit" | "kit_food" | "medium" | "prestige")
+  const initialPackage = isBookablePackage(requestedPackage)
+    ? requestedPackage
     : undefined;
 
   return (

@@ -27,13 +27,16 @@ export async function SiteFooter() {
         <div>
           <h4 className="footer-col-title">{t("colPackages")}</h4>
           <a href="#packages" className="fl">
-            {t("kit")}
-          </a>
-          <a href="#packages" className="fl">
             {t("medium")}
           </a>
           <a href="#packages" className="fl">
             {t("prestige")}
+          </a>
+          <a href="#packages" className="fl">
+            {t("wellness")}
+          </a>
+          <a href="#packages" className="fl">
+            {t("floating")}
           </a>
           <a href="#menus" className="fl">
             {t("menusLink")}

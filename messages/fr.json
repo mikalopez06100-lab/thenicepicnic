@@ -26,9 +26,10 @@
     "tagline": "Pique-niques exclusifs & insolites sur la Côte d'Azur.",
     "contactUs": "Nous contacter",
     "colPackages": "Packages",
-    "kit": "Le Kit",
     "medium": "Medium",
-    "prestige": "Prestige",
+    "prestige": "Premium",
+    "wellness": "Wellness Picnic",
+    "floating": "Floating Picnic",
     "menusLink": "Les menus",
     "colInfo": "Infos",
     "concept": "Le concept",
@@ -45,11 +46,7 @@
     "items": [
       {
         "q": "Comment ça fonctionne ?",
-        "a": "Réservez en ligne et payez par CB. Le Kit : récupérez votre panier au point de remise. Medium & Prestige : on installe tout sur un spot exclusif avant votre arrivée. Vous n'avez qu'à profiter."
-      },
-      {
-        "q": "Comment fonctionne la caution ?",
-        "a": "100€ de pré-autorisation sur votre CB via Stripe. Aucun prélèvement : la somme est simplement bloquée puis libérée au retour complet du matériel en bon état."
+        "a": "Réservez en ligne et payez par CB. Nous installons tout sur un spot exclusif avant votre arrivée — Medium, Premium, Wellness ou Floating. Vous n'avez qu'à profiter."
       },
       {
         "q": "Et s'il pleut ?",
@@ -57,11 +54,11 @@
       },
       {
         "q": "Combien de temps dure l'expérience ?",
-        "a": "Le Kit : libre, à votre rythme. Le Medium : 2h30 garanties sur le spot. Le Prestige : 3h30 garanties sur un spot premium secret."
+        "a": "Medium et Floating : 1h30 sur site. Premium : 2h. Wellness Picnic : 2h (1h de yoga + 1h de brunch healthy)."
       },
       {
         "q": "C'est pour combien de personnes ?",
-        "a": "Nos packages sont conçus pour 2 personnes (couples). Groupes d'amis : contactez-nous pour des formules sur-mesure."
+        "a": "Nos formules sont conçues pour 2 personnes (couples). Floating Picnic : strictement 2 personnes maximum. Groupes d'amis : contactez-nous pour des formules sur-mesure."
       }
     ]
   },
@@ -118,7 +115,7 @@
       "step1Title": "Réservez en ligne",
       "step1Text": "Choisissez votre package et votre menu. Paiement sécurisé via Stripe, confirmation instantanée.",
       "step2Title": "On vous attend",
-      "step2Text": "Le Kit : récupérez votre panier au point de remise. Le Medium & Prestige : on installe tout sur votre spot.",
+      "step2Text": "Medium, Premium, Wellness ou Floating : on installe tout sur votre spot avant votre arrivée.",
       "step3Title": "Profitez",
       "step3Text": "Savourez l'instant, imprimez vos souvenirs, et repartez avec des étoiles dans les yeux."
     },
@@ -130,52 +127,70 @@
     },
     "packages": {
       "tag": "Nos packages",
-      "titleRich": "3 expériences, <em>un même bonheur</em>",
-      "desc": "Du panier à emporter à l'expérience prestige installée pour vous, choisissez votre formule.",
+      "titleRich": "4 expériences, <em>un même bonheur</em>",
+      "desc": "Du pique-nique bohème installé pour vous aux expériences bien-être et sur l'eau — choisissez votre formule.",
       "perPerson": "/personne",
       "popular": "Le + demandé",
-      "kit": {
-        "name": "Le Kit",
-        "mode": "pick-up",
-        "items": [
-          "Panier osier + sac isotherme",
-          "Coussins, plaid, nappe imperméable",
-          "Vaisselle complète & serviettes tissu",
-          "Guirlande LED, bougies, enceinte bluetooth",
-          "Imprimante photo Canon Selphy (10 tirages)",
-          "Cartes questions couple + playlist Spotify",
-          "Carte des spots standards (QR code)"
-        ],
-        "foot": "Option nourriture & boissons : +10€/pers · Caution matériel : 100€",
-        "cta": "Réserver — 29,90€/pers"
-      },
       "medium": {
         "name": "Medium",
         "mode": "installé pour vous",
         "items": [
-          "Tout le Kit inclus",
-          "Installation & désinstallation par nos soins",
-          "Spots exclusifs à accès réservé",
-          "Nourriture & boissons incluses",
-          "Durée garantie : 2h30 sur le spot"
+          "Installation pique-nique bohème et soignée",
+          "Tapis, coussins, guirlande en jute et attrape-rêve",
+          "Apéritif aux saveurs niçoises : pissaladière, pichade, pan bagnat, petits farcis, barbajuans, coca frita, tapenade et tomates cerises",
+          "Boissons : eau plate, eau pétillante et rosé pour deux",
+          "Enceinte Bluetooth mise à disposition",
+          "Mise en place et enlèvement complet inclus",
+          "Durée sur site : 1h30"
         ],
         "foot": "Tout inclus — vous arrivez, vous profitez",
         "cta": "Réserver — 59€/pers"
       },
       "prestige": {
-        "name": "Prestige",
-        "mode": "expérience premium",
+        "name": "Premium",
+        "mode": "expérience raffinée",
         "items": [
-          "Tout le Medium inclus",
-          "Tente tipi avec voilages",
-          "Lanternes marocaines multiples",
-          "Cadenas amoureux + carnet souvenir",
-          "Coupe de champagne offerte",
-          "Spots premium secrets (accès exclusif)",
-          "Durée garantie : 3h30"
+          "Tout l'univers du package Medium, plus raffiné et généreux",
+          "Décoration plus complète pour un effet « waouh »",
+          "Lampes style marocaines pour une ambiance intimiste",
+          "Petite toile avec pinceaux pour une touche créative",
+          "Petite imprimante photo avec papier pour vos souvenirs",
+          "Mise en place et enlèvement complet inclus",
+          "Durée sur site : 2h"
         ],
-        "foot": "L'expérience ultime — souvenirs garantis à vie",
+        "foot": "L'expérience premium — souvenirs garantis",
         "cta": "Réserver — 79€/pers"
+      },
+      "wellness": {
+        "name": "Wellness Picnic",
+        "mode": "bien-être en plein air",
+        "items": [
+          "Parenthèse bien-être de 2 heures en plein air",
+          "1h de cours de yoga pour se détendre et se recentrer",
+          "1h de mini brunch healthy, simple et gourmand",
+          "Tapis fournis",
+          "Assortiment léger : jus de fruits frais, thé glacé, amandes et granola",
+          "Un moment de douceur, d'équilibre et de déconnexion"
+        ],
+        "foot": "39€ par personne — formule bien-être",
+        "cta": "Réserver — 39€/pers"
+      },
+      "floating": {
+        "name": "Floating Picnic",
+        "mode": "sur l'eau",
+        "items": [
+          "Embarcation gonflable aménagée pour un pique-nique à deux maximum",
+          "Structure ancrée à ~30 m du rivage, cadre insolite",
+          "Décoration bohème adaptée à l'univers maritime",
+          "Apéritif identique au Medium avec spécialités niçoises et boissons",
+          "Échelle, masques, tubas, gilets, chapeaux, crème solaire, serviettes",
+          "Enceinte Bluetooth et cartes à jouer",
+          "Photos prises pendant la prestation, remises au retour",
+          "Sacs et housses étanches pour téléphones",
+          "Durée : 1h30"
+        ],
+        "foot": "89€ par personne — maximum 2 personnes",
+        "cta": "Réserver — 89€/pers"
       }
     },
     "menus": {
@@ -191,20 +206,20 @@
       "drinksNote": "Boissons incluses : Côtes de Provence (rouge, rosé ou blanc), citronnade artisanale, eaux. Option upgrade Vin de Bellet AOC +20€"
     },
     "ticker": [
-      "📸 Photos souvenirs Selphy",
-      "🕯️ Bougies & guirlandes LED",
-      "🎵 Enceinte bluetooth + playlist",
-      "💌 Cartes questions couple",
-      "🔒 Cadenas amoureux (Prestige)",
-      "⛺ Tente tipi (Prestige)",
-      "🥂 Champagne offert (Prestige)"
+      "🧘 Yoga & brunch healthy (Wellness)",
+      "🛶 Pique-nique sur l'eau (Floating)",
+      "📸 Imprimante photo (Premium)",
+      "🕯️ Lampes marocaines (Premium)",
+      "🎵 Enceinte bluetooth",
+      "🥂 Apéritif niçois inclus",
+      "🌿 Spécialités locales artisanales"
     ],
     "bento": {
       "tag": "L'expérience",
       "titleRich": "Ce qui rend chaque moment <em>unique</em>",
       "imgAlt": "Installation pique-nique romantique — Romantic picnic styling, Nice",
       "b1t": "Photos souvenirs",
-      "b1p": "Imprimante Canon Selphy incluse dans chaque kit. 10 tirages pour repartir avec des souvenirs physiques instantanés.",
+      "b1p": "Imprimante photo incluse dans le package Premium. Repartez avec de jolis souvenirs instantanés.",
       "b2t": "Cartes questions couple",
       "b2p": "Reconnectez-vous. Des questions insolites pour redécouvrir l'autre entre deux bouchées.",
       "b3t": "Ambiance sonore",
@@ -219,15 +234,13 @@
       "titleRich": "Grille <em>tarifaire</em>",
       "desc": "Prix par personne. Paiement 100% en ligne.",
       "colPackage": "Package",
-      "colNoFood": "Sans food",
-      "colWithFood": "Avec food",
+      "colPerPerson": "Par personne",
       "colTwo": "Pour 2",
-      "kitRow": "🧺 Le Kit",
       "mediumRow": "⭐ Medium",
-      "prestigeRow": "👑 Prestige",
-      "mediumAll": "59€ (tout inclus)",
-      "prestigeAll": "79€ (tout inclus)",
-      "footnote": "Caution matériel : 100€ (pré-autorisation CB). Option Bellet AOC +20€."
+      "prestigeRow": "👑 Premium",
+      "wellnessRow": "🧘 Wellness Picnic",
+      "floatingRow": "🛶 Floating Picnic",
+      "footnote": "Paiement 100% en ligne. Option upgrade Vin de Bellet AOC +20€."
     },
     "divider": {
       "imgAlt": "Promenade des Anglais Nice — Promenade des Anglais at sunset, French Riviera",
@@ -237,7 +250,7 @@
     "spots": {
       "tag": "Les spots",
       "titleRich": "Nos lieux <em>secrets</em>",
-      "desc": "Spots standards inclus dans le Kit. Spots exclusifs réservés au Medium. Spots premium secrets pour le Prestige.",
+      "desc": "Spots exclusifs réservés à nos formules installées — Medium, Premium, Wellness et Floating.",
       "more": "+ d'autres spots à découvrir une fois votre package réservé",
       "list": [
         {
@@ -249,7 +262,7 @@
         {
           "tag": "Zen · Crépuscule",
           "title": "Mont Boron",
-          "small": "Spot premium Prestige",
+          "small": "Spot premium",
           "alt": "Mont Boron Nice — Mont Boron hill, Côte d'Azur"
         },
         {
@@ -261,7 +274,7 @@
         {
           "tag": "Exclusif · Vue mer",
           "title": "Hauteurs de Nice",
-          "small": "Spot Medium & Prestige",
+          "small": "Medium & Premium",
           "alt": "Hauteurs de Nice — Hills above Nice with sea view"
         },
         {
@@ -273,11 +286,11 @@
       ]
     },
     "editorialPrestige": {
-      "imgAlt": "Expérience Prestige pique-nique — Prestige picnic experience, Côte d'Azur",
-      "tag": "Prestige",
+      "imgAlt": "Expérience Premium pique-nique — Prestige picnic experience, Côte d'Azur",
+      "tag": "Premium",
       "titleRich": "Pour les moments qui comptent <em>vraiment</em>",
-      "desc": "Demande en mariage, anniversaire, surprise romantique... Tente tipi, lanternes marocaines, champagne, cadenas amoureux. Un souvenir gravé pour toujours.",
-      "cta": "Découvrir le Prestige"
+      "desc": "Demande en mariage, anniversaire, surprise romantique… Décoration raffinée, lampes marocaines, imprimante photo et touche créative. Un souvenir gravé pour toujours.",
+      "cta": "Découvrir le Premium"
     },
     "gift": {
       "tag": "Offrir",

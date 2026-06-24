@@ -43,7 +43,7 @@ export default async function CgvPage({ params }: Props) {
             </p>
             <p>THE NICE PICNIC propose des expériences de pique-nique comprenant :</p>
             <ul className="list-disc space-y-1 pl-5">
-              <li>la mise à disposition de kits pique-nique</li>
+              <li>des installations pique-nique clé en main (Medium, Premium, Wellness, Floating)</li>
               <li>des installations sur mesure</li>
               <li>l&apos;organisation d&apos;événements</li>
             </ul>
@@ -92,27 +92,18 @@ export default async function CgvPage({ params }: Props) {
               Article 5 – Prix et paiement
             </h2>
             <p>Les prix sont indiqués en euros.</p>
-            <p>Le paiement s&apos;effectue en ligne par carte bancaire.</p>
-            <p>Une caution obligatoire de 100€ est demandée pour toute prestation.</p>
+            <p>Le paiement s&apos;effectue en ligne par carte bancaire via Stripe.</p>
           </section>
 
           <section className="space-y-2">
             <h2 className="font-medium uppercase tracking-[0.08em]">
               Article 6 – Caution et responsabilité financière
             </h2>
-            <p>La caution couvre notamment :</p>
-            <ul className="list-disc space-y-1 pl-5">
-              <li>dégradations</li>
-              <li>pertes</li>
-              <li>vols</li>
-              <li>matériel non restitué</li>
-              <li>nettoyage anormal</li>
-            </ul>
-            <p>Elle est restituée après vérification à l&apos;issue de la prestation.</p>
             <p>
-              En cas de dommages supérieurs au montant de la caution : THE NICE
-              PICNIC se réserve le droit de facturer au client toute somme
-              complémentaire nécessaire à la réparation du préjudice subi.
+              Le client est responsable du matériel mis à disposition pendant la
+              prestation. En cas de dégradation, perte ou dommage imputable au
+              client, THE NICE PICNIC se réserve le droit de facturer les frais
+              de remplacement ou de réparation.
             </p>
           </section>
 
@@ -254,8 +245,9 @@ export default async function CgvPage({ params }: Props) {
             </h2>
             <p>
               These terms define the rights and obligations of the parties for
-              online sales of turnkey picnic experiences, kits and optional
-              services offered by The Nice Picnic.
+              online sales of turnkey picnic experiences (Medium, Premium,
+              Wellness Picnic, Floating Picnic) and optional services offered by
+              The Nice Picnic.
             </p>
           </section>
 
@@ -264,9 +256,10 @@ export default async function CgvPage({ params }: Props) {
               3. Services and availability
             </h2>
             <p>
-              Offers (Kit, Medium, Prestige, options) are those shown on the
-              website on the booking date. Services are subject to availability,
-              weather conditions, seasonality and local logistics.
+              Offers (Medium, Premium, Wellness Picnic, Floating Picnic and
+              options) are those shown on the website on the booking date.
+              Services are subject to availability, weather conditions,
+              seasonality and local logistics.
             </p>
           </section>
 
@@ -295,9 +288,10 @@ export default async function CgvPage({ params }: Props) {
               6. Equipment deposit
             </h2>
             <p>
-              A EUR 100 card pre-authorization may be requested to cover damage,
-              loss, or non-return of equipment. This amount is not charged
-              unless damage is confirmed.
+              Customers are responsible for equipment provided during the
+              experience. In case of damage, loss or misuse attributable to the
+              customer, The Nice Picnic may invoice replacement or repair
+              costs.
             </p>
           </section>
 

@@ -1,4 +1,8 @@
 import {
+  BOOKABLE_PACKAGES,
+  LEGACY_PACKAGES,
+} from "@/lib/packages";
+import {
   formatReservationDateShort,
   getPackageLabel,
   getSlotLabel,
@@ -88,7 +92,7 @@ export function buildReservationStats(
       count: bySlotMap.get(slot) ?? 0,
     })),
     byPackage: (
-      ["kit", "kit_food", "medium", "prestige"] as const
+      [...BOOKABLE_PACKAGES, ...LEGACY_PACKAGES] as const
     ).map((packageType) => ({
       packageType,
       label: getPackageLabel(packageType),

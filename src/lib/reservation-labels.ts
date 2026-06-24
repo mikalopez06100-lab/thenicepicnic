@@ -1,11 +1,5 @@
 import type { ReservationPackage, ReservationSlot } from "@/lib/reservations";
-
-const PACKAGE_LABELS: Record<ReservationPackage, string> = {
-  kit: "Le Kit",
-  kit_food: "Le Kit + food",
-  medium: "Medium",
-  prestige: "Prestige",
-};
+import { getPackageLabel as getPackageLabelFromCatalog } from "@/lib/packages";
 
 const SLOT_LABELS: Record<ReservationSlot, string> = {
   breakfast: "Petit-déj / Brunch",
@@ -20,7 +14,7 @@ export const SLOT_DEFAULT_TIMES: Record<ReservationSlot, string> = {
 };
 
 export function getPackageLabel(packageType: ReservationPackage) {
-  return PACKAGE_LABELS[packageType] ?? packageType;
+  return getPackageLabelFromCatalog(packageType);
 }
 
 export function getSlotLabel(slot: ReservationSlot) {

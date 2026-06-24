@@ -22,7 +22,8 @@ import {
 } from "@/lib/slot-capacity";
 
 export type ReservationSlot = "breakfast" | "lunch" | "aperitif";
-export type ReservationPackage = "kit" | "kit_food" | "medium" | "prestige";
+export type ReservationPackage =
+  import("@/lib/packages").ReservationPackage;
 export type ReservationStatus = "pending" | "confirmed" | "expired" | "cancelled";
 
 export type ReservationRecord = {

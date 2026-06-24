@@ -1,6 +1,11 @@
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import {
+  BOOKABLE_PACKAGES,
+  formatPackagePrice,
+  PACKAGE_CATALOG,
+} from "@/lib/packages";
 import { homeImages } from "./images";
 import { HomeFaq } from "./HomeFaq";
 import { Reveal } from "./Reveal";
@@ -20,6 +25,7 @@ const spotImgs = [
 const em = (chunks: React.ReactNode) => <em>{chunks}</em>;
 
 export async function HomeView() {
+  const locale = await getLocale();
   const t = await getTranslations("Home");
   const marquee = t.raw("marquee") as string[];
   const ticker = t.raw("ticker") as string[];
@@ -115,90 +121,43 @@ export async function HomeView() {
             <h2 className="t">{t.rich("packages.titleRich", { em })}</h2>
             <p className="desc">{t("packages.desc")}</p>
             <div className="pkg-cards">
-              <div className="pkg">
-                <div className="pkg-top">
-                  <div>
-                    <div className="pkg-name">{t("packages.kit.name")}</div>
-                    <div className="pkg-mode">{t("packages.kit.mode")}</div>
-                  </div>
-                  <div>
-                    <div className="pkg-price">29,90€</div>
-                    <div className="pkg-per">{t("packages.perPerson")}</div>
-                  </div>
-                </div>
-                <div className="pkg-line" />
-                <div className="pkg-items">
-                  {(t.raw("packages.kit.items") as string[]).map((line) => (
-                    <div key={line} className="pkg-item">
-                      {line}
+              {BOOKABLE_PACKAGES.map((slug) => {
+                const meta = PACKAGE_CATALOG[slug];
+                const variant = meta.premium ? "prem" : meta.popular ? "pop" : "";
+                const price = formatPackagePrice(meta.unitAmount, locale);
+                return (
+                  <div key={slug} className={`pkg ${variant}`.trim()}>
+                    {meta.popular ? (
+                      <div className="pkg-badge">{t("packages.popular")}</div>
+                    ) : null}
+                    <div className="pkg-top">
+                      <div>
+                        <div className="pkg-name">{t(`packages.${slug}.name`)}</div>
+                        <div className="pkg-mode">{t(`packages.${slug}.mode`)}</div>
+                      </div>
+                      <div>
+                        <div className="pkg-price">{price}</div>
+                        <div className="pkg-per">{t("packages.perPerson")}</div>
+                      </div>
                     </div>
-                  ))}
-                </div>
-                <div className="pkg-foot">{t("packages.kit.foot")}</div>
-                <Link
-                  href="/reservation?package=kit"
-                  className="pkg-btn block text-center"
-                >
-                  {t("packages.kit.cta")}
-                </Link>
-              </div>
-
-              <div className="pkg pop">
-                <div className="pkg-badge">{t("packages.popular")}</div>
-                <div className="pkg-top">
-                  <div>
-                    <div className="pkg-name">{t("packages.medium.name")}</div>
-                    <div className="pkg-mode">{t("packages.medium.mode")}</div>
-                  </div>
-                  <div>
-                    <div className="pkg-price">59€</div>
-                    <div className="pkg-per">{t("packages.perPerson")}</div>
-                  </div>
-                </div>
-                <div className="pkg-line" />
-                <div className="pkg-items">
-                  {(t.raw("packages.medium.items") as string[]).map((line) => (
-                    <div key={line} className="pkg-item">
-                      {line}
+                    <div className="pkg-line" />
+                    <div className="pkg-items">
+                      {(t.raw(`packages.${slug}.items`) as string[]).map((line) => (
+                        <div key={line} className="pkg-item">
+                          {line}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-                <div className="pkg-foot">{t("packages.medium.foot")}</div>
-                <Link
-                  href="/reservation?package=medium"
-                  className="pkg-btn block text-center"
-                >
-                  {t("packages.medium.cta")}
-                </Link>
-              </div>
-
-              <div className="pkg prem">
-                <div className="pkg-top">
-                  <div>
-                    <div className="pkg-name">{t("packages.prestige.name")}</div>
-                    <div className="pkg-mode">{t("packages.prestige.mode")}</div>
+                    <div className="pkg-foot">{t(`packages.${slug}.foot`)}</div>
+                    <Link
+                      href={`/reservation?package=${slug}`}
+                      className="pkg-btn block text-center"
+                    >
+                      {t(`packages.${slug}.cta`)}
+                    </Link>
                   </div>
-                  <div>
-                    <div className="pkg-price">79€</div>
-                    <div className="pkg-per">{t("packages.perPerson")}</div>
-                  </div>
-                </div>
-                <div className="pkg-line" />
-                <div className="pkg-items">
-                  {(t.raw("packages.prestige.items") as string[]).map((line) => (
-                    <div key={line} className="pkg-item">
-                      {line}
-                    </div>
-                  ))}
-                </div>
-                <div className="pkg-foot">{t("packages.prestige.foot")}</div>
-                <Link
-                  href="/reservation?package=prestige"
-                  className="pkg-btn block text-center"
-                >
-                  {t("packages.prestige.cta")}
-                </Link>
-              </div>
+                );
+              })}
             </div>
           </div>
         </Reveal>
@@ -304,32 +263,26 @@ export async function HomeView() {
               <thead>
                 <tr>
                   <th style={{ textAlign: "left" }}>{t("pricing.colPackage")}</th>
-                  <th>{t("pricing.colNoFood")}</th>
-                  <th>{t("pricing.colWithFood")}</th>
+                  <th>{t("pricing.colPerPerson")}</th>
                   <th>{t("pricing.colTwo")}</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>{t("pricing.kitRow")}</td>
-                  <td>29,90€</td>
-                  <td>39,90€</td>
-                  <td>79,80€</td>
-                </tr>
-                <tr>
-                  <td>{t("pricing.mediumRow")}</td>
-                  <td colSpan={2} style={{ color: "var(--terra)" }}>
-                    {t("pricing.mediumAll")}
-                  </td>
-                  <td style={{ color: "var(--terra)" }}>118€</td>
-                </tr>
-                <tr>
-                  <td>{t("pricing.prestigeRow")}</td>
-                  <td colSpan={2} style={{ color: "var(--gold)" }}>
-                    {t("pricing.prestigeAll")}
-                  </td>
-                  <td style={{ color: "var(--gold)" }}>158€</td>
-                </tr>
+                {BOOKABLE_PACKAGES.map((slug) => {
+                  const meta = PACKAGE_CATALOG[slug];
+                  const price = formatPackagePrice(meta.unitAmount, locale);
+                  const total = formatPackagePrice(meta.unitAmount * 2, locale);
+                  const rowLabel = t(`pricing.${slug}Row`);
+                  const isPremium = meta.premium;
+                  const color = isPremium ? "var(--gold)" : "var(--terra)";
+                  return (
+                    <tr key={slug}>
+                      <td>{rowLabel}</td>
+                      <td style={{ color }}>{price}</td>
+                      <td style={{ color }}>{total}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
             <p
