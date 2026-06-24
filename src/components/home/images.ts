@@ -9,4 +9,12 @@ export const homeImages = {
   spotHauteurs: "/images/home/spot-hauteurs.jpg",
   spotCimiez: "/images/home/spot-cimiez.jpg",
   editorialPrestige: "/images/home/editorial-prestige.jpg",
+  floatingBoatBay: "/images/home/floating-boat-bay.jpg",
+  floatingBoatSunset: "/images/home/floating-boat-sunset.jpg",
 } as const;
+
+export const packageCardImages: Partial<
+  Record<"medium" | "prestige" | "wellness" | "floating", string>
+> = {
+  floating: homeImages.floatingBoatBay,
+};

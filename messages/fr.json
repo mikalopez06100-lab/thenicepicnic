@@ -178,6 +178,7 @@
       "floating": {
         "name": "Floating Picnic",
         "mode": "sur l'eau",
+        "imgAlt": "Couple sur un pique-nique flottant dans une crique de la Côte d'Azur",
         "items": [
           "Embarcation gonflable aménagée pour un pique-nique à deux maximum",
           "Structure ancrée à ~30 m du rivage, cadre insolite",
@@ -284,6 +285,13 @@
           "alt": "Jardins de Cimiez — Cimiez gardens, olive trees"
         }
       ]
+    },
+    "editorialFloating": {
+      "imgAlt": "Floating Picnic au coucher du soleil face à Nice — pique-nique sur l'eau",
+      "tag": "Floating Picnic",
+      "titleRich": "Pique-nique <em>sur l'eau</em>",
+      "desc": "Une embarcation gonflable aménagée, ancrée à quelques mètres du rivage. Apéritif niçois, décoration bohème et vue imprenable sur la Baie des Anges — une expérience unique à deux.",
+      "cta": "Réserver le Floating"
     },
     "editorialPrestige": {
       "imgAlt": "Expérience Premium pique-nique — Prestige picnic experience, Côte d'Azur",

@@ -6,7 +6,7 @@ import {
   formatPackagePrice,
   PACKAGE_CATALOG,
 } from "@/lib/packages";
-import { homeImages } from "./images";
+import { homeImages, packageCardImages } from "./images";
 import { HomeFaq } from "./HomeFaq";
 import { Reveal } from "./Reveal";
 import { SiteFooter } from "./SiteFooter";
@@ -125,8 +125,20 @@ export async function HomeView() {
                 const meta = PACKAGE_CATALOG[slug];
                 const variant = meta.premium ? "prem" : meta.popular ? "pop" : "";
                 const price = formatPackagePrice(meta.unitAmount, locale);
+                const cardImage = packageCardImages[slug];
                 return (
                   <div key={slug} className={`pkg ${variant}`.trim()}>
+                    {cardImage ? (
+                      <div className="pkg-photo relative">
+                        <Image
+                          src={cardImage}
+                          alt={t(`packages.${slug}.imgAlt`)}
+                          fill
+                          sizes="(max-width:768px) 100vw, 25vw"
+                          className="object-cover img-focus-floating-card"
+                        />
+                      </div>
+                    ) : null}
                     {meta.popular ? (
                       <div className="pkg-badge">{t("packages.popular")}</div>
                     ) : null}
@@ -351,6 +363,30 @@ export async function HomeView() {
             </p>
           </div>
         </Reveal>
+      </section>
+
+      <section className="ed">
+        <div className="ed-img relative min-h-[280px]">
+          <Image
+            src={homeImages.floatingBoatSunset}
+            alt={t("editorialFloating.imgAlt")}
+            fill
+            sizes="(max-width:768px) 100vw, 50vw"
+            className="object-cover img-focus-floating-sunset"
+          />
+        </div>
+        <div className="ed-txt">
+          <p className="tag">{t("editorialFloating.tag")}</p>
+          <h2 className="t">{t.rich("editorialFloating.titleRich", { em })}</h2>
+          <p className="desc">{t("editorialFloating.desc")}</p>
+          <Link
+            href="/reservation?package=floating"
+            className="btn btn-fill"
+            style={{ marginTop: 20 }}
+          >
+            {t("editorialFloating.cta")}
+          </Link>
+        </div>
       </section>
 
       <section className="ed" style={{ direction: "rtl" }}>

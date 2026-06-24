@@ -178,6 +178,7 @@
       "floating": {
         "name": "Floating Picnic",
         "mode": "on the water",
+        "imgAlt": "Couple enjoying a floating picnic in a French Riviera cove",
         "items": [
           "Inflatable craft set up for a picnic — 2 guests maximum",
           "Anchored ~30 m from shore in an unusual setting",
@@ -284,6 +285,13 @@
           "alt": "Cimiez gardens — olive trees, Nice"
         }
       ]
+    },
+    "editorialFloating": {
+      "imgAlt": "Floating Picnic at sunset facing Nice — on-the-water picnic experience",
+      "tag": "Floating Picnic",
+      "titleRich": "A picnic <em>on the water</em>",
+      "desc": "An inflatable craft set up for two, anchored just off the shore. Niçoise apéritif, bohemian styling and stunning views over the Bay of Angels — a one-of-a-kind experience for couples.",
+      "cta": "Book Floating Picnic"
     },
     "editorialPrestige": {
       "imgAlt": "Premium picnic experience — French Riviera",

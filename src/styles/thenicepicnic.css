@@ -87,7 +87,8 @@ h2.t em{font-style:italic}
 .pkg-cards{display:grid;gap:16px;margin-top:32px}
 @media(min-width:769px){.pkg-cards{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1200px){.pkg-cards{grid-template-columns:repeat(4,1fr)}}
-.pkg{background:var(--white);border:1px solid rgba(0,0,0,.05);padding:32px 24px;display:flex;flex-direction:column;transition:transform .4s,box-shadow .4s}
+.pkg{background:var(--white);border:1px solid rgba(0,0,0,.05);padding:32px 24px;display:flex;flex-direction:column;transition:transform .4s,box-shadow .4s;overflow:hidden}
+.pkg-photo{position:relative;height:148px;margin:-32px -24px 18px}
 .pkg:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.06)}
 .pkg.pop{border:2px solid var(--terra)}
 .pkg.prem{background:var(--ink);border:none}
@@ -238,6 +239,8 @@ h2.t em{font-style:italic}
 .img-focus-bento{object-position:center 56%}
 .img-focus-divider{object-position:center 62%}
 .img-focus-editorial-prestige{object-position:center 100%}
+.img-focus-floating-card{object-position:center 45%}
+.img-focus-floating-sunset{object-position:center 40%}
 .img-focus-spot-1{object-position:center 42%}
 .img-focus-spot-2{object-position:center 40%}
 .img-focus-spot-3{object-position:center 54%}
