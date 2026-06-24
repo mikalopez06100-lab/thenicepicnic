@@ -6,6 +6,7 @@ import {
   markReservationCancelled,
 } from "@/lib/reservations";
 import { resolveReservationTime } from "@/lib/reservation-labels";
+import { getRomanticUpsellCatalogId } from "@/lib/romantic-upsell";
 import {
   getStripeCatalogId,
   getStripeClient,
@@ -24,6 +25,8 @@ type Payload = {
   customerName?: string;
   customerEmail?: string;
   customerPhone?: string;
+  romanticUpsell?: boolean;
+  romanticUpsellMessage?: string;
 };
 
 function getBaseUrl(req: NextRequest) {
@@ -51,6 +54,8 @@ export async function POST(req: NextRequest) {
     const customerName = (body.customerName ?? "").trim();
     const customerEmail = (body.customerEmail ?? "").trim();
     const customerPhone = (body.customerPhone ?? "").trim();
+    const romanticUpsell = body.romanticUpsell === true;
+    const romanticUpsellMessage = (body.romanticUpsellMessage ?? "").trim().slice(0, 280);
 
     if (!packageType || !isStripePackageType(packageType)) {
       return NextResponse.json({ error: "Invalid package type." }, { status: 400 });
@@ -128,6 +133,8 @@ export async function POST(req: NextRequest) {
       customerName,
       customerEmail,
       customerPhone,
+      romanticUpsell,
+      romanticUpsellMessage: romanticUpsell ? romanticUpsellMessage : undefined,
     });
     if (!reservationResult.ok) {
       return NextResponse.json({ error: reservationResult.error }, { status: 409 });
@@ -135,12 +142,41 @@ export async function POST(req: NextRequest) {
 
     const reservation = reservationResult.reservation;
 
+    const lineItems: { price: string; quantity: number }[] = [
+      { price: priceId, quantity },
+    ];
+
+    if (romanticUpsell) {
+      const upsellCatalogId = getRomanticUpsellCatalogId();
+      if (!upsellCatalogId) {
+        await markReservationCancelled(reservation.id);
+        return NextResponse.json(
+          {
+            error:
+              "Missing Stripe catalog ID for romantic upsell. Set STRIPE_PRODUCT_ID_ROMANTIC_UPSELL or STRIPE_PRICE_ID_ROMANTIC_UPSELL in env.",
+          },
+          { status: 500 },
+        );
+      }
+      try {
+        const upsellPriceId = await resolveCheckoutPriceId(stripe, upsellCatalogId);
+        lineItems.push({ price: upsellPriceId, quantity: 1 });
+      } catch (upsellError) {
+        await markReservationCancelled(reservation.id);
+        const message =
+          upsellError instanceof Error
+            ? upsellError.message
+            : "Unable to resolve romantic upsell price.";
+        return NextResponse.json({ error: message }, { status: 500 });
+      }
+    }
+
     let session: Stripe.Checkout.Session;
     try {
       session = await stripe.checkout.sessions.create({
         mode: "payment",
         client_reference_id: reservation.id,
-        line_items: [{ price: priceId, quantity }],
+        line_items: lineItems,
         customer_email: customerEmail,
         success_url: `${baseUrl}${localePrefix}/reservation/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${baseUrl}${localePrefix}/reservation/cancel`,
@@ -154,7 +190,8 @@ export async function POST(req: NextRequest) {
           reservationTime,
           customerName,
           customerPhone,
-          // TODO: add deposit flow (pre-authorization 100 EUR)
+          romanticUpsell: romanticUpsell ? "true" : "false",
+          romanticUpsellMessage: romanticUpsellMessage || "",
         },
         allow_promotion_codes: true,
         billing_address_collection: "required",

@@ -380,7 +380,19 @@ export default async function AdminReservationsPage({ searchParams }: Props) {
                           {reservation.customerPhone}
                         </div>
                       </td>
-                      <td className="px-4 py-3">{getPackageLabel(reservation.packageType)}</td>
+                      <td className="px-4 py-3">
+                        <div>{getPackageLabel(reservation.packageType)}</div>
+                        {reservation.romanticUpsell ? (
+                          <div className="mt-1 text-xs text-[var(--terra)]">
+                            + Touche personnalisée
+                            {reservation.romanticUpsellMessage ? (
+                              <span className="block text-[var(--muted)]">
+                                « {reservation.romanticUpsellMessage} »
+                              </span>
+                            ) : null}
+                          </div>
+                        ) : null}
+                      </td>
                       <td className="px-4 py-3">{reservation.quantity}</td>
                       <td className="px-4 py-3">
                         {reservation.stripeSessionId ? (

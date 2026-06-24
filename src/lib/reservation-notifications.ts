@@ -8,6 +8,7 @@ import {
   getSlotLabel,
   resolveReservationTime,
 } from "@/lib/reservation-labels";
+import { getRomanticUpsellLabel } from "@/lib/romantic-upsell";
 
 type NotifyResult = {
   admin: boolean;
@@ -51,6 +52,9 @@ function buildAdminHtml(reservation: ReservationRecord, session?: Stripe.Checkou
   const slotLabel = getSlotLabel(reservation.slot);
   const packageLabel = getPackageLabel(reservation.packageType);
   const paidLabel = formatPaidAt(reservation.paidAt, reservation.locale);
+  const upsellLabel = reservation.romanticUpsell
+    ? getRomanticUpsellLabel("fr")
+    : null;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thenicepicnic.com";
   const adminUrl = `${siteUrl}/admin/reservations`;
 
@@ -64,6 +68,15 @@ function buildAdminHtml(reservation: ReservationRecord, session?: Stripe.Checkou
         <tr><td style="padding:6px 0;color:#6b6560">Créneau</td><td style="padding:6px 0"><strong>${slotLabel}</strong></td></tr>
         <tr><td style="padding:6px 0;color:#6b6560">Payé le</td><td style="padding:6px 0"><strong>${paidLabel}</strong></td></tr>
         <tr><td style="padding:6px 0;color:#6b6560">Package</td><td style="padding:6px 0"><strong>${packageLabel}</strong></td></tr>
+        ${
+          upsellLabel
+            ? `<tr><td style="padding:6px 0;color:#6b6560">Option</td><td style="padding:6px 0"><strong>${upsellLabel}</strong>${
+                reservation.romanticUpsellMessage
+                  ? `<br><span style="font-size:13px;color:#6b6560">« ${reservation.romanticUpsellMessage} »</span>`
+                  : ""
+              }</td></tr>`
+            : ""
+        }
         <tr><td style="padding:6px 0;color:#6b6560">Personnes</td><td style="padding:6px 0"><strong>${reservation.quantity}</strong></td></tr>
         <tr><td style="padding:6px 0;color:#6b6560">Montant</td><td style="padding:6px 0"><strong>${formatAmount(session)}</strong></td></tr>
         <tr><td style="padding:6px 0;color:#6b6560">Client</td><td style="padding:6px 0"><strong>${reservation.customerName}</strong></td></tr>
@@ -87,6 +100,9 @@ function buildCustomerHtml(reservation: ReservationRecord, session?: Stripe.Chec
   );
   const slotLabel = getSlotLabel(reservation.slot);
   const packageLabel = getPackageLabel(reservation.packageType);
+  const upsellLabel = reservation.romanticUpsell
+    ? getRomanticUpsellLabel(reservation.locale)
+    : null;
 
   return `
     <div style="font-family:Georgia,serif;color:#1a1714;max-width:560px">
@@ -104,6 +120,11 @@ function buildCustomerHtml(reservation: ReservationRecord, session?: Stripe.Chec
         <tr><td style="padding:6px 0;color:#6b6560">${isFr ? "Heure" : "Time"}</td><td style="padding:6px 0"><strong>${timeLabel}</strong></td></tr>
         <tr><td style="padding:6px 0;color:#6b6560">${isFr ? "Créneau" : "Timeslot"}</td><td style="padding:6px 0"><strong>${slotLabel}</strong></td></tr>
         <tr><td style="padding:6px 0;color:#6b6560">${isFr ? "Package" : "Package"}</td><td style="padding:6px 0"><strong>${packageLabel}</strong></td></tr>
+        ${
+          upsellLabel
+            ? `<tr><td style="padding:6px 0;color:#6b6560">${isFr ? "Option" : "Add-on"}</td><td style="padding:6px 0"><strong>${upsellLabel}</strong></td></tr>`
+            : ""
+        }
         <tr><td style="padding:6px 0;color:#6b6560">${isFr ? "Personnes" : "Guests"}</td><td style="padding:6px 0"><strong>${reservation.quantity}</strong></td></tr>
         <tr><td style="padding:6px 0;color:#6b6560">${isFr ? "Montant" : "Amount"}</td><td style="padding:6px 0"><strong>${formatAmount(session)}</strong></td></tr>
       </table>

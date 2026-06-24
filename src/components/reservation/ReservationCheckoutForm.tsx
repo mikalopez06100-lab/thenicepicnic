@@ -9,12 +9,16 @@ import {
 import {
   BOOKABLE_PACKAGES,
   formatPackageHint,
-  formatPackagePrice,
   getBookablePackageLabel,
   isBookablePackage,
   PACKAGE_CATALOG,
   type BookablePackage,
 } from "@/lib/packages";
+import {
+  formatRomanticUpsellPrice,
+  ROMANTIC_UPSELL_AMOUNT,
+} from "@/lib/romantic-upsell";
+import { ReservationUpsellModal } from "@/components/reservation/ReservationUpsellModal";
 
 type Props = {
   locale: string;
@@ -43,6 +47,11 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
   const [people, setPeople] = useState(2);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [upsellDecision, setUpsellDecision] = useState<"accepted" | "declined" | null>(
+    null,
+  );
+  const [showUpsellModal, setShowUpsellModal] = useState(false);
+  const [upsellMessage, setUpsellMessage] = useState("");
   const [slotAvailability, setSlotAvailability] = useState<
     Record<string, { available: number; blocked: boolean }>
   >({});
@@ -133,11 +142,57 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
     : isFr
       ? "Non sélectionnée"
       : "Not selected";
-  const total = selected.unitAmount * people;
+  const total =
+    selected.unitAmount * people +
+    (upsellDecision === "accepted" ? ROMANTIC_UPSELL_AMOUNT : 0);
   const formattedTotal = new Intl.NumberFormat(isFr ? "fr-FR" : "en-US", {
     style: "currency",
     currency: "EUR",
   }).format(total);
+
+  async function proceedToCheckout(romanticUpsell: boolean) {
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/stripe/checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          packageType: pack,
+          locale,
+          quantity: people,
+          slot,
+          reservationDate,
+          reservationTime: resolveReservationTime(slot, reservationTime),
+          customerName: customerName.trim(),
+          customerEmail: customerEmail.trim(),
+          customerPhone: customerPhone.trim(),
+          romanticUpsell,
+          romanticUpsellMessage: romanticUpsell ? upsellMessage.trim() : undefined,
+        }),
+      });
+
+      const data: { url?: string; error?: string } = await res.json();
+      if (!res.ok || !data.url) {
+        throw new Error(data.error || "Stripe checkout session error");
+      }
+
+      window.location.href = data.url;
+    } catch (err) {
+      const apiMessage = err instanceof Error ? err.message : "";
+      setError(
+        apiMessage && apiMessage !== "Stripe checkout session error"
+          ? apiMessage
+          : isFr
+            ? "Impossible de lancer le paiement pour le moment. Réessaie dans quelques instants."
+            : "Unable to start payment right now. Please try again shortly.",
+      );
+      console.error(err);
+    } finally {
+      setLoading(false);
+      setShowUpsellModal(false);
+    }
+  }
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -209,47 +264,35 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
       return;
     }
 
-    setLoading(true);
-
-    try {
-      const res = await fetch("/api/stripe/checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          packageType: pack,
-          locale,
-          quantity: people,
-          slot,
-          reservationDate,
-          reservationTime: resolveReservationTime(slot, reservationTime),
-          customerName: normalizedName,
-          customerEmail: normalizedEmail,
-          customerPhone: normalizedPhone,
-        }),
-      });
-
-      const data: { url?: string; error?: string } = await res.json();
-      if (!res.ok || !data.url) {
-        throw new Error(data.error || "Stripe checkout session error");
-      }
-
-      window.location.href = data.url;
-    } catch (err) {
-      const apiMessage = err instanceof Error ? err.message : "";
-      setError(
-        apiMessage && apiMessage !== "Stripe checkout session error"
-          ? apiMessage
-          : isFr
-            ? "Impossible de lancer le paiement pour le moment. Réessaie dans quelques instants."
-            : "Unable to start payment right now. Please try again shortly.",
-      );
-      console.error(err);
-    } finally {
-      setLoading(false);
+    if (upsellDecision === null) {
+      setShowUpsellModal(true);
+      return;
     }
+
+    await proceedToCheckout(upsellDecision === "accepted");
+  }
+
+  function handleUpsellAccept() {
+    setUpsellDecision("accepted");
+    void proceedToCheckout(true);
+  }
+
+  function handleUpsellDecline() {
+    setUpsellDecision("declined");
+    void proceedToCheckout(false);
   }
 
   return (
+    <>
+      <ReservationUpsellModal
+        locale={locale}
+        open={showUpsellModal}
+        loading={loading}
+        message={upsellMessage}
+        onMessageChange={setUpsellMessage}
+        onAccept={handleUpsellAccept}
+        onDecline={handleUpsellDecline}
+      />
     <form
       onSubmit={onSubmit}
       className="mx-auto box-border w-full min-w-0 max-w-[1100px] rounded-[24px] border border-[rgba(0,0,0,0.06)] bg-[rgba(255,255,255,0.9)] px-5 py-5 shadow-[0_20px_60px_rgba(26,23,20,0.08)] backdrop-blur transition-shadow duration-500 hover:shadow-[0_28px_80px_rgba(26,23,20,0.12)] sm:rounded-[28px] sm:px-6 sm:py-6 md:px-9 md:py-9"
@@ -457,6 +500,12 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
           <p className="text-[12px] text-[var(--muted)]">
             {isFr ? "Heure :" : "Time:"} {displayTime}
           </p>
+          {upsellDecision === "accepted" ? (
+            <p className="text-[12px] text-[var(--terra)]">
+              {isFr ? "Touche personnalisée" : "Personal touch"} ·{" "}
+              {formatRomanticUpsellPrice(localeKey)}
+            </p>
+          ) : null}
           </div>
           <p className="font-[family-name:var(--font-cormorant)] text-5xl font-light leading-none text-[var(--terra)] transition-all duration-300">
             {formattedTotal}
@@ -489,5 +538,6 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
         </aside>
       </div>
     </form>
+    </>
   );
 }

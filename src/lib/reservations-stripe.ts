@@ -97,6 +97,8 @@ export function reservationFromStripeSession(
       session.customer_details?.phone ||
       "—",
     stripeSessionId: session.id,
+    romanticUpsell: metadata.romanticUpsell === "true",
+    romanticUpsellMessage: metadata.romanticUpsellMessage || undefined,
   };
 }
 

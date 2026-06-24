@@ -28,14 +28,26 @@ await sql`
     locale TEXT NOT NULL,
     customer_name TEXT NOT NULL,
     customer_email TEXT NOT NULL,
-    customer_phone TEXT NOT NULL,
-    stripe_session_id TEXT
+  customer_phone TEXT NOT NULL,
+  stripe_session_id TEXT,
+  romantic_upsell BOOLEAN NOT NULL DEFAULT FALSE,
+  romantic_upsell_message TEXT
   )
 `;
 
 await sql`
   CREATE INDEX IF NOT EXISTS idx_reservations_date_slot
   ON reservations (reservation_date, slot)
+`;
+
+await sql`
+  ALTER TABLE reservations
+  ADD COLUMN IF NOT EXISTS romantic_upsell BOOLEAN NOT NULL DEFAULT FALSE
+`;
+
+await sql`
+  ALTER TABLE reservations
+  ADD COLUMN IF NOT EXISTS romantic_upsell_message TEXT
 `;
 
 await sql`

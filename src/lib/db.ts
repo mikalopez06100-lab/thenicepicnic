@@ -50,7 +50,9 @@ async function runMigrations() {
       customer_name TEXT NOT NULL,
       customer_email TEXT NOT NULL,
       customer_phone TEXT NOT NULL,
-      stripe_session_id TEXT
+      stripe_session_id TEXT,
+      romantic_upsell BOOLEAN NOT NULL DEFAULT FALSE,
+      romantic_upsell_message TEXT
     )
   `;
 
@@ -63,6 +65,16 @@ async function runMigrations() {
     CREATE INDEX IF NOT EXISTS idx_reservations_stripe_session
     ON reservations (stripe_session_id)
     WHERE stripe_session_id IS NOT NULL
+  `;
+
+  await sql`
+    ALTER TABLE reservations
+    ADD COLUMN IF NOT EXISTS romantic_upsell BOOLEAN NOT NULL DEFAULT FALSE
+  `;
+
+  await sql`
+    ALTER TABLE reservations
+    ADD COLUMN IF NOT EXISTS romantic_upsell_message TEXT
   `;
 
   await sql`

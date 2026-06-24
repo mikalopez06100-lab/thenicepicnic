@@ -43,6 +43,8 @@ export type ReservationRecord = {
   customerEmail: string;
   customerPhone: string;
   stripeSessionId?: string;
+  romanticUpsell?: boolean;
+  romanticUpsellMessage?: string;
 };
 
 const HOLD_MINUTES = 20;
@@ -69,6 +71,8 @@ export async function createPendingReservation(input: {
   customerName: string;
   customerEmail: string;
   customerPhone: string;
+  romanticUpsell?: boolean;
+  romanticUpsellMessage?: string;
 }): Promise<{ ok: true; reservation: ReservationRecord } | { ok: false; error: string }> {
   const now = new Date();
   await expireStaleReservationsInStore(now);
@@ -117,6 +121,8 @@ export async function createPendingReservation(input: {
     customerName: input.customerName,
     customerEmail: input.customerEmail,
     customerPhone: input.customerPhone,
+    romanticUpsell: input.romanticUpsell || undefined,
+    romanticUpsellMessage: input.romanticUpsellMessage?.trim() || undefined,
   };
 
   await saveReservation(reservation);

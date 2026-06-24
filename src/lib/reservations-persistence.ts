@@ -31,6 +31,8 @@ type ReservationRow = {
   customer_email: string;
   customer_phone: string;
   stripe_session_id: string | null;
+  romantic_upsell?: boolean | null;
+  romantic_upsell_message?: string | null;
 };
 
 function getDataDir() {
@@ -67,6 +69,8 @@ function rowToRecord(row: ReservationRow): ReservationRecord {
     customerEmail: row.customer_email,
     customerPhone: row.customer_phone,
     stripeSessionId: row.stripe_session_id ?? undefined,
+    romanticUpsell: Boolean(row.romantic_upsell),
+    romanticUpsellMessage: row.romantic_upsell_message ?? undefined,
   };
 }
 
@@ -101,7 +105,8 @@ async function upsertReservationDb(record: ReservationRecord) {
     INSERT INTO reservations (
       id, created_at, updated_at, expires_at, status, package_type,
       reservation_date, reservation_time, slot, quantity, paid_at, locale,
-      customer_name, customer_email, customer_phone, stripe_session_id
+      customer_name, customer_email, customer_phone, stripe_session_id,
+      romantic_upsell, romantic_upsell_message
     ) VALUES (
       ${record.id},
       ${record.createdAt},
@@ -118,7 +123,9 @@ async function upsertReservationDb(record: ReservationRecord) {
       ${record.customerName},
       ${record.customerEmail},
       ${record.customerPhone},
-      ${record.stripeSessionId ?? null}
+      ${record.stripeSessionId ?? null},
+      ${record.romanticUpsell ?? false},
+      ${record.romanticUpsellMessage ?? null}
     )
     ON CONFLICT (id) DO UPDATE SET
       updated_at = EXCLUDED.updated_at,
@@ -134,7 +141,9 @@ async function upsertReservationDb(record: ReservationRecord) {
       customer_name = EXCLUDED.customer_name,
       customer_email = EXCLUDED.customer_email,
       customer_phone = EXCLUDED.customer_phone,
-      stripe_session_id = EXCLUDED.stripe_session_id
+      stripe_session_id = EXCLUDED.stripe_session_id,
+      romantic_upsell = EXCLUDED.romantic_upsell,
+      romantic_upsell_message = EXCLUDED.romantic_upsell_message
   `;
 }
 
