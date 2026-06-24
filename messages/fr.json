@@ -10,6 +10,7 @@
     "concept": "Le concept",
     "packages": "Packages",
     "menus": "Menus",
+    "gallery": "Galerie",
     "spots": "Spots",
     "faq": "FAQ",
     "reserve": "Réserver",
@@ -30,6 +31,7 @@
     "prestige": "Premium",
     "wellness": "Wellness Picnic",
     "floating": "Floating Picnic",
+    "gallery": "Galerie",
     "menusLink": "Les menus",
     "colInfo": "Infos",
     "concept": "Le concept",
@@ -66,6 +68,15 @@
     "reservation": {
       "title": "Réservation",
       "body": "Le parcours de réservation multi-étapes (package, menu, date, Stripe) sera branché ici — MVP homepage livré.",
+      "back": "← Retour à l'accueil"
+    },
+    "galerie": {
+      "title": "Galerie",
+      "tag": "En images",
+      "metaDescription": "Photos réelles des pique-niques The Nice Picnic sur la Côte d'Azur.",
+      "desc": "Des installations bohème face à la mer, des apéros niçois, des moments entre amis et l'expérience Floating Picnic — en vrai, sur la Côte d'Azur.",
+      "count": "{count} photos",
+      "cta": "Réserver votre expérience",
       "back": "← Retour à l'accueil"
     },
     "bonCadeau": {
@@ -124,6 +135,12 @@
       "tag": "Authenticité niçoise",
       "titleRich": "Des artisans locaux dans votre <em>panier</em>",
       "desc": "Pan bagnat, socca, pissaladière, farcis, fougasse aux olives, tarte aux blettes... Chaque menu célèbre les saveurs authentiques de Nice et de la Provence."
+    },
+    "gallery": {
+      "tag": "En images",
+      "titleRich": "L'expérience <em>en vrai</em>",
+      "desc": "Installations bohème, apéros niçois, moments complices et sunsets sur la Côte d'Azur — nos vraies photos, pas des visuels stock.",
+      "viewAll": "Voir toutes les photos"
     },
     "packages": {
       "tag": "Nos packages",

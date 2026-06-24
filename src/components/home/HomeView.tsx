@@ -6,7 +6,9 @@ import {
   formatPackagePrice,
   PACKAGE_CATALOG,
 } from "@/lib/packages";
+import { featuredGalleryPhotos } from "@/lib/gallery-data";
 import { homeImages, packageCardImages } from "./images";
+import { HomeGallerySwipe } from "./HomeGallerySwipe";
 import { HomeFaq } from "./HomeFaq";
 import { Reveal } from "./Reveal";
 import { SiteFooter } from "./SiteFooter";
@@ -114,7 +116,23 @@ export async function HomeView() {
         </div>
       </section>
 
-      <section className="sec" id="packages" style={{ background: "var(--bg2)" }}>
+      <section className="sec" id="galerie" style={{ background: "var(--bg2)" }}>
+        <Reveal>
+          <div className="sec-inner">
+            <p className="tag">{t("gallery.tag")}</p>
+            <h2 className="t">{t.rich("gallery.titleRich", { em })}</h2>
+            <p className="desc">{t("gallery.desc")}</p>
+            <HomeGallerySwipe
+              photos={featuredGalleryPhotos}
+              locale={locale}
+              viewAllLabel={t("gallery.viewAll")}
+              viewAllHref="/galerie"
+            />
+          </div>
+        </Reveal>
+      </section>
+
+      <section className="sec" id="packages" style={{ background: "var(--bg)" }}>
         <Reveal>
           <div className="sec-inner">
             <p className="tag">{t("packages.tag")}</p>

@@ -8,6 +8,7 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const anchors = [
   { key: "concept" as const, hash: "#concept" },
+  { key: "gallery" as const, hash: "#galerie" },
   { key: "packages" as const, hash: "#packages" },
   { key: "menus" as const, hash: "#menus" },
   { key: "spots" as const, hash: "#spots" },

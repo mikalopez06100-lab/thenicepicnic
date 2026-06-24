@@ -38,6 +38,9 @@ export async function SiteFooter() {
           <a href="#packages" className="fl">
             {t("floating")}
           </a>
+          <Link href="/galerie" className="fl">
+            {t("gallery")}
+          </Link>
           <a href="#menus" className="fl">
             {t("menusLink")}
           </a>

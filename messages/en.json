@@ -10,6 +10,7 @@
     "concept": "Concept",
     "packages": "Packages",
     "menus": "Menus",
+    "gallery": "Gallery",
     "spots": "Spots",
     "faq": "FAQ",
     "reserve": "Book",
@@ -30,6 +31,7 @@
     "prestige": "Premium",
     "wellness": "Wellness Picnic",
     "floating": "Floating Picnic",
+    "gallery": "Gallery",
     "menusLink": "Menus",
     "colInfo": "Info",
     "concept": "Concept",
@@ -66,6 +68,15 @@
     "reservation": {
       "title": "Booking",
       "body": "The multi-step booking flow (package, menu, date, Stripe) will be connected here — homepage MVP delivered.",
+      "back": "← Back to home"
+    },
+    "galerie": {
+      "title": "Gallery",
+      "tag": "In pictures",
+      "metaDescription": "Real photos from The Nice Picnic experiences on the French Riviera.",
+      "desc": "Bohemian setups by the sea, Niçoise apéritifs, moments with friends and the Floating Picnic — real life on the French Riviera.",
+      "count": "{count} photos",
+      "cta": "Book your experience",
       "back": "← Back to home"
     },
     "bonCadeau": {
@@ -124,6 +135,12 @@
       "tag": "Niçoise authenticity",
       "titleRich": "Local artisans in your <em>basket</em>",
       "desc": "Pan bagnat, socca, pissaladière, stuffed vegetables, olive fougasse, Swiss chard tart… Every menu celebrates the authentic flavours of Nice and Provence."
+    },
+    "gallery": {
+      "tag": "In pictures",
+      "titleRich": "The experience <em>for real</em>",
+      "desc": "Bohemian setups, Niçoise apéritifs, intimate moments and Riviera sunsets — our own photos, not stock imagery.",
+      "viewAll": "View all photos"
     },
     "packages": {
       "tag": "Our packages",
