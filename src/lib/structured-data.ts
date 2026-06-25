@@ -7,6 +7,53 @@ function siteUrl() {
   );
 }
 
+export function buildFaqJsonLd(items: { q: string; a: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+}
+
+export function buildArticleJsonLd(post: {
+  title: string;
+  description: string;
+  date: string;
+  image: string;
+  slug: string;
+  author: string;
+}) {
+  const url = siteUrl();
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    author: {
+      "@type": "Organization",
+      name: post.author,
+    },
+    image: post.image.startsWith("http") ? post.image : `${url}${post.image}`,
+    mainEntityOfPage: `${url}/blog/${post.slug}`,
+    publisher: {
+      "@type": "Organization",
+      name: "The Nice Picnic",
+      logo: {
+        "@type": "ImageObject",
+        url: `${url}/images/brand/logo-main.png`,
+      },
+    },
+  };
+}
+
 export function buildLocalBusinessJsonLd(
   locale: string,
   googleReviews: GooglePlaceReviews | null,

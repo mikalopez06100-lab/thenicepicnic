@@ -34,6 +34,7 @@
     "wellness": "Wellness Picnic",
     "floating": "Floating Picnic",
     "gallery": "Galerie",
+    "blog": "Blog",
     "reviews": "Avis",
     "menusLink": "Les menus",
     "colInfo": "Infos",
@@ -102,6 +103,22 @@
       "body": "Formulaire Resend / Formspree et liens sociaux à brancher.",
       "details": "hello@thenicepicnic.com · @the.nicepicnic",
       "back": "← Accueil"
+    },
+    "faq": {
+      "title": "FAQ",
+      "tag": "Questions fréquentes",
+      "metaDescription": "Toutes les réponses sur nos pique-niques à Nice : tarifs, déroulement, météo, Floating Picnic, EVJF et bons cadeaux.",
+      "desc": "Packages, déroulement, météo, Floating Picnic et occasions spéciales — tout ce qu'il faut savoir avant de réserver.",
+      "back": "← Retour à l'accueil"
+    },
+    "blog": {
+      "title": "Blog",
+      "tag": "Inspiration & conseils",
+      "metaDescription": "Idées pique-nique romantique à Nice, demande en mariage, EVJF, Floating Picnic et gastronomie niçoise.",
+      "desc": "Conseils, spots et idées pour vivre la Côte d'Azur autrement avec The Nice Picnic.",
+      "readMore": "Lire l'article",
+      "back": "← Retour au blog",
+      "backHome": "← Retour à l'accueil"
     }
   },
   "Home": {
@@ -200,6 +217,7 @@
       "wellness": {
         "name": "Wellness Picnic",
         "mode": "bien-être en plein air",
+        "imgAlt": "Cours de yoga en plein air — Wellness Picnic The Nice Picnic",
         "items": [
           "Parenthèse bien-être de 2 heures en plein air",
           "1h de cours de yoga pour se détendre et se recentrer",
@@ -288,6 +306,8 @@
       "tag": "Les spots",
       "titleRich": "Nos lieux <em>secrets</em>",
       "desc": "Spots exclusifs réservés à nos formules installées — Medium, Premium, Wellness et Floating.",
+      "flashCaption": "Un aperçu en mouvement — la Côte d'Azur, nos spots.",
+      "flashLabel": "Vidéo aperçu des spots The Nice Picnic",
       "more": "+ d'autres spots à découvrir une fois votre package réservé",
       "list": [
         {
@@ -349,7 +369,8 @@
     },
     "faqSection": {
       "tag": "FAQ",
-      "titleRich": "Questions <em>fréquentes</em>"
+      "titleRich": "Questions <em>fréquentes</em>",
+      "viewAll": "Voir toutes les questions →"
     }
   }
 }

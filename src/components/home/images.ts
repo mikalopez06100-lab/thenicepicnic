@@ -11,10 +11,15 @@ export const homeImages = {
   editorialPrestige: "/images/home/editorial-prestige.jpg",
   floatingBoatBay: "/images/home/floating-boat-bay.jpg",
   floatingBoatSunset: "/images/home/floating-boat-sunset.jpg",
+  wellnessPicnic: "/images/home/wellness-picnic.jpg",
+  spotFlashPoster: "/images/home/spot-flash-poster.jpg",
 } as const;
+
+export const spotFlashVideo = "/videos/spot-flash.mp4";
 
 export const packageCardImages: Partial<
   Record<"medium" | "prestige" | "wellness" | "floating", string>
 > = {
+  wellness: homeImages.wellnessPicnic,
   floating: homeImages.floatingBoatBay,
 };

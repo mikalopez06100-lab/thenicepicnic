@@ -34,6 +34,7 @@
     "wellness": "Wellness Picnic",
     "floating": "Floating Picnic",
     "gallery": "Gallery",
+    "blog": "Blog",
     "reviews": "Reviews",
     "menusLink": "Menus",
     "colInfo": "Info",
@@ -102,6 +103,22 @@
       "body": "Resend / Formspree form and social links to be connected.",
       "details": "hello@thenicepicnic.com · @the.nicepicnic",
       "back": "← Home"
+    },
+    "faq": {
+      "title": "FAQ",
+      "tag": "Frequently asked questions",
+      "metaDescription": "All answers about our Nice picnics: pricing, how it works, weather, Floating Picnic, hen parties and gift vouchers.",
+      "desc": "Packages, how it works, weather, Floating Picnic and special occasions — everything you need before booking.",
+      "back": "← Back to home"
+    },
+    "blog": {
+      "title": "Blog",
+      "tag": "Inspiration & tips",
+      "metaDescription": "Romantic picnic ideas in Nice, marriage proposals, hen parties, Floating Picnic and Niçoise gastronomy.",
+      "desc": "Tips, spots and ideas to experience the French Riviera with The Nice Picnic.",
+      "readMore": "Read article",
+      "back": "← Back to blog",
+      "backHome": "← Back to home"
     }
   },
   "Home": {
@@ -200,6 +217,7 @@
       "wellness": {
         "name": "Wellness Picnic",
         "mode": "outdoor wellness",
+        "imgAlt": "Outdoor yoga session — The Nice Picnic Wellness Picnic",
         "items": [
           "A 2-hour outdoor wellness break",
           "1 hour of yoga to relax and recentre",
@@ -288,6 +306,8 @@
       "tag": "The spots",
       "titleRich": "Our <em>secret</em> places",
       "desc": "Exclusive spots reserved for our installed experiences — Medium, Premium, Wellness and Floating.",
+      "flashCaption": "A glimpse in motion — the French Riviera, our spots.",
+      "flashLabel": "The Nice Picnic spots preview video",
       "more": "+ more spots to discover once your package is booked",
       "list": [
         {
@@ -349,7 +369,8 @@
     },
     "faqSection": {
       "tag": "FAQ",
-      "titleRich": "Frequently asked <em>questions</em>"
+      "titleRich": "Frequently asked <em>questions</em>",
+      "viewAll": "View all questions →"
     }
   }
 }

@@ -9,10 +9,12 @@ import {
 import { featuredGalleryPhotos } from "@/lib/gallery-data";
 import { testimonialVideos } from "@/lib/testimonials-data";
 import type { GooglePlaceReviews } from "@/lib/google-reviews";
-import { homeImages, packageCardImages } from "./images";
+import { getHomeFaqItems } from "@/lib/faq-data";
+import { homeImages, packageCardImages, spotFlashVideo } from "./images";
 import { HomeGallerySwipe } from "./HomeGallerySwipe";
 import { HomeGoogleReviews } from "./HomeGoogleReviews";
 import { HomeTestimonials } from "./HomeTestimonials";
+import { SpotFlashVideo } from "./SpotFlashVideo";
 import { HomeFaq } from "./HomeFaq";
 import { Reveal } from "./Reveal";
 import { SiteFooter } from "./SiteFooter";
@@ -40,6 +42,7 @@ export async function HomeView({
   const marquee = t.raw("marquee") as string[];
   const ticker = t.raw("ticker") as string[];
   const spots = t.raw("spots.list") as SpotRow[];
+  const homeFaqItems = getHomeFaqItems(locale);
 
   return (
     <>
@@ -181,6 +184,12 @@ export async function HomeView({
                 const variant = meta.premium ? "prem" : meta.popular ? "pop" : "";
                 const price = formatPackagePrice(meta.unitAmount, locale);
                 const cardImage = packageCardImages[slug];
+                const cardImageClass =
+                  slug === "wellness"
+                    ? "img-focus-wellness-card"
+                    : slug === "floating"
+                      ? "img-focus-floating-card"
+                      : "";
                 return (
                   <div key={slug} className={`pkg ${variant}`.trim()}>
                     {cardImage ? (
@@ -190,7 +199,7 @@ export async function HomeView({
                           alt={t(`packages.${slug}.imgAlt`)}
                           fill
                           sizes="(max-width:768px) 100vw, 25vw"
-                          className="object-cover img-focus-floating-card"
+                          className={`object-cover ${cardImageClass}`.trim()}
                         />
                       </div>
                     ) : null}
@@ -385,6 +394,12 @@ export async function HomeView({
             <p className="tag">{t("spots.tag")}</p>
             <h2 className="t">{t.rich("spots.titleRich", { em })}</h2>
             <p className="desc">{t("spots.desc")}</p>
+            <SpotFlashVideo
+              src={spotFlashVideo}
+              poster={homeImages.spotFlashPoster}
+              label={t("spots.flashLabel")}
+              caption={t("spots.flashCaption")}
+            />
             <div className="spots-grid">
               {spots.map((s, i) => (
                 <div key={s.title} className="spot">
@@ -510,7 +525,12 @@ export async function HomeView({
           <div className="sec-inner">
             <p className="tag">{t("faqSection.tag")}</p>
             <h2 className="t">{t.rich("faqSection.titleRich", { em })}</h2>
-            <HomeFaq />
+            <HomeFaq items={homeFaqItems} />
+            <p className="faq-more">
+              <Link href="/faq" className="text-sm text-[var(--terra)] underline-offset-4 hover:underline">
+                {t("faqSection.viewAll")}
+              </Link>
+            </p>
           </div>
         </Reveal>
       </section>

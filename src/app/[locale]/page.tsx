@@ -1,7 +1,8 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { HomeView } from "@/components/home/HomeView";
+import { getHomeFaqItems } from "@/lib/faq-data";
 import { getGooglePlaceReviews } from "@/lib/google-places";
-import { buildLocalBusinessJsonLd } from "@/lib/structured-data";
+import { buildFaqJsonLd, buildLocalBusinessJsonLd } from "@/lib/structured-data";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -11,12 +12,17 @@ export default async function HomePage({ params }: Props) {
 
   const googleReviews = await getGooglePlaceReviews();
   const structuredData = buildLocalBusinessJsonLd(locale, googleReviews);
+  const faqJsonLd = buildFaqJsonLd(getHomeFaqItems(locale));
 
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <HomeView googleReviews={googleReviews} />
     </>
