@@ -1,12 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-import {
-  getReservationById,
-  markReservationConfirmed,
-  markReservationExpiredBySession,
-} from "@/lib/reservations";
-import { sendReservationNotifications } from "@/lib/reservation-notifications";
+import { markReservationExpiredBySession } from "@/lib/reservations";
+import { confirmPaidCheckoutSession } from "@/lib/reservation-confirm";
 import { getStripeClient } from "@/lib/stripe";
+
+async function handlePaidSession(session: Stripe.Checkout.Session) {
+  const result = await confirmPaidCheckoutSession(session);
+  if (result && !result.alreadyConfirmed && !result.notified) {
+    throw new Error("Reservation confirmation emails could not be sent.");
+  }
+}
 
 export async function POST(req: NextRequest) {
   const signature = req.headers.get("stripe-signature");
@@ -25,32 +28,15 @@ export async function POST(req: NextRequest) {
     const event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
 
     switch (event.type) {
-      case "checkout.session.completed": {
+      case "checkout.session.completed":
+      case "checkout.session.async_payment_succeeded": {
         const session = event.data.object as Stripe.Checkout.Session;
-        console.log("checkout.session.completed", session.id);
-        const reservationId =
-          typeof session.client_reference_id === "string"
-            ? session.client_reference_id
-            : session.metadata?.reservationId;
-        if (reservationId) {
-          const existing = await getReservationById(reservationId);
-          const wasAlreadyConfirmed = existing?.status === "confirmed";
-          const reservation = await markReservationConfirmed(reservationId, session.id);
-          if (reservation && !wasAlreadyConfirmed) {
-            await sendReservationNotifications(reservation, session);
-          }
-        }
+        await handlePaidSession(session);
         break;
       }
       case "checkout.session.expired": {
         const session = event.data.object as Stripe.Checkout.Session;
-        console.log("checkout.session.expired", session.id);
         await markReservationExpiredBySession(session.id);
-        break;
-      }
-      case "payment_intent.succeeded": {
-        const intent = event.data.object as Stripe.PaymentIntent;
-        console.log("payment_intent.succeeded", intent.id);
         break;
       }
       default:
@@ -60,6 +46,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ received: true });
   } catch (err) {
     console.error("Stripe webhook error", err);
-    return NextResponse.json({ error: "Invalid webhook signature." }, { status: 400 });
+    const message = err instanceof Error ? err.message : "Webhook handler failed.";
+    const status = message.includes("emails could not be sent") ? 500 : 400;
+    return NextResponse.json({ error: message }, { status });
   }
 }

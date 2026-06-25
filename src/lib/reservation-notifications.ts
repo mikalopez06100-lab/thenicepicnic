@@ -8,7 +8,7 @@ import {
   getSlotLabel,
   resolveReservationTime,
 } from "@/lib/reservation-labels";
-import { getRomanticUpsellLabel } from "@/lib/romantic-upsell";
+import { getLuxeUpsellLabel } from "@/lib/romantic-upsell";
 
 type NotifyResult = {
   admin: boolean;
@@ -53,7 +53,7 @@ function buildAdminHtml(reservation: ReservationRecord, session?: Stripe.Checkou
   const packageLabel = getPackageLabel(reservation.packageType);
   const paidLabel = formatPaidAt(reservation.paidAt, reservation.locale);
   const upsellLabel = reservation.romanticUpsell
-    ? getRomanticUpsellLabel("fr")
+    ? getLuxeUpsellLabel("fr")
     : null;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thenicepicnic.com";
   const adminUrl = `${siteUrl}/admin/reservations`;
@@ -61,7 +61,10 @@ function buildAdminHtml(reservation: ReservationRecord, session?: Stripe.Checkou
   return `
     <div style="font-family:Georgia,serif;color:#1a1714;max-width:560px">
       <p style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#bf6b45;margin:0 0 8px">Nouvelle réservation</p>
-      <h1 style="font-size:24px;font-weight:400;margin:0 0 20px">Paiement confirmé</h1>
+      <h1 style="font-size:24px;font-weight:400;margin:0 0 20px">Nouvelle réservation — action requise</h1>
+      <p style="font-size:15px;line-height:1.6;color:#3d3835;margin:0 0 16px">
+        Julien, une nouvelle réservation vient d'être payée sur thenicepicnic.com.
+      </p>
       <table style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.6">
         <tr><td style="padding:6px 0;color:#6b6560">Date</td><td style="padding:6px 0"><strong>${dateLabel}</strong></td></tr>
         <tr><td style="padding:6px 0;color:#6b6560">Heure</td><td style="padding:6px 0"><strong>${timeLabel}</strong></td></tr>
@@ -101,8 +104,10 @@ function buildCustomerHtml(reservation: ReservationRecord, session?: Stripe.Chec
   const slotLabel = getSlotLabel(reservation.slot);
   const packageLabel = getPackageLabel(reservation.packageType);
   const upsellLabel = reservation.romanticUpsell
-    ? getRomanticUpsellLabel(reservation.locale)
+    ? getLuxeUpsellLabel(reservation.locale)
     : null;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thenicepicnic.com";
+  const contactEmail = "hello@thenicepicnic.com";
 
   return `
     <div style="font-family:Georgia,serif;color:#1a1714;max-width:560px">
@@ -122,17 +127,32 @@ function buildCustomerHtml(reservation: ReservationRecord, session?: Stripe.Chec
         <tr><td style="padding:6px 0;color:#6b6560">${isFr ? "Package" : "Package"}</td><td style="padding:6px 0"><strong>${packageLabel}</strong></td></tr>
         ${
           upsellLabel
-            ? `<tr><td style="padding:6px 0;color:#6b6560">${isFr ? "Option" : "Add-on"}</td><td style="padding:6px 0"><strong>${upsellLabel}</strong></td></tr>`
+            ? `<tr><td style="padding:6px 0;color:#6b6560">${isFr ? "Option" : "Add-on"}</td><td style="padding:6px 0"><strong>${upsellLabel}</strong>${
+                reservation.romanticUpsellMessage
+                  ? `<br><span style="font-size:13px;color:#6b6560">« ${reservation.romanticUpsellMessage} »</span>`
+                  : ""
+              }</td></tr>`
             : ""
         }
         <tr><td style="padding:6px 0;color:#6b6560">${isFr ? "Personnes" : "Guests"}</td><td style="padding:6px 0"><strong>${reservation.quantity}</strong></td></tr>
         <tr><td style="padding:6px 0;color:#6b6560">${isFr ? "Montant" : "Amount"}</td><td style="padding:6px 0"><strong>${formatAmount(session)}</strong></td></tr>
+        <tr><td style="padding:6px 0;color:#6b6560">${isFr ? "Référence" : "Reference"}</td><td style="padding:6px 0;font-size:12px">${reservation.id}</td></tr>
       </table>
       <p style="font-size:14px;line-height:1.6;color:#6b6560;margin-top:20px">${
         isFr
-          ? "À très bientôt pour votre pique-nique sur la Côte d'Azur."
-          : "See you soon for your French Riviera picnic."
+          ? "Les coordonnées exactes du spot seront envoyées au client 24h avant la prestation."
+          : "Exact spot coordinates will be sent to the guest 24 hours before the experience."
       }</p>
+      <p style="font-size:14px;line-height:1.6;color:#6b6560;margin-top:12px">${
+        isFr
+          ? `Une question ? Écrivez-nous à <a href="mailto:${contactEmail}" style="color:#bf6b45">${contactEmail}</a>.`
+          : `Questions? Email us at <a href="mailto:${contactEmail}" style="color:#bf6b45">${contactEmail}</a>.`
+      }</p>
+      <p style="margin:20px 0 0">
+        <a href="${siteUrl}" style="display:inline-block;background:#bf6b45;color:#fff;text-decoration:none;padding:12px 18px;border-radius:10px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase">${
+          isFr ? "Voir le site" : "Visit website"
+        }</a>
+      </p>
     </div>
   `;
 }
@@ -195,13 +215,22 @@ export async function sendReservationNotifications(
     `Créneau : ${slotLabel}`,
     `Payé le : ${paidLabel}`,
     `Package : ${packageLabel}`,
+    reservation.romanticUpsell
+      ? `Option : ${getLuxeUpsellLabel("fr")}${
+          reservation.romanticUpsellMessage
+            ? ` — « ${reservation.romanticUpsellMessage} »`
+            : ""
+        }`
+      : null,
     `Personnes : ${reservation.quantity}`,
     `Montant : ${amount}`,
     `Client : ${reservation.customerName}`,
     `Email : ${reservation.customerEmail}`,
     `Téléphone : ${reservation.customerPhone}`,
     `Référence : ${reservation.id}`,
-  ].join("\n");
+  ]
+    .filter(Boolean)
+    .join("\n");
 
   const isFr = reservation.locale === "fr";
   const customerText = [
@@ -213,14 +242,24 @@ export async function sendReservationNotifications(
     `${isFr ? "Heure" : "Time"} : ${timeLabel}`,
     `${isFr ? "Créneau" : "Timeslot"} : ${slotLabel}`,
     `${isFr ? "Package" : "Package"} : ${packageLabel}`,
+    reservation.romanticUpsell
+      ? `${isFr ? "Option" : "Add-on"} : ${getLuxeUpsellLabel(reservation.locale)}`
+      : null,
     `${isFr ? "Personnes" : "Guests"} : ${reservation.quantity}`,
     `${isFr ? "Montant" : "Amount"} : ${amount}`,
-  ].join("\n");
+    `${isFr ? "Référence" : "Reference"} : ${reservation.id}`,
+    "",
+    isFr
+      ? "Les coordonnées du spot vous seront envoyées 24h avant la prestation."
+      : "Spot coordinates will be emailed 24 hours before your experience.",
+  ]
+    .filter(Boolean)
+    .join("\n");
 
   const [admin, customer] = await Promise.all([
     sendEmail({
       to: getNotifyRecipients(),
-      subject: `Nouvelle réservation — ${dateLabel} (${slotLabel})`,
+      subject: `[The Nice Picnic] Nouvelle résa — ${reservation.customerName} · ${dateLabel}`,
       html: buildAdminHtml(reservation, session),
       text: adminText,
     }),

@@ -44,7 +44,8 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
   const [reservationTime, setReservationTime] = useState(() =>
     getDefaultTimeForSlot("lunch"),
   );
-  const [customerName, setCustomerName] = useState("");
+  const [customerFirstName, setCustomerFirstName] = useState("");
+  const [customerLastName, setCustomerLastName] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
   const [people, setPeople] = useState(2);
@@ -128,6 +129,12 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
   const luxeEligible = isLuxeUpsellEligible(pack);
   const luxeFeatures = getLuxeUpsellFeatures(localeKey);
 
+  function buildCustomerName() {
+    return `${customerFirstName.trim()} ${customerLastName.trim()}`
+      .trim()
+      .replace(/\s+/g, " ");
+  }
+
   const selected = options.find((o) => o.value === pack) ?? options[0];
   const maxGuests = selected.maxGuests ?? 20;
   const selectedSlot = slotOptions.find((s) => s.value === slot) ?? slotOptions[1];
@@ -174,7 +181,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
           slot,
           reservationDate,
           reservationTime: resolveReservationTime(slot, reservationTime),
-          customerName: customerName.trim(),
+          customerName: buildCustomerName(),
           customerEmail: customerEmail.trim(),
           customerPhone: customerPhone.trim(),
           romanticUpsell: withLuxe,
@@ -208,15 +215,24 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
     e.preventDefault();
     setError(null);
 
-    const normalizedName = customerName.trim();
+    const normalizedFirstName = customerFirstName.trim();
+    const normalizedLastName = customerLastName.trim();
     const normalizedEmail = customerEmail.trim();
     const normalizedPhone = customerPhone.trim();
 
-    if (!normalizedName || normalizedName.length < 2) {
+    if (!normalizedFirstName || normalizedFirstName.length < 2) {
+      setError(
+        isFr
+          ? "Renseigne un prénom valide."
+          : "Please provide a valid first name.",
+      );
+      return;
+    }
+    if (!normalizedLastName || normalizedLastName.length < 2) {
       setError(
         isFr
           ? "Renseigne un nom valide."
-          : "Please provide a valid full name.",
+          : "Please provide a valid last name.",
       );
       return;
     }
@@ -306,6 +322,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
       />
     <form
       onSubmit={onSubmit}
+      autoComplete="on"
       className="mx-auto box-border w-full min-w-0 max-w-[1100px] rounded-[24px] border border-[rgba(0,0,0,0.06)] bg-[rgba(255,255,255,0.9)] px-5 py-5 shadow-[0_20px_60px_rgba(26,23,20,0.08)] backdrop-blur transition-shadow duration-500 hover:shadow-[0_28px_80px_rgba(26,23,20,0.12)] sm:rounded-[28px] sm:px-6 sm:py-6 md:px-9 md:py-9"
     >
       <div className="grid min-w-0 items-start gap-5 sm:gap-6 md:grid-cols-[1fr_320px]">
@@ -408,40 +425,80 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
             </div>
           </div>
 
-          <div className="min-w-0">
-            <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--muted)] sm:tracking-[0.16em]">
+          <fieldset className="min-w-0 border-0 p-0">
+            <legend className="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--muted)] sm:tracking-[0.16em]">
               {isFr ? "3. Informations client" : "3. Customer details"}
-            </p>
+            </legend>
             <div className="grid gap-3 sm:grid-cols-2">
-              <input
-                type="text"
-                value={customerName}
-                onChange={(e) => setCustomerName(e.target.value)}
-                placeholder={isFr ? "Nom et prénom" : "Full name"}
-                className="h-[50px] w-full rounded-xl border border-[var(--terra)]/35 bg-white px-3.5 text-[14px] text-[var(--ink)] outline-none transition placeholder:text-[var(--muted)]/70 focus:border-[var(--terra)] focus:ring-2 focus:ring-[var(--terra)]/20"
-                autoComplete="name"
-                required
-              />
-              <input
-                type="email"
-                value={customerEmail}
-                onChange={(e) => setCustomerEmail(e.target.value)}
-                placeholder={isFr ? "Email" : "Email"}
-                className="h-[50px] w-full rounded-xl border border-[var(--terra)]/35 bg-white px-3.5 text-[14px] text-[var(--ink)] outline-none transition placeholder:text-[var(--muted)]/70 focus:border-[var(--terra)] focus:ring-2 focus:ring-[var(--terra)]/20"
-                autoComplete="email"
-                required
-              />
+              <div>
+                <label htmlFor="customer-given-name" className="sr-only">
+                  {isFr ? "Prénom" : "First name"}
+                </label>
+                <input
+                  id="customer-given-name"
+                  name="given-name"
+                  type="text"
+                  value={customerFirstName}
+                  onChange={(e) => setCustomerFirstName(e.target.value)}
+                  placeholder={isFr ? "Prénom" : "First name"}
+                  className="h-[50px] w-full rounded-xl border border-[var(--terra)]/35 bg-white px-3.5 text-[14px] text-[var(--ink)] outline-none transition placeholder:text-[var(--muted)]/70 focus:border-[var(--terra)] focus:ring-2 focus:ring-[var(--terra)]/20"
+                  autoComplete="given-name"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="customer-family-name" className="sr-only">
+                  {isFr ? "Nom" : "Last name"}
+                </label>
+                <input
+                  id="customer-family-name"
+                  name="family-name"
+                  type="text"
+                  value={customerLastName}
+                  onChange={(e) => setCustomerLastName(e.target.value)}
+                  placeholder={isFr ? "Nom" : "Last name"}
+                  className="h-[50px] w-full rounded-xl border border-[var(--terra)]/35 bg-white px-3.5 text-[14px] text-[var(--ink)] outline-none transition placeholder:text-[var(--muted)]/70 focus:border-[var(--terra)] focus:ring-2 focus:ring-[var(--terra)]/20"
+                  autoComplete="family-name"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="customer-email" className="sr-only">
+                  Email
+                </label>
+                <input
+                  id="customer-email"
+                  name="email"
+                  type="email"
+                  value={customerEmail}
+                  onChange={(e) => setCustomerEmail(e.target.value)}
+                  placeholder={isFr ? "Email" : "Email"}
+                  className="h-[50px] w-full rounded-xl border border-[var(--terra)]/35 bg-white px-3.5 text-[14px] text-[var(--ink)] outline-none transition placeholder:text-[var(--muted)]/70 focus:border-[var(--terra)] focus:ring-2 focus:ring-[var(--terra)]/20"
+                  autoComplete="email"
+                  inputMode="email"
+                  spellCheck={false}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="customer-tel" className="sr-only">
+                  {isFr ? "Numéro de téléphone" : "Phone number"}
+                </label>
+                <input
+                  id="customer-tel"
+                  name="tel"
+                  type="tel"
+                  value={customerPhone}
+                  onChange={(e) => setCustomerPhone(e.target.value)}
+                  placeholder={isFr ? "Numéro de téléphone" : "Phone number"}
+                  className="h-[50px] w-full rounded-xl border border-[var(--terra)]/35 bg-white px-3.5 text-[14px] text-[var(--ink)] outline-none transition placeholder:text-[var(--muted)]/70 focus:border-[var(--terra)] focus:ring-2 focus:ring-[var(--terra)]/20"
+                  autoComplete="tel"
+                  inputMode="tel"
+                  required
+                />
+              </div>
             </div>
-            <input
-              type="tel"
-              value={customerPhone}
-              onChange={(e) => setCustomerPhone(e.target.value)}
-              placeholder={isFr ? "Numéro de téléphone" : "Phone number"}
-              className="mt-3 h-[50px] w-full rounded-xl border border-[var(--terra)]/35 bg-white px-3.5 text-[14px] text-[var(--ink)] outline-none transition placeholder:text-[var(--muted)]/70 focus:border-[var(--terra)] focus:ring-2 focus:ring-[var(--terra)]/20"
-              autoComplete="tel"
-              required
-            />
-          </div>
+          </fieldset>
 
           <div className="min-w-0">
             <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--muted)] sm:tracking-[0.16em]">
