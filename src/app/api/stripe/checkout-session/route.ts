@@ -6,7 +6,7 @@ import {
   markReservationCancelled,
 } from "@/lib/reservations";
 import { resolveReservationTime } from "@/lib/reservation-labels";
-import { getRomanticUpsellCatalogId } from "@/lib/romantic-upsell";
+import { getLuxeUpsellCatalogId, isLuxeUpsellEligible } from "@/lib/romantic-upsell";
 import {
   getStripeCatalogId,
   getStripeClient,
@@ -54,12 +54,14 @@ export async function POST(req: NextRequest) {
     const customerName = (body.customerName ?? "").trim();
     const customerEmail = (body.customerEmail ?? "").trim();
     const customerPhone = (body.customerPhone ?? "").trim();
-    const romanticUpsell = body.romanticUpsell === true;
     const romanticUpsellMessage = (body.romanticUpsellMessage ?? "").trim().slice(0, 280);
 
     if (!packageType || !isStripePackageType(packageType)) {
       return NextResponse.json({ error: "Invalid package type." }, { status: 400 });
     }
+
+    const romanticUpsell =
+      body.romanticUpsell === true && isLuxeUpsellEligible(packageType);
 
     if (!Number.isInteger(quantity) || quantity < 2 || quantity > 20) {
       return NextResponse.json(
@@ -147,13 +149,13 @@ export async function POST(req: NextRequest) {
     ];
 
     if (romanticUpsell) {
-      const upsellCatalogId = getRomanticUpsellCatalogId();
+      const upsellCatalogId = getLuxeUpsellCatalogId();
       if (!upsellCatalogId) {
         await markReservationCancelled(reservation.id);
         return NextResponse.json(
           {
             error:
-              "Missing Stripe catalog ID for romantic upsell. Set STRIPE_PRODUCT_ID_ROMANTIC_UPSELL or STRIPE_PRICE_ID_ROMANTIC_UPSELL in env.",
+              "Missing Stripe catalog ID for Option Luxe. Set STRIPE_PRODUCT_ID_LUXE_UPSELL or STRIPE_PRODUCT_ID_ROMANTIC_UPSELL in env.",
           },
           { status: 500 },
         );

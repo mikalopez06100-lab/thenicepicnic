@@ -15,8 +15,11 @@ import {
   type BookablePackage,
 } from "@/lib/packages";
 import {
-  formatRomanticUpsellPrice,
-  ROMANTIC_UPSELL_AMOUNT,
+  formatLuxeUpsellPrice,
+  getLuxeUpsellFeatures,
+  getLuxeUpsellLabel,
+  isLuxeUpsellEligible,
+  LUXE_UPSELL_AMOUNT,
 } from "@/lib/romantic-upsell";
 import { ReservationUpsellModal } from "@/components/reservation/ReservationUpsellModal";
 
@@ -47,8 +50,8 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
   const [people, setPeople] = useState(2);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [upsellDecision, setUpsellDecision] = useState<"accepted" | "declined" | null>(
-    null,
+  const [luxeEnabled, setLuxeEnabled] = useState(
+    () => initialPackage === undefined || initialPackage === "medium",
   );
   const [showUpsellModal, setShowUpsellModal] = useState(false);
   const [upsellMessage, setUpsellMessage] = useState("");
@@ -118,6 +121,13 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
     setPeople((current) => Math.min(current, max));
   }, [pack]);
 
+  useEffect(() => {
+    setLuxeEnabled(isLuxeUpsellEligible(pack));
+  }, [pack]);
+
+  const luxeEligible = isLuxeUpsellEligible(pack);
+  const luxeFeatures = getLuxeUpsellFeatures(localeKey);
+
   const selected = options.find((o) => o.value === pack) ?? options[0];
   const maxGuests = selected.maxGuests ?? 20;
   const selectedSlot = slotOptions.find((s) => s.value === slot) ?? slotOptions[1];
@@ -144,13 +154,13 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
       : "Not selected";
   const total =
     selected.unitAmount * people +
-    (upsellDecision === "accepted" ? ROMANTIC_UPSELL_AMOUNT : 0);
+    (luxeEligible && luxeEnabled ? LUXE_UPSELL_AMOUNT : 0);
   const formattedTotal = new Intl.NumberFormat(isFr ? "fr-FR" : "en-US", {
     style: "currency",
     currency: "EUR",
   }).format(total);
 
-  async function proceedToCheckout(romanticUpsell: boolean) {
+  async function proceedToCheckout(withLuxe: boolean) {
     setLoading(true);
 
     try {
@@ -167,8 +177,8 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
           customerName: customerName.trim(),
           customerEmail: customerEmail.trim(),
           customerPhone: customerPhone.trim(),
-          romanticUpsell,
-          romanticUpsellMessage: romanticUpsell ? upsellMessage.trim() : undefined,
+          romanticUpsell: withLuxe,
+          romanticUpsellMessage: withLuxe ? upsellMessage.trim() : undefined,
         }),
       });
 
@@ -264,21 +274,21 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
       return;
     }
 
-    if (upsellDecision === null) {
+    if (luxeEligible) {
       setShowUpsellModal(true);
       return;
     }
 
-    await proceedToCheckout(upsellDecision === "accepted");
+    await proceedToCheckout(false);
   }
 
   function handleUpsellAccept() {
-    setUpsellDecision("accepted");
+    setLuxeEnabled(true);
     void proceedToCheckout(true);
   }
 
   function handleUpsellDecline() {
-    setUpsellDecision("declined");
+    setLuxeEnabled(false);
     void proceedToCheckout(false);
   }
 
@@ -289,6 +299,7 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
         open={showUpsellModal}
         loading={loading}
         message={upsellMessage}
+        preselected={luxeEnabled}
         onMessageChange={setUpsellMessage}
         onAccept={handleUpsellAccept}
         onDecline={handleUpsellDecline}
@@ -329,6 +340,40 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
               })}
             </div>
           </div>
+
+          {luxeEligible ? (
+            <div className="min-w-0 rounded-2xl border border-[var(--terra)]/25 bg-[rgba(191,107,69,0.05)] p-5 sm:p-6">
+              <label className="flex cursor-pointer items-start gap-3">
+                <input
+                  type="checkbox"
+                  checked={luxeEnabled}
+                  onChange={(e) => setLuxeEnabled(e.target.checked)}
+                  className="mt-1 h-4 w-4 shrink-0 accent-[var(--terra)]"
+                />
+                <span className="min-w-0">
+                  <span className="block font-[family-name:var(--font-cormorant)] text-2xl leading-none text-[var(--ink)]">
+                    {getLuxeUpsellLabel(localeKey)} · {formatLuxeUpsellPrice(localeKey)}
+                  </span>
+                  <span className="mt-2 block text-[13px] leading-relaxed text-[var(--muted)]">
+                    {isFr
+                      ? "Recommandé pour sublimer votre expérience Medium."
+                      : "Recommended to elevate your Medium experience."}
+                  </span>
+                </span>
+              </label>
+              <ul className="mt-4 space-y-2 pl-7">
+                {luxeFeatures.map((feature) => (
+                  <li
+                    key={feature}
+                    className="flex gap-2 text-[13px] leading-relaxed text-[var(--ink2)]"
+                  >
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--terra)]" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
 
           <div className="min-w-0">
             <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--muted)] sm:tracking-[0.16em]">
@@ -500,10 +545,9 @@ export function ReservationCheckoutForm({ locale, initialPackage }: Props) {
           <p className="text-[12px] text-[var(--muted)]">
             {isFr ? "Heure :" : "Time:"} {displayTime}
           </p>
-          {upsellDecision === "accepted" ? (
+          {luxeEligible && luxeEnabled ? (
             <p className="text-[12px] text-[var(--terra)]">
-              {isFr ? "Touche personnalisée" : "Personal touch"} ·{" "}
-              {formatRomanticUpsellPrice(localeKey)}
+              {getLuxeUpsellLabel(localeKey)} · {formatLuxeUpsellPrice(localeKey)}
             </p>
           ) : null}
           </div>

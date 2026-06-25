@@ -384,7 +384,7 @@ export default async function AdminReservationsPage({ searchParams }: Props) {
                         <div>{getPackageLabel(reservation.packageType)}</div>
                         {reservation.romanticUpsell ? (
                           <div className="mt-1 text-xs text-[var(--terra)]">
-                            + Touche personnalisée
+                            + Option Luxe
                             {reservation.romanticUpsellMessage ? (
                               <span className="block text-[var(--muted)]">
                                 « {reservation.romanticUpsellMessage} »

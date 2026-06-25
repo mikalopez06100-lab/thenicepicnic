@@ -1,13 +1,18 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { formatRomanticUpsellPrice, ROMANTIC_UPSELL_AMOUNT } from "@/lib/romantic-upsell";
+import {
+  formatLuxeUpsellPrice,
+  getLuxeUpsellFeatures,
+  LUXE_UPSELL_AMOUNT,
+} from "@/lib/romantic-upsell";
 
 type Props = {
   locale: string;
   open: boolean;
   loading: boolean;
   message: string;
+  preselected: boolean;
   onMessageChange: (value: string) => void;
   onAccept: () => void;
   onDecline: () => void;
@@ -18,6 +23,7 @@ export function ReservationUpsellModal({
   open,
   loading,
   message,
+  preselected,
   onMessageChange,
   onAccept,
   onDecline,
@@ -35,17 +41,7 @@ export function ReservationUpsellModal({
     return null;
   }
 
-  const items = isFr
-    ? [
-        "Remplacement du rosé par une bouteille de champagne",
-        "5 à 7 photos imprimées et installées sur site",
-        "Petit mot personnalisé sur une carte",
-      ]
-    : [
-        "Rosé replaced with a bottle of champagne",
-        "5 to 7 printed photos set up on site",
-        "Personal handwritten note on a card",
-      ];
+  const items = getLuxeUpsellFeatures(isFr ? "fr" : "en");
 
   return (
     <div
@@ -61,18 +57,24 @@ export function ReservationUpsellModal({
         onClick={(e) => e.stopPropagation()}
       >
         <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--terra)]">
-          {isFr ? "Option spéciale" : "Special add-on"}
+          {isFr ? "Option Luxe" : "Luxe Option"}
         </p>
         <h2
           id="upsell-title"
           className="mt-2 font-[family-name:var(--font-cormorant)] text-3xl font-light leading-tight text-[var(--ink)]"
         >
-          {isFr ? "Une touche personnalisée ?" : "Add a personal touch?"}
+          {isFr
+            ? preselected
+              ? "Confirmer l'Option Luxe ?"
+              : "Ajouter l'Option Luxe ?"
+            : preselected
+              ? "Confirm the Luxe Option?"
+              : "Add the Luxe Option?"}
         </h2>
         <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">
           {isFr
-            ? `Pour ${formatRomanticUpsellPrice("fr")} (pour 2), sublimez votre moment :`
-            : `For ${formatRomanticUpsellPrice("en")} (for 2), elevate your experience:`}
+            ? `Pour ${formatLuxeUpsellPrice("fr")}, personnalisez votre pique-nique Medium :`
+            : `For ${formatLuxeUpsellPrice("en")}, personalise your Medium picnic:`}
         </p>
 
         <ul className="mt-4 space-y-2">
@@ -120,8 +122,8 @@ export function ReservationUpsellModal({
                 ? "Redirection..."
                 : "Redirecting..."
               : isFr
-                ? `Ajouter pour ${ROMANTIC_UPSELL_AMOUNT}€`
-                : `Add for €${ROMANTIC_UPSELL_AMOUNT}`}
+                ? `Confirmer · ${LUXE_UPSELL_AMOUNT}€`
+                : `Confirm · €${LUXE_UPSELL_AMOUNT}`}
           </button>
           <button
             type="button"
@@ -129,7 +131,7 @@ export function ReservationUpsellModal({
             onClick={onDecline}
             className="flex-1 rounded-xl border border-[var(--bg3)] bg-white px-4 py-3 text-[12px] font-medium uppercase tracking-[0.12em] text-[var(--ink2)] transition hover:border-[var(--terra)]/40 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isFr ? "Non merci" : "No thanks"}
+            {isFr ? "Continuer sans l'option" : "Continue without"}
           </button>
         </div>
       </div>
