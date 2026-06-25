@@ -128,7 +128,9 @@ export async function insertPlanningEntry(entry: PlanningEntry) {
   await writeFileStore(store);
 }
 
-export async function cancelPlanningEntryById(id: string): Promise<boolean> {
+export async function cancelPlanningEntryById(
+  id: string,
+): Promise<PlanningEntry | null> {
   const cancelledAt = new Date().toISOString();
 
   if (isDatabaseEnabled()) {
@@ -138,17 +140,17 @@ export async function cancelPlanningEntryById(id: string): Promise<boolean> {
       UPDATE planning_entries
       SET cancelled_at = ${cancelledAt}
       WHERE id = ${id} AND cancelled_at IS NULL
-      RETURNING id
-    `) as { id: string }[];
-    return rows.length > 0;
+      RETURNING *
+    `) as PlanningRow[];
+    return rows[0] ? rowToEntry(rows[0]) : null;
   }
 
   const store = await readFileStore();
   const entry = store.entries.find((e) => e.id === id && !e.cancelledAt);
   if (!entry) {
-    return false;
+    return null;
   }
   entry.cancelledAt = cancelledAt;
   await writeFileStore(store);
-  return true;
+  return entry;
 }

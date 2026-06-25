@@ -50,5 +50,20 @@ export async function addPlanningEntry(input: {
 }
 
 export async function cancelPlanningEntry(id: string): Promise<boolean> {
-  return cancelPlanningEntryById(id);
+  const entry = await cancelPlanningEntryById(id);
+  if (!entry) {
+    return false;
+  }
+
+  void import("@/lib/gyg/notify").then(({ notifyGygAvailabilityChange }) => {
+    if (entry.slot !== "day") {
+      notifyGygAvailabilityChange(entry.date, entry.slot);
+    } else {
+      for (const slot of ["breakfast", "lunch", "aperitif"] as const) {
+        notifyGygAvailabilityChange(entry.date, slot);
+      }
+    }
+  });
+
+  return true;
 }
