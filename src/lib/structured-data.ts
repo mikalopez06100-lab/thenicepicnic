@@ -50,7 +50,11 @@ export function buildLocalBusinessJsonLd(
     ],
   };
 
-  if (!googleReviews) {
+  if (
+    !googleReviews ||
+    googleReviews.userRatingCount <= 0 ||
+    googleReviews.rating <= 0
+  ) {
     return base;
   }
 

@@ -80,14 +80,14 @@ async function fetchGooglePlaceReviews(): Promise<GooglePlaceReviews | null> {
     .filter((review): review is GoogleReview => review !== null)
     .slice(0, 5);
 
-  if (!data.rating || reviews.length === 0) {
+  if (!data.displayName?.text) {
     return null;
   }
 
   return {
-    placeName: data.displayName?.text ?? "The Nice Picnic",
-    rating: data.rating,
-    userRatingCount: data.userRatingCount ?? reviews.length,
+    placeName: data.displayName.text,
+    rating: data.rating ?? 0,
+    userRatingCount: data.userRatingCount ?? 0,
     googleMapsUri: data.googleMapsUri ?? null,
     reviews,
     fetchedAt: new Date().toISOString(),

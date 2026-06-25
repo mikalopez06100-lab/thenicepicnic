@@ -157,7 +157,9 @@
     },
     "googleReviews": {
       "viewAll": "Voir tous les avis Google",
-      "poweredBy": "Avis récupérés depuis Google"
+      "poweredBy": "Avis récupérés depuis Google",
+      "empty": "Pas encore d'avis Google — soyez les premiers !",
+      "leaveReview": "Laisser un avis sur Google"
     },
     "packages": {
       "tag": "Nos packages",

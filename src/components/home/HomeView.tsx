@@ -152,6 +152,8 @@ export async function HomeView({
                 locale={locale}
                 viewAllLabel={t("googleReviews.viewAll")}
                 poweredByLabel={t("googleReviews.poweredBy")}
+                emptyLabel={t("googleReviews.empty")}
+                leaveReviewLabel={t("googleReviews.leaveReview")}
               />
             ) : null}
             <p className="google-reviews-videos-label">{t("testimonials.videosLabel")}</p>

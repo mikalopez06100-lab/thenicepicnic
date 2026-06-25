@@ -15,7 +15,7 @@ const response = await fetch("https://places.googleapis.com/v1/places:searchText
   headers: {
     "Content-Type": "application/json",
     "X-Goog-Api-Key": apiKey,
-    "X-Goog-FieldMask": "places.id,places.displayName,places.formattedAddress,places.rating,places.userRatingCount,googleMapsUri",
+    "X-Goog-FieldMask": "places.id,places.displayName,places.formattedAddress,places.rating,places.userRatingCount,places.googleMapsUri",
   },
   body: JSON.stringify({
     textQuery: query,

@@ -317,6 +317,7 @@ h2.t em{font-style:italic}
 .google-stars{display:inline-flex;gap:2px;color:rgba(26,23,20,.18);font-size:18px;line-height:1}
 .google-star.filled{color:#f5b301}
 .google-star.half{color:#f5b301;opacity:.55}
+.google-reviews-empty{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--ink);max-width:320px;line-height:1.35}
 .google-reviews-count{font-size:13px;color:var(--muted)}
 .google-reviews-cta{font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--terra);text-decoration:none}
 .google-reviews-cta:hover{text-decoration:underline}

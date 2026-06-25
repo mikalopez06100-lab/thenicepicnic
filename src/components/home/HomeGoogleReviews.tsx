@@ -6,6 +6,8 @@ type Props = {
   locale: string;
   viewAllLabel: string;
   poweredByLabel: string;
+  emptyLabel: string;
+  leaveReviewLabel: string;
 };
 
 function StarRating({
@@ -41,8 +43,11 @@ export function HomeGoogleReviews({
   locale,
   viewAllLabel,
   poweredByLabel,
+  emptyLabel,
+  leaveReviewLabel,
 }: Props) {
   const isFr = locale === "fr";
+  const hasRating = data.userRatingCount > 0 && data.rating > 0;
   const ratingLabel = isFr
     ? `Note ${data.rating} sur 5`
     : `Rated ${data.rating} out of 5`;
@@ -51,13 +56,22 @@ export function HomeGoogleReviews({
     <div className="google-reviews">
       <div className="google-reviews-summary">
         <div className="google-reviews-score">
-          <span className="google-reviews-number">{data.rating.toFixed(1)}</span>
-          <StarRating rating={data.rating} label={ratingLabel} />
-          <p className="google-reviews-count">
-            {isFr
-              ? `${data.userRatingCount} avis sur Google`
-              : `${data.userRatingCount} Google reviews`}
-          </p>
+          {hasRating ? (
+            <>
+              <span className="google-reviews-number">{data.rating.toFixed(1)}</span>
+              <StarRating rating={data.rating} label={ratingLabel} />
+              <p className="google-reviews-count">
+                {isFr
+                  ? `${data.userRatingCount} avis sur Google`
+                  : `${data.userRatingCount} Google reviews`}
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="google-reviews-empty">{emptyLabel}</p>
+              <p className="google-reviews-count">{data.placeName}</p>
+            </>
+          )}
         </div>
         {data.googleMapsUri ? (
           <a
@@ -66,12 +80,13 @@ export function HomeGoogleReviews({
             rel="noopener noreferrer"
             className="google-reviews-cta"
           >
-            {viewAllLabel}
+            {hasRating ? viewAllLabel : leaveReviewLabel}
           </a>
         ) : null}
       </div>
 
-      <div className="google-reviews-grid">
+      {data.reviews.length > 0 ? (
+        <div className="google-reviews-grid">
         {data.reviews.map((review) => (
           <article key={`${review.authorName}-${review.publishTime}`} className="google-review-card">
             <div className="google-review-top">
@@ -116,7 +131,8 @@ export function HomeGoogleReviews({
             <p className="google-review-text">{review.text}</p>
           </article>
         ))}
-      </div>
+        </div>
+      ) : null}
 
       <p className="google-reviews-powered">{poweredByLabel}</p>
     </div>

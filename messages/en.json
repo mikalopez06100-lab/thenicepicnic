@@ -157,7 +157,9 @@
     },
     "googleReviews": {
       "viewAll": "See all Google reviews",
-      "poweredBy": "Reviews sourced from Google"
+      "poweredBy": "Reviews sourced from Google",
+      "empty": "No Google reviews yet — be the first!",
+      "leaveReview": "Leave a review on Google"
     },
     "packages": {
       "tag": "Our packages",
