@@ -10,7 +10,8 @@
     "db:setup": "node --env-file=.env.local scripts/db-setup.mjs",
     "gallery:build": "node scripts/compress-gallery.mjs",
     "testimonials:build": "node scripts/compress-testimonials.mjs",
-    "gyg:verify": "node scripts/verify-gyg-integration.mjs"
+    "gyg:verify": "node scripts/verify-gyg-integration.mjs",
+    "google:find-place": "node scripts/find-google-place-id.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",

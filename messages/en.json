@@ -2,6 +2,7 @@
   "Metadata": {
     "title": "The Nice Picnic — Exclusive & unique picnics on the French Riviera",
     "description": "Turnkey picnics in Nice and the French Riviera. Exclusive packages with local produce, secret spots and unforgettable romantic experiences.",
+    "keywords": "Nice picnic, French Riviera picnic, romantic picnic Nice, unique experience Nice, floating picnic, Niçoise aperitif",
     "ogTitle": "The Nice Picnic — Exclusive picnics on the French Riviera",
     "ogDescription": "Turnkey experiences: Niçoise flavours, secret spots, memories that last."
   },
@@ -11,6 +12,7 @@
     "packages": "Packages",
     "menus": "Menus",
     "gallery": "Gallery",
+    "reviews": "Reviews",
     "spots": "Spots",
     "faq": "FAQ",
     "reserve": "Book",
@@ -32,6 +34,7 @@
     "wellness": "Wellness Picnic",
     "floating": "Floating Picnic",
     "gallery": "Gallery",
+    "reviews": "Reviews",
     "menusLink": "Menus",
     "colInfo": "Info",
     "concept": "Concept",
@@ -145,11 +148,16 @@
     "testimonials": {
       "tag": "Testimonials",
       "titleRich": "They say it <em>better than we do</em>…",
-      "desc": "Guests sharing their The Nice Picnic experience — on video, unfiltered.",
+      "desc": "Live Google reviews and video testimonials from our guests on the French Riviera.",
+      "videosLabel": "On video",
       "play": "Play testimonial",
       "close": "Close video",
       "prev": "Previous video",
       "next": "Next video"
+    },
+    "googleReviews": {
+      "viewAll": "See all Google reviews",
+      "poweredBy": "Reviews sourced from Google"
     },
     "packages": {
       "tag": "Our packages",

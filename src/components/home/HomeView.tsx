@@ -8,8 +8,10 @@ import {
 } from "@/lib/packages";
 import { featuredGalleryPhotos } from "@/lib/gallery-data";
 import { testimonialVideos } from "@/lib/testimonials-data";
+import type { GooglePlaceReviews } from "@/lib/google-reviews";
 import { homeImages, packageCardImages } from "./images";
 import { HomeGallerySwipe } from "./HomeGallerySwipe";
+import { HomeGoogleReviews } from "./HomeGoogleReviews";
 import { HomeTestimonials } from "./HomeTestimonials";
 import { HomeFaq } from "./HomeFaq";
 import { Reveal } from "./Reveal";
@@ -28,7 +30,11 @@ const spotImgs = [
 
 const em = (chunks: React.ReactNode) => <em>{chunks}</em>;
 
-export async function HomeView() {
+export async function HomeView({
+  googleReviews = null,
+}: {
+  googleReviews?: GooglePlaceReviews | null;
+}) {
   const locale = await getLocale();
   const t = await getTranslations("Home");
   const marquee = t.raw("marquee") as string[];
@@ -140,6 +146,15 @@ export async function HomeView() {
             <p className="tag">{t("testimonials.tag")}</p>
             <h2 className="t">{t.rich("testimonials.titleRich", { em })}</h2>
             <p className="desc">{t("testimonials.desc")}</p>
+            {googleReviews ? (
+              <HomeGoogleReviews
+                data={googleReviews}
+                locale={locale}
+                viewAllLabel={t("googleReviews.viewAll")}
+                poweredByLabel={t("googleReviews.poweredBy")}
+              />
+            ) : null}
+            <p className="google-reviews-videos-label">{t("testimonials.videosLabel")}</p>
             <HomeTestimonials
               videos={testimonialVideos}
               locale={locale}

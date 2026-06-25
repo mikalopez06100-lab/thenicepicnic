@@ -2,6 +2,7 @@
   "Metadata": {
     "title": "The Nice Picnic — Pique-niques exclusifs & insolites sur la Côte d'Azur",
     "description": "Pique-niques clé en main à Nice et sur la Côte d'Azur. Packages exclusifs avec produits locaux, spots secrets et expériences romantiques inoubliables.",
+    "keywords": "pique-nique Nice, picnic Côte d'Azur, pique-nique romantique Nice, expérience insolite Nice, French Riviera picnic, apéritif niçois, floating picnic Nice",
     "ogTitle": "The Nice Picnic — Pique-niques exclusifs sur la Côte d'Azur",
     "ogDescription": "Expériences clé en main : produits niçois, spots secrets, souvenirs inoubliables."
   },
@@ -11,6 +12,7 @@
     "packages": "Packages",
     "menus": "Menus",
     "gallery": "Galerie",
+    "reviews": "Avis",
     "spots": "Spots",
     "faq": "FAQ",
     "reserve": "Réserver",
@@ -32,6 +34,7 @@
     "wellness": "Wellness Picnic",
     "floating": "Floating Picnic",
     "gallery": "Galerie",
+    "reviews": "Avis",
     "menusLink": "Les menus",
     "colInfo": "Infos",
     "concept": "Le concept",
@@ -145,11 +148,16 @@
     "testimonials": {
       "tag": "Témoignages",
       "titleRich": "Ils en parlent <em>mieux que nous</em>…",
-      "desc": "Des clients partagent leur expérience The Nice Picnic — en vidéo, sans filtre.",
+      "desc": "Avis Google en direct et témoignages vidéo de nos clients sur la Côte d'Azur.",
+      "videosLabel": "En vidéo",
       "play": "Lire le témoignage",
       "close": "Fermer la vidéo",
       "prev": "Vidéo précédente",
       "next": "Vidéo suivante"
+    },
+    "googleReviews": {
+      "viewAll": "Voir tous les avis Google",
+      "poweredBy": "Avis récupérés depuis Google"
     },
     "packages": {
       "tag": "Nos packages",

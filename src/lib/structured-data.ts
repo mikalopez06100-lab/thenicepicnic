@@ -1,0 +1,82 @@
+import type { GooglePlaceReviews } from "@/lib/google-reviews";
+
+function siteUrl() {
+  return (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.thenicepicnic.com").replace(
+    /\/$/,
+    "",
+  );
+}
+
+export function buildLocalBusinessJsonLd(
+  locale: string,
+  googleReviews: GooglePlaceReviews | null,
+) {
+  const url = siteUrl();
+  const isFr = locale === "fr";
+
+  const base = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${url}/#localbusiness`,
+    name: "The Nice Picnic",
+    description: isFr
+      ? "Pique-niques exclusifs et insolites clé en main sur la Côte d'Azur — Nice, French Riviera."
+      : "Exclusive turnkey picnics on the French Riviera — Nice, France.",
+    url,
+    image: `${url}/opengraph-image.png`,
+    email: "hello@thenicepicnic.com",
+    priceRange: "€€",
+    servesCuisine: isFr ? "Cuisine niçoise" : "Niçoise cuisine",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Nice",
+      addressRegion: "Provence-Alpes-Côte d'Azur",
+      postalCode: "06000",
+      addressCountry: "FR",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 43.7102,
+      longitude: 7.262,
+    },
+    areaServed: {
+      "@type": "AdministrativeArea",
+      name: "French Riviera",
+    },
+    inLanguage: isFr ? "fr" : "en",
+    sameAs: [
+      "https://www.instagram.com/the.nicepicnic/",
+      ...(googleReviews?.googleMapsUri ? [googleReviews.googleMapsUri] : []),
+    ],
+  };
+
+  if (!googleReviews) {
+    return base;
+  }
+
+  return {
+    ...base,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: googleReviews.rating,
+      reviewCount: googleReviews.userRatingCount,
+      bestRating: 5,
+      worstRating: 1,
+    },
+    review: googleReviews.reviews.map((review) => ({
+      "@type": "Review",
+      author: {
+        "@type": "Person",
+        name: review.authorName,
+      },
+      datePublished: review.publishTime?.slice(0, 10),
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: review.rating,
+        bestRating: 5,
+        worstRating: 1,
+      },
+      reviewBody: review.text,
+    })),
+  };
+}

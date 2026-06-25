@@ -28,6 +28,20 @@ export async function generateMetadata({
     metadataBase: new URL(siteUrl),
     title: t("title"),
     description: t("description"),
+    keywords: t("keywords"),
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    ...(process.env.GOOGLE_SITE_VERIFICATION
+      ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
+      : {}),
     openGraph: {
       title: t("ogTitle"),
       description: t("ogDescription"),

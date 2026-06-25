@@ -41,6 +41,9 @@ export async function SiteFooter() {
           <Link href="/galerie" className="fl">
             {t("gallery")}
           </Link>
+          <a href="#avis" className="fl">
+            {t("reviews")}
+          </a>
           <a href="#menus" className="fl">
             {t("menusLink")}
           </a>
